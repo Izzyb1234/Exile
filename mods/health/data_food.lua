@@ -38,6 +38,7 @@ food_table = {
 	["nodes_nature:amma_nut"]           = { 0,  0,   1, 10,  0 },
 	["nodes_nature:daoja_berry"]        = { 0,  0,   4,  0,  0 },
 	["nodes_nature:momo"]               = { 0,  1,  12,  0,  0 },
+	["nodes_nature:tsaplop"]            = { 0,  4,  1,  0,  0 },
 	["nodes_nature:snow"]               = { 0, 50,  0,-100, -1 },
 	["nodes_nature:snow_block"]         = { 0,100,  0,-200, -2 },
 	--meat
