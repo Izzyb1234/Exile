@@ -37,6 +37,7 @@ plantlist = {
 	{"zufani", "Zufani", nil, 1, "mushroom", nil, 2, nil, nil, plant_base_growth * 2, 1, "yellow"},
 	{"galanta", "Galanta", nil, 1, "herbaceous_plant", nil, 4, nil, nil, plant_base_growth *0.8, 1, "green"},
 	{"momo", "Momo", nil, 1, "herbaceous_plant", nil, 2, nil, nil, plant_base_growth *2, 1, "red"},
+	{"tsaplop", "Tsaplop", nil, 1.2, "woody_plant", nil, 0, nil, nil, plant_base_growth * 1.3, 1, "green"},
 	--artifact
 	{"lambakap", "Lambakap", {-0.25, -0.5, -0.25, 0.25, -0.125, 0.25}, 1, "crumbly", "nodebox", 0, S("Lambakap Spores"), "nodes_nature_spores.png", plant_base_growth *3, 1, "red"},
 
