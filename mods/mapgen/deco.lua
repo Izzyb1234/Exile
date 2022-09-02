@@ -270,7 +270,7 @@ local decoration_list = {
   { --[[   Animals: darkasthaan                  ]]    "animals:darkasthaan_eggs"        , "simple"   , cave_egg_on                        , nil,           80,     0.002000,  nil                                                                                                              ,              -130,         -950, "animals:darkasthaan_eggs"        , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
   { --[[   Animals: pegasun                      ]]    "animals:pegasun_eggs"            , "simple"   , all_soils_on                       , nil,           16,     nil     ,  {offset =  0.00, scale = 0.0030, spread = {x = 64, y = 64, z = 64}, seed =   1882, octaves = 2, persist = 2},             upland_max,    beach_max, "animals:pegasun_eggs"            , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
   { --[[   Animals: sneachan                     ]]    "animals:sneachan_eggs"           , "simple"   , all_soils_on                       , nil,           80,     0.002000,  nil                                                                                                              ,      highland_max,    beach_max, "animals:sneachan_eggs"           , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
-
+}
 
 
 ----Register----
