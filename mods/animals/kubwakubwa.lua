@@ -139,11 +139,7 @@ minetest.register_node("animals:kubwakubwa_eggs", {
 		minetest.get_node_timer(pos):start(math.random(egg_timer,egg_timer*2))
 	end,
 	on_timer =function(pos, elapsed)
-	   if minetest.get_node_light(pos, 0.5) >= 13 then
-	      minetest.remove_node(pos)
-	   else
 	      return animals.hatch_egg(pos, 'air', 'air', "animals:kubwakubwa", energy_egg, young_per_egg)
-	   end
 	end,
 })
 
