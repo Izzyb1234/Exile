@@ -334,7 +334,6 @@ local egg_names = {  -- list of strings
 
 local eggs_nearby = {}  -- list of decoration IDs
 for i in ipairs(egg_names) do -- get decoration IDs
-print(i)
 	table.insert(eggs_nearby, minetest.get_decoration_id("animals:"..egg_names[i])) -- add the current egg found
 	end
 minetest.set_gen_notify({decoration = true}, eggs_nearby)
