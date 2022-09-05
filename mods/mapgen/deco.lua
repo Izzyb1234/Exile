@@ -44,7 +44,7 @@ local barrenland_on = {
 local highland_on = {
   "nodes_nature:highland_soil", "nodes_nature:highland_soil_wet"
 }
-local all_barren_on = {
+local badland_on = {
   "nodes_nature:duneland_soil", "nodes_nature:duneland_soil_wet",
   "nodes_nature:barrenland_soil", "nodes_nature:barrenland_soil_wet",
   "nodes_nature:highland_soil", "nodes_nature:highland_soil_wet"
@@ -80,12 +80,6 @@ local not_badland_soils_on = {
   "nodes_nature:coastal_shrubland_soil", "nodes_nature:coastal_shrubland_soil_wet",
   "nodes_nature:shrubland_soil", "nodes_nature:shrubland_soil_wet",
 }
-local badland_soils_on = {
-  "nodes_nature:duneland_soil", "nodes_nature:duneland_soil_wet",
-  "nodes_nature:barrenland_soil", "nodes_nature:barrenland_soil_wet",
-  "nodes_nature:highland_soil", "nodes_nature:highland_soil_wet",
-}
-
 local glow_worm_on = {
   "nodes_nature:granite", "nodes_nature:gneiss", "nodes_nature:limestone", "nodes_nature:jade",
 }
@@ -242,11 +236,11 @@ local decoration_list = {
   { --[[  Duneland: tiken                        ]]    "nodes_nature:tiken"              , "schematic", duneland_on                        , nil,           16,     nil     ,  {offset =  0.00, scale = 1.0000, spread = {x =  64, y =  64, z =  64}, seed =    998, octaves = 2, persist = 0.9},    beach_max +3,     beach_max, nil                                , nil          , nil,         tiken                , nil                             ,      nil, nil,   nil, },
 
   { --[[ Barrenland: Tashvish                    ]]    "nodes_nature:tashvish"           , "simple"   , barrenland_on                      , nil,           80,     0.100000,  nil                                                                                                              ,     highland_max,     beach_max, "nodes_nature:tashvish"           , nil          , nil,         nil                  , nil                             ,      nil,   4,   nil, },
-  { --[[ all barren: Jogalan                     ]]    "nodes_nature:jogalan"            , "simple"   , all_barren_on                      , nil,           80,     0.000500,  nil                                                                                                              ,     highland_max,     beach_max, "nodes_nature:jogalan"            , nil          , nil,         nil                  , nil                             ,      nil,   0,   nil, },
-  { --[[ all barren:   Orom                      ]]    "nodes_nature:orom"               , "simple"   , all_barren_on                      , nil,           80,     0.000100,  nil                                                                                                              ,      lowland_max,   coastal_max, "nodes_nature:orom"               , nil          , nil,         nil                  , nil                             ,      nil,   1,   nil, },
+  { --[[ all barren: Jogalan                     ]]    "nodes_nature:jogalan"            , "simple"   , badland_on                      , nil,           80,     0.000500,  nil                                                                                                              ,     highland_max,     beach_max, "nodes_nature:jogalan"            , nil          , nil,         nil                  , nil                             ,      nil,   0,   nil, },
+  { --[[ all barren:   Orom                      ]]    "nodes_nature:orom"               , "simple"   , badland_on                      , nil,           80,     0.000100,  nil                                                                                                              ,      lowland_max,   coastal_max, "nodes_nature:orom"               , nil          , nil,         nil                  , nil                             ,      nil,   1,   nil, },
 ---Highland
   { --[[  Highland: thoka                        ]]    "nodes_nature:thoka"              , "simple"   , highland_on                        , nil,           80,     0.300000,  nil                                                                                                              ,           31000,     upland_max, "nodes_nature:thoka"              , nil          , nil,         nil                  , nil                             ,      nil,   4,   nil, },
-  { --[[ all barren:   veke                      ]]    "nodes_nature:veke"               , "simple"   , all_barren_on                      , nil,           80,     0.000100,  nil                                                                                                              ,           31000,     upland_max, "nodes_nature:veke"               , nil          , nil,         nil                  , nil                             ,      nil,   0,   nil, },
+  { --[[ all barren:   veke                      ]]    "nodes_nature:veke"               , "simple"   , badland_on                      , nil,           80,     0.000100,  nil                                                                                                              ,           31000,     upland_max, "nodes_nature:veke"               , nil          , nil,         nil                  , nil                             ,      nil,   0,   nil, },
 
 ----Water
   { --[[Trees: kagum on salt silt                ]]    "nodes_nature:kagum_tree"         , "schematic", "nodes_nature:silt_wet_salty"      ,   0,           80,     nil     ,  {offset =  0.00, scale = 0.0450, spread = {x = 128, y = 128, z = 128}, seed =  51122, octaves = 3, persist = 0.6},                 1,           -1, nil                               , nil          , nil,         find("kagum1")       , "place_center_x, place_center_z", "random", nil,   nil, },
@@ -280,19 +274,19 @@ local decoration_list = {
 
 ----All Soils
   { --[[  all: moss                              ]]    "all_nn:moss"                     , "simple"   , not_badland_soils_on                       , nil,           80,     0.001000,  nil                                                                                                              ,       highland_max,     beach_max, "nodes_nature:moss"             , nil          , nil,         nil                  , nil                             ,      nil, nil,   nil, },
-  { --[[  all: moss                              ]]    "bl_nn:moss"                     , "simple"   , badland_soils_on                       , nil,           80,     0.000300,  nil                                                                                                              ,       highland_max,     beach_max, "nodes_nature:moss"             , nil          , nil,         nil                  , nil                             ,      nil, nil,   nil, },
+  { --[[  all: moss                              ]]    "bl_nn:moss"                     , "simple"   , badland_on                       , nil,           80,     0.000300,  nil                                                                                                              ,       highland_max,     beach_max, "nodes_nature:moss"             , nil          , nil,         nil                  , nil                             ,      nil, nil,   nil, },
 
 ----Eggs
   { --[[   Animals: gundu                        ]]    "animals:gundu_eggs"              , "simple"   , fish_on                            , nil,           80,     0.000500,  nil                                                                                                              ,                -3,          -25, "animals:gundu_eggs"              , nil          , nil,         nil                  , "force_placement"               ,      nil, nil,   nil, },
   { --[[   Animals: sarkamos                     ]]    "animals:sarkamos_eggs"           , "simple"   , fish_on                            , nil,           80,     0.000070,  nil                                                                                                              ,                -5,          -35, "animals:sarkamos_eggs"           , nil          , nil,         nil                  , "force_placement"               ,      nil, nil,   nil, },
   { --[[   Animals: impethu                      ]]    "animals:impethu_eggs"            , "simple"   , cave_egg_on                        , nil,           80,     0.005000,  nil                                                                                                              ,       lowland_max,         -950, "animals:impethu_eggs"            , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
-  { --[[   Animals: kubwakubwa                   ]]    "caves_animals:kubwakubwa_eggs"         , "simple"   , cave_egg_on                        , nil,           80,     0.001500,  nil                                                                                                              ,       lowland_max,         -150, "animals:kubwakubwa_eggs"         , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
-  { --[[   Animals: kubwakubwa badlands           ]]    "bl_animals:kubwakubwa_eggs_forest"        , "simple"   , badland_soils_on            , nil,           80,     0.000500,  nil                                                                                                                      ,       highland_max,         coastal_max, "animals:kubwakubwa_eggs"         , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
-  { --[[   Animals: kubwakubwa forest            ]]    "ft_animals:kubwakubwa_eggs_forest"         , "simple"   , forest_on                          , nil,           80,     0.000500,  nil                                                                                                               ,       highland_max,         coastal_max, "animals:kubwakubwa_eggs"         , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
+  { --[[   Animals: kubwakubwa                   ]]    "animals:kubwakubwa_eggs"         , "simple"   , cave_egg_on                        , nil,           80,     0.001500,  nil                                                                                                              ,       lowland_max,         -150, "animals:kubwakubwa_eggs"         , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
+  { --[[   Animals: kubwakubwa barrenland           ]]    "animals:kubwakubwa_eggs_barren"        , "simple"   , barrenland_on            , nil,           80,     0.000500,  nil                                                                                                                      ,       highland_max,         coastal_max, "animals:kubwakubwa_eggs"         , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
+  { --[[   Animals: kubwakubwa forest            ]]    "animals:kubwakubwa_eggs_forest"         , "simple"   , forest_on                          , nil,           80,     0.000500,  nil                                                                                                               ,       highland_max,         coastal_max, "animals:kubwakubwa_eggs"         , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
   { --[[   Animals: darkasthaan                  ]]    "animals:darkasthaan_eggs"        , "simple"   , cave_egg_on                        , nil,           80,     0.002000,  nil                                                                                                              ,              -130,         -950, "animals:darkasthaan_eggs"        , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
-  { --[[   Animals: pegasun - badlands           ]]    "bl_animals:pegasun_eggs"            , "simple"   , badland_soils_on                       , nil,           16,     nil     ,  {offset =  0.00, scale = 0.0015, spread = {x = 64, y = 64, z = 64}, seed =   1882, octaves = 2, persist = 2},             upland_max,    beach_max, "animals:pegasun_eggs"            , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
+  { --[[   Animals: pegasun - badlands           ]]    "animals:pegasun_eggs_badland"            , "simple"   , badland_on                       , nil,           16,     nil     ,  {offset =  0.00, scale = 0.0015, spread = {x = 64, y = 64, z = 64}, seed =   1882, octaves = 2, persist = 2},             upland_max,    beach_max, "animals:pegasun_eggs"            , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
   { --[[   Animals: pegasun - not badlands       ]]    "animals:pegasun_eggs"            , "simple"   , not_badland_soils_on                       , nil,           16,     nil     ,  {offset =  0.00, scale = 0.0030, spread = {x = 64, y = 64, z = 64}, seed =   1882, octaves = 2, persist = 2},             upland_max,    beach_max, "animals:pegasun_eggs"            , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
-  { --[[   Animals: sneachan - badlands          ]]    "bl_animals:sneachan_eggs"           , "simple"   , badland_soils_on                       , nil,           80,     0.004000,  nil                                                                                                              ,      highland_max,    beach_max, "animals:sneachan_eggs"           , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
+  { --[[   Animals: sneachan - badlands          ]]    "animals:sneachan_eggs_badland"           , "simple"   , badland_on                       , nil,           80,     0.004000,  nil                                                                                                              ,      highland_max,    beach_max, "animals:sneachan_eggs"           , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
   { --[[   Animals: sneachan - not badlands     ]]    "animals:sneachan_eggs"           , "simple"   , not_badland_soils_on                       , nil,           80,     0.002000,  nil                                                                                                              ,      highland_max,    beach_max, "animals:sneachan_eggs"           , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
 }
 
@@ -330,13 +324,17 @@ local egg_names = {  -- list of strings
 	"impethu_eggs",
 	"kubwakubwa_eggs",
   "kubwakubwa_eggs_forest",
+  "kubwakubwa_eggs_barren",
 	"darkasthaan_eggs",
 	"pegasun_eggs",
+	"pegasun_eggs_badland",
 	"sneachan_eggs",
+	"sneachan_eggs_badland",
 	}
 
 local eggs_nearby = {}  -- list of decoration IDs
 for i in ipairs(egg_names) do -- get decoration IDs
+print(i)
 	table.insert(eggs_nearby, minetest.get_decoration_id("animals:"..egg_names[i])) -- add the current egg found
 	end
 minetest.set_gen_notify({decoration = true}, eggs_nearby)
