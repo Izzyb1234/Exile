@@ -1,4 +1,4 @@
---suicide.lua
+--restart.lua
 --A chat command to allow users to start over
 
 --Local table to store pending confirmations.  
@@ -7,21 +7,19 @@ local timestamp = {}
 
 local function killplayer(name)
    local player=minetest.get_player_by_name(name)
-   local inv = player:get_inventory()
-   if inv:is_empty("cloths") then
-      -- no clothes, try to pull an exile letter and see if main's empty then
-      local tmp = inv:remove_item("main", ItemStack("lore:exile_letter 1"))
-      if not inv:is_empty("main") then
-	 inv:add_item("main", tmp) -- he's got other stuff, put it back
-      end
+   local player_inv = player:get_inventory()
+   for _, list_name in ipairs({'main','craft','cloths'}) do
+	   if not player_inv:is_empty(list_name) then
+		   player_inv:set_list(list_name,{})
+	   end
    end
+   clothing:update_temp(player)
    player:set_hp(0)
 end
 
-local function suicide_confirm (name, message)
-	if (chat_confirm[name] == 'suicide') then
+local function restart_confirm (name, message)
+	if (chat_confirm[name] == 'restart') then
 		if message == 'Yes' or message == "yes" then
-			minetest.chat_send_all(name .. " succumbed to despair and gave in to their fate.")
 			minetest.log("action", name .. " gave up the ghost.")
 			timestamp[name] = minetest.get_gametime()
 			killplayer(name)
@@ -34,7 +32,7 @@ local function suicide_confirm (name, message)
 	return false -- let other modules see it.
 end
 
-local function suicide (name, param)
+local function restart (name, param)
 	local nowtime = minetest.get_gametime()
 	if timestamp[name] and ( timestamp[name] +300 ) > nowtime then
 	   minetest.chat_send_player(name, "You can't use this command more than once per 5 minutes.")
@@ -42,29 +40,23 @@ local function suicide (name, param)
 	else
 	   timestamp[name] = nil
 	   minetest.chat_send_player(name, "Are you sure?  Reply with: Yes")
-	   chat_confirm[name]="suicide";
+	   chat_confirm[name]="restart";
 	end
 end
 
-minetest.register_chatcommand("suicide",{
+minetest.register_chatcommand("restart",{
 	privs = {
 		interact = true,
 	},
-	func = suicide
+	func = restart
 })
-minetest.register_chatcommand("killme",{
-	privs = {
-		interact = true,
-	},
-	func = suicide
-})
+
 minetest.register_chatcommand("respawn",{
 	privs = {
 		interact = true,
 	},
-	func = suicide
+	func = restart
 })
 
-
-minetest.register_on_chat_message(suicide_confirm)
+minetest.register_on_chat_message(restart_confirm)
 
