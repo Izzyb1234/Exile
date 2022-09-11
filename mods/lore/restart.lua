@@ -39,7 +39,7 @@ local function restart (name, param)
 	   return
 	else
 	   timestamp[name] = nil
-	   minetest.chat_send_player(name, "Are you sure?  Reply with: Yes")
+	   minetest.chat_send_player(name, "Restarting does not leave bones.  Your inventory will be deleted.\nAre you sure?  Reply with: Yes")
 	   chat_confirm[name]="restart";
 	end
 end
