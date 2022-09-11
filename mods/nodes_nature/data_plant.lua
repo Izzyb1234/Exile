@@ -32,7 +32,7 @@ plantlist = {
 	{"anperla", "Anperla", nil, 1, "herbaceous_plant", nil, 3, S('Anperla Tuber'), 'nodes_nature_tuber.png', plant_base_growth * 2, 1, "green"},
 	{"tashvish", "Tashvish", nil, 1, "fibrous_plant", nil, 4, nil, nil, plant_base_growth*1.5},
 	{"jogalan", "Jogalan", nil, 1, "woody_plant", nil, 0, nil, nil, plant_base_growth * 2, 1, "black"},
-	{"tsaplop", "Tsaplop", nil, 1.2, "woody_plant", nil, 0, nil, nil, plant_base_growth * 1.3, 1, "green"},
+	{"tsaplop", "Tsaplop", nil, 1.2, "woody_plant", nil, 0, nil, nil, plant_base_growth * 2, 1, "green"},
 	--artifact
 	{"reshedaar", "Reshedaar", {-0.25, -0.5, -0.25, 0.25, -0.125, 0.25}, 1, "crumbly", "nodebox", nil, S("Reshedaar Spores"), "nodes_nature_spores.png", plant_base_growth *3, 1, "indigo"},
 	{"mahal", "Mahal", {-0.25, -0.5, -0.25, 0.25, -0.125, 0.25}, 1, "crumbly", "nodebox", nil, S("Mahal Spores"), "nodes_nature_spores.png", plant_base_growth *3, 1},
