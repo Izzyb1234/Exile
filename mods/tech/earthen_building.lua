@@ -288,8 +288,12 @@ stairs.register_stair_and_slab(
 	nodes_nature.node_sound_leaves_defaults()
 )
 
-
-
+minetest.override_item("stairs:slab_thatch",
+		{ on_rightclick = function(pos, node, clicker,
+					   itemstack, pointed_thing)
+		     minimal.slabs_combine(pos, node, itemstack, "tech:thatch")
+		end,
+})
 
 ---------------------------------------
 --Recipes
