@@ -76,7 +76,7 @@ end
 
 -- Call in on_rightclick wrapper like this:
 -- on_rightclick = function (pos, node, clicker, itemstack, pointed_thing)
---     minimal.slabs_combine(pos,node,itemstack,'tech:large_wood_fire_ext')
+--     return minimal.slabs_combine(pos,node,itemstack,'tech:large_wood_fire_ext')
 -- end
 function minimal.slabs_combine(pos, node, itemstack, swap_node)
 	if itemstack:get_name() == node.name then
