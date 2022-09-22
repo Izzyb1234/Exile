@@ -289,6 +289,33 @@ local decoration_list = {
   { --[[   Animals: sneachan - not badlands      ]]    "animals:sneachan_eggs"           , "simple"   , not_badland_soils_on               , nil,           80,     0.002000,  nil                                                                                                              ,     highland_max,     beach_max, "animals:sneachan_eggs"            , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
 }
 
+----Cobbles----
+for i in ipairs(rock_list) do
+    local rock_name = rock_list[i][1]
+    -- for each type of cobble
+    for j = 1, 3 do
+        local deco = {
+              "nodes_nature:" .. rock_name .. "_cobble" .. j,   -- name
+              "simple",                                         -- deco_type
+              "nodes_nature:" .. rock_name,                     -- place_on
+              nil,                                              -- place_offset_y
+              80,                                               -- sidelen
+              0.05,                                             -- fill_ratio
+              nil,                                              -- noise_params
+              31000,                                            -- y_max
+              -31000,                                           -- y_min
+              "nodes_nature:" .. rock_name .. "_cobble" .. j,   -- decoration
+              nil,                                              -- spawn_by
+              nil,                                              -- num_spawn_by
+              nil,                                              -- schematic
+              "all_floors",                                     -- flags
+              nil,                                              -- rotation
+              nil,                                              -- param2
+              nil,                                              -- param2_max
+              }
+        table.insert(decoration_list, deco)
+    end
+end
 
 ----Register----
 for i in ipairs(decoration_list) do
