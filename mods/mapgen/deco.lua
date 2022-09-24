@@ -289,33 +289,80 @@ local decoration_list = {
   { --[[   Animals: sneachan - not badlands      ]]    "animals:sneachan_eggs"           , "simple"   , not_badland_soils_on               , nil,           80,     0.002000,  nil                                                                                                              ,     highland_max,     beach_max, "animals:sneachan_eggs"            , nil          , nil,         nil                  , "all_floors"                    ,      nil, nil,   nil, },
 }
 
+local cobble_cave_fill_ratio = 0.05
+local cobble_beach_fill_ratio = 0.001
+local cobble_gravel_fill_ratio = 0.001
+
+local beach_cobble_on = {
+   "nodes_nature:silt_wet_salty",
+   "nodes_nature:silt_wet",
+   "nodes_nature:sand_wet_salty",
+   "nodes_nature:sand_wet",
+   "nodes_nature:sand",
+   "nodes_nature:gravel_wet_salty",
+   "nodes_nature:gravel_wet",
+}
+
+local gravel_cobble_on = {
+   "nodes_nature:gravel",
+}
+
 ----Cobbles----
-for i in ipairs(rock_list) do
-    local rock_name = rock_list[i][1]
-    -- for each type of cobble
-    for j = 1, 3 do
-        local deco = {
-              "nodes_nature:" .. rock_name .. "_cobble" .. j,   -- name
-              "simple",                                         -- deco_type
-              "nodes_nature:" .. rock_name,                     -- place_on
-              nil,                                              -- place_offset_y
-              80,                                               -- sidelen
-              0.05,                                             -- fill_ratio
-              nil,                                              -- noise_params
-              31000,                                            -- y_max
-              -31000,                                           -- y_min
-              "nodes_nature:" .. rock_name .. "_cobble" .. j,   -- decoration
-              nil,                                              -- spawn_by
-              nil,                                              -- num_spawn_by
-              nil,                                              -- schematic
-              "all_floors",                                     -- flags
-              nil,                                              -- rotation
-              nil,                                              -- param2
-              nil,                                              -- param2_max
-              }
-        table.insert(decoration_list, deco)
-    end
+-- name must be unique to satisfy the mapgen
+-- fill_ratio is the spawn frequency
+-- place_on is a list of nodes, if empty the procedure
+-- places cobbles only on their mother rock
+function generate_cobbles(name, fill_ratio, place_on)
+   for i in ipairs(rock_list) do
+      local rock_name = rock_list[i][1]
+      local cobble_on = {
+         "nodes_nature:" .. rock_name,
+      }
+      local cobble_fill_ratio = fill_ratio
+      if next(place_on) then
+         -- don't place deep rock cobbles on the surface
+         if(rock_name == "jade" or
+            rock_name == "gneiss" or
+            rock_name == "granite") then
+            goto skip
+         end
+         -- make basalt on beaches rarer
+         if (rock_name == "basalt") then
+            cobble_fill_ratio = fill_ratio * 0.3
+         end
+         -- table is not empty, overwriting
+         cobble_on = place_on
+      end
+      -- for each type of cobble
+      for j = 1, 3 do
+         local deco = {
+            name.."_nn:"..rock_name.."_cobble"..j,    -- name
+            "simple",                                 -- deco_type
+            cobble_on,                                -- place_on
+            nil,                                      -- place_offset_y
+            80,                                       -- sidelen
+            cobble_fill_ratio,                        -- fill_ratio
+            nil,                                      -- noise_params
+            31000,                                    -- y_max
+            -31000,                                   -- y_min
+            "nodes_nature:"..rock_name.."_cobble"..j, -- decoration
+            nil,                                      -- spawn_by
+            nil,                                      -- num_spawn_by
+            nil,                                      -- schematic
+            "all_floors",                             -- flags
+            "random",                                 -- rotation
+            0,                                        -- param2
+            3,                                        -- param2_max
+         }
+         table.insert(decoration_list, deco)
+      end
+      ::skip::
+   end
 end
+
+generate_cobbles("cave", cobble_cave_fill_ratio, {})
+generate_cobbles("beach", cobble_beach_fill_ratio, beach_cobble_on)
+generate_cobbles("gravel", cobble_gravel_fill_ratio, gravel_cobble_on)
 
 ----Register----
 for i in ipairs(decoration_list) do
