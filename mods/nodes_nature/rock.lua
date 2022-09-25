@@ -179,6 +179,14 @@ for i in ipairs(rock_list) do
 			always_known = true,
 		})
 
+                crafting.register_recipe({
+                      type = "hammering_block",
+                      output = "nodes_nature:"..name.."_cobble2 8",
+                      items = {"nodes_nature:"..name.."_boulder"},
+                      level = 1,
+                      always_known = true,
+		})
+
 		crafting.register_recipe({
 			type = "masonry_bench",
 			output = "nodes_nature:"..name.."_block",
@@ -234,69 +242,34 @@ for i in ipairs(rock_list) do
 			nodes_nature.node_sound_stone_defaults()
 		)
 
-                --cobble1
-		minetest.register_node("nodes_nature:"..name.."_cobble1",{
-			description = S("@1 Cobble", desc),
-			drawtype = "mesh",
-			mesh = "nodes_nature_cobble1.obj",
-			tiles = {"nodes_nature_"..name..".png"},
-			stack_max = minimal.stack_max_bulky,
-			paramtype = "light",
-			paramtype2 = "facedir",
-			groups = {cracky = hardness, falling_node = 1, oddly_breakable_by_hand = 3, cobble = 1},
-			selection_box = {
-				type = "fixed",
-				fixed = {-5/16, -8/16, -5/16, 5/16, -4/16, 5/16},
-			},
-			collision_box = {
-				type = "fixed",
-				fixed = {-5/16, -8/16, -5/16, 5/16, -4/16, 5/16},
-			},
-			sounds = nodes_nature.node_sound_stone_defaults(),
-		})
+                local cobble_groups = {cracky = hardness,
+                                       falling_node = 1,
+                                       oddly_breakable_by_hand = 3,}
+                cobble_groups[name.."_cobble"] = 1
 
-                --cobble2
-		minetest.register_node("nodes_nature:"..name.."_cobble2",{
-			description = S("@1 Cobble", desc),
-			drawtype = "mesh",
-			mesh = "nodes_nature_cobble2.obj",
-			tiles = {"nodes_nature_"..name..".png"},
-			stack_max = minimal.stack_max_bulky,
-			paramtype = "light",
-			paramtype2 = "facedir",
-			groups = {cracky = hardness, falling_node = 1, oddly_breakable_by_hand = 3, cobble = 1},
-			selection_box = {
-				type = "fixed",
-				fixed = {-5/16, -8/16, -5/16, 5/16, -4/16, 5/16},
-			},
-			collision_box = {
-				type = "fixed",
-				fixed = {-5/16, -8/16, -5/16, 5/16, -4/16, 5/16},
-			},
-			sounds = nodes_nature.node_sound_stone_defaults(),
-		})
-
-                --cobble3
-		minetest.register_node("nodes_nature:"..name.."_cobble3",{
-			description = S("@1 Cobble", desc),
-			drawtype = "mesh",
-			mesh = "nodes_nature_cobble3.obj",
-			tiles = {"nodes_nature_"..name..".png"},
-			stack_max = minimal.stack_max_bulky,
-			paramtype = "light",
-			paramtype2 = "facedir",
-			groups = {cracky = hardness, falling_node = 1, oddly_breakable_by_hand = 3, cobble = 1},
-			selection_box = {
-				type = "fixed",
-				fixed = {-5/16, -8/16, -5/16, 5/16, -4/16, 5/16},
-			},
-			collision_box = {
-				type = "fixed",
-				fixed = {-5/16, -8/16, -5/16, 5/16, -4/16, 5/16},
-			},
-			sounds = nodes_nature.node_sound_stone_defaults(),
-		})
-
+                -- cobbles
+                for cobble_nr = 1, 3 do
+                   minetest.register_node(
+                      "nodes_nature:"..name.."_cobble"..cobble_nr,{
+                         description = S("@1 Cobble", desc),
+                         drawtype = "mesh",
+                         mesh = "nodes_nature_cobble"..cobble_nr..".obj",
+                         tiles = {"nodes_nature_"..name..".png"},
+                         stack_max = minimal.stack_max_bulky * 8,
+                         paramtype = "light",
+                         paramtype2 = "facedir",
+                         groups = cobble_groups,
+                         selection_box = {
+                            type = "fixed",
+                            fixed = {-5/16, -8/16, -5/16, 5/16, -4/16, 5/16},
+                         },
+                         collision_box = {
+                            type = "fixed",
+                            fixed = {-5/16, -8/16, -5/16, 5/16, -4/16, 5/16},
+                         },
+                         sounds = nodes_nature.node_sound_stone_defaults(),
+                   })
+                end
 
 end
 
