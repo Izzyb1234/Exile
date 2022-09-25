@@ -315,48 +315,50 @@ local gravel_cobble_on = {
 function generate_cobbles(name, fill_ratio, place_on)
    for i in ipairs(rock_list) do
       local rock_name = rock_list[i][1]
-      local cobble_on = {
-         "nodes_nature:" .. rock_name,
-      }
+      local cobble_on = { "nodes_nature:" .. rock_name }
       local cobble_fill_ratio = fill_ratio
+      local y_max = 31000
       if next(place_on) then
-         -- don't place deep rock cobbles on the surface
-         if(rock_name == "jade" or
-            rock_name == "gneiss" or
-            rock_name == "granite") then
-            goto skip
-         end
-         -- make basalt on beaches rarer
-         if (rock_name == "basalt") then
-            cobble_fill_ratio = fill_ratio * 0.3
-         end
-         -- table is not empty, overwriting
-         cobble_on = place_on
+	 -- table is not empty, overwriting
+	 cobble_on = place_on
+	 -- make basalt on beaches rarer
+	 if (rock_name == "basalt") then
+	    cobble_fill_ratio = fill_ratio * 0.3
+	 end
+	 if (rock_name == "ironstone") then
+	    cobble_fill_ratio = fill_ratio * 0.5
+	 end
+      end
+      -- don't place deep rock cobbles on the surface
+      if (rock_name == "jade" or
+	  rock_name == "gneiss" or
+	  rock_name == "granite") then
+	 y_max = -40
       end
       -- for each type of cobble
-      for j = 1, 3 do
-         local deco = {
-            name.."_nn:"..rock_name.."_cobble"..j,    -- name
-            "simple",                                 -- deco_type
-            cobble_on,                                -- place_on
-            nil,                                      -- place_offset_y
-            80,                                       -- sidelen
-            cobble_fill_ratio,                        -- fill_ratio
-            nil,                                      -- noise_params
-            31000,                                    -- y_max
-            -31000,                                   -- y_min
-            "nodes_nature:"..rock_name.."_cobble"..j, -- decoration
-            nil,                                      -- spawn_by
-            nil,                                      -- num_spawn_by
-            nil,                                      -- schematic
-            "all_floors",                             -- flags
-            "random",                                 -- rotation
-            0,                                        -- param2
-            3,                                        -- param2_max
-         }
-         table.insert(decoration_list, deco)
-      end
-      ::skip::
+	    for j = 1, 3 do
+	       local deco = {
+		  name.."_nn:"..rock_name.."_cobble"..j,    -- name
+		  "simple",                                 -- deco_type
+		  cobble_on,                                -- place_on
+		  nil,                                      -- place_offset_y
+		  80,                                       -- sidelen
+		  cobble_fill_ratio,                        -- fill_ratio
+		  nil,                                      -- noise_params
+		  y_max,                                    -- y_max
+		     -31000,                                   -- y_min
+		  "nodes_nature:"..rock_name.."_cobble"..j, -- decoration
+		  nil,                                      -- spawn_by
+		  nil,                                      -- num_spawn_by
+		  nil,                                      -- schematic
+		  "all_floors",                             -- flags
+		  "random",                                 -- rotation
+		  0,                                        -- param2
+		  3,                                        -- param2_max
+	       }
+	       table.insert(decoration_list, deco)
+	       print("Added ",deco[1]," : ",dump(deco[3]))
+	    end
    end
 end
 
