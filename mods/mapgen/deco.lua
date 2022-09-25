@@ -357,7 +357,6 @@ function generate_cobbles(name, fill_ratio, place_on)
 		  3,                                        -- param2_max
 	       }
 	       table.insert(decoration_list, deco)
-	       print("Added ",deco[1]," : ",dump(deco[3]))
 	    end
    end
 end
