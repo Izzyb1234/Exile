@@ -171,11 +171,10 @@ minetest.register_node("tech:crushed_iron_ore", {
 crafting.register_recipe({
 	type = "hammering_block",
 	output = "tech:crushed_iron_ore",
-	items = {'nodes_nature:ironstone_boulder 2'},
+	items = {"group:ironstone_cobble 16"},
 	level = 1,
 	always_known = true,
 })
-
 
 --roasted_iron_ore
 --crushed ore pre-roasted
