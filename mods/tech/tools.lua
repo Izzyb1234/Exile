@@ -83,23 +83,23 @@ end
 --1st level
 --Crude emergency tools
 
-local lvl_1 = 0.8
---local lvl_1_use = base_use
-local lvl_1_max_lvl = minimal.hand_max_lvl
+local crude = 0.8
+--local crude_use = base_use
+local crude_max_lvl = minimal.hand_max_lvl
 
 --damage
-local lvl_1_dmg = minimal.hand_dmg * 2
+local crude_dmg = minimal.hand_dmg * 2
 --snappy
-local lvl_1_snap3 = minimal.hand_snap * lvl_1
-local lvl_1_snap2 = (minimal.hand_snap * minimal.t_scale2) * lvl_1
-local lvl_1_snap1 = (minimal.hand_snap * minimal.t_scale1) * lvl_1
+local crude_snap3 = minimal.hand_snap * crude
+local crude_snap2 = (minimal.hand_snap * minimal.t_scale2) * crude
+local crude_snap1 = (minimal.hand_snap * minimal.t_scale1) * crude
 --crumbly
-local lvl_1_crum3 = minimal.hand_crum * lvl_1
-local lvl_1_crum2 = (minimal.hand_crum * minimal.t_scale2) * lvl_1
-local lvl_1_crum1 = (minimal.hand_crum * minimal.t_scale1) * lvl_1
+local crude_crum3 = minimal.hand_crum * crude
+local crude_crum2 = (minimal.hand_crum * minimal.t_scale2) * crude
+local crude_crum1 = (minimal.hand_crum * minimal.t_scale1) * crude
 --choppy
-local lvl_1_chop3 = minimal.hand_chop * lvl_1
-local lvl_1_chop2 = (minimal.hand_chop * minimal.t_scale2) * lvl_1
+local crude_chop3 = minimal.hand_chop * crude
+local crude_chop2 = (minimal.hand_chop * minimal.t_scale2) * crude
 --cracky
 --none at this level
 
@@ -115,13 +115,13 @@ minetest.register_tool("tech:stone_chopper", {
 	inventory_image = "tech_tool_stone_chopper.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int,
-		max_drop_level = lvl_1_max_lvl,
+		max_drop_level = crude_max_lvl,
 		groupcaps={
-			choppy = {times={[3]=lvl_1_chop3}, uses=base_use*0.75, maxlevel=lvl_1_max_lvl},
-			snappy= {times={[1]=lvl_1_snap1, [2]=lvl_1_snap2, [3]=lvl_1_snap3}, uses=base_use, maxlevel=lvl_1_max_lvl},
-			crumbly = {times={[3]=lvl_1_crum3}, uses=base_use*0.5, maxlevel=lvl_1_max_lvl}
+			choppy = {times={[3]=crude_chop3}, uses=base_use*0.75, maxlevel=crude_max_lvl},
+			snappy= {times={[1]=crude_snap1, [2]=crude_snap2, [3]=crude_snap3}, uses=base_use, maxlevel=crude_max_lvl},
+			crumbly = {times={[3]=crude_crum3}, uses=base_use*0.5, maxlevel=crude_max_lvl}
 		},
-		damage_groups = {fleshy= lvl_1_dmg},
+		damage_groups = {fleshy= crude_dmg},
 	},
 	--groups = {},
 	sound = {breaks = "tech_tool_breaks"},
@@ -139,11 +139,11 @@ minetest.register_tool("tech:digging_stick", {
 	inventory_image = "tech_tool_digging_stick.png^[transformR90",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int*1.1,
-		max_drop_level = lvl_1_max_lvl,
+		max_drop_level = crude_max_lvl,
 		groupcaps={
-			crumbly = {times= {[1]=lvl_1_crum1, [2]=lvl_1_crum2, [3]=lvl_1_crum3}, uses=base_use, maxlevel=lvl_1_max_lvl}
+			crumbly = {times= {[1]=crude_crum1, [2]=crude_crum2, [3]=crude_crum3}, uses=base_use, maxlevel=crude_max_lvl}
 		},
-		damage_groups = {fleshy= lvl_1_dmg},
+		damage_groups = {fleshy= crude_dmg},
 	},
 	--groups = {flammable = 1},
 	sound = {breaks = "tech_tool_breaks"},
@@ -163,23 +163,23 @@ note: we have multiple rock types
 Granite is harder than basalt.
 ]]--
 
-local lvl_2 = 0.8
-local lvl_2_use = base_use * 2
-local lvl_2_max_lvl = lvl_1_max_lvl
+local stone = 0.8
+local stone_use = base_use * 2
+local stone_max_lvl = crude_max_lvl
 
 --damage
-local lvl_2_dmg = lvl_1_dmg * 2
+local stone_dmg = crude_dmg * 2
 --snappy
-local lvl_2_snap3 = lvl_1_snap3 * lvl_2
-local lvl_2_snap2 = lvl_1_snap2 * lvl_2
-local lvl_2_snap1 = lvl_1_snap1 * lvl_2
+local stone_snap3 = crude_snap3 * stone
+local stone_snap2 = crude_snap2 * stone
+local stone_snap1 = crude_snap1 * stone
 --crumbly
-local lvl_2_crum3 = lvl_1_crum3 * lvl_2
-local lvl_2_crum2 = lvl_1_crum2 * lvl_2
-local lvl_2_crum1 = lvl_1_crum1 * lvl_2
+local stone_crum3 = crude_crum3 * stone
+local stone_crum2 = crude_crum2 * stone
+local stone_crum1 = crude_crum1 * stone
 --choppy
-local lvl_2_chop3 = lvl_1_chop3 * lvl_2
-local lvl_2_chop2 = lvl_1_chop2 * lvl_2
+local stone_chop3 = crude_chop3 * stone
+local stone_chop2 = crude_chop2 * stone
 --cracky
 --none at this level
 
@@ -194,13 +194,13 @@ minetest.register_tool("tech:adze_granite", {
 	inventory_image = "tech_tool_adze_granite.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.1,
-		max_drop_level = lvl_2_max_lvl,
+		max_drop_level = stone_max_lvl,
 		groupcaps={
-			choppy = {times={[2]=lvl_2_chop2, [3]=lvl_2_chop3}, uses=lvl_2_use, maxlevel=lvl_2_max_lvl},
-			snappy={times={[1]=lvl_2_snap1, [2]=lvl_2_snap2, [3]=lvl_2_snap3}, uses=lvl_2_use *0.8, maxlevel=lvl_2_max_lvl},
-			crumbly = {times={[3]=lvl_1_crum3}, uses=base_use, maxlevel=lvl_1_max_lvl},
+			choppy = {times={[2]=stone_chop2, [3]=stone_chop3}, uses=stone_use, maxlevel=stone_max_lvl},
+			snappy={times={[1]=stone_snap1, [2]=stone_snap2, [3]=stone_snap3}, uses=stone_use *0.8, maxlevel=stone_max_lvl},
+			crumbly = {times={[3]=crude_crum3}, uses=base_use, maxlevel=crude_max_lvl},
 		},
-		damage_groups = {fleshy = lvl_2_dmg},
+		damage_groups = {fleshy = stone_dmg},
 	},
 	groups = {axe = 1},
 	sound = {breaks = "tech_tool_breaks"},
@@ -212,13 +212,13 @@ minetest.register_tool("tech:adze_basalt", {
 	inventory_image = "tech_tool_adze_basalt.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.1,
-		max_drop_level = lvl_2_max_lvl,
+		max_drop_level = stone_max_lvl,
 		groupcaps={
-			choppy = {times={[2]=lvl_2_chop2, [3]=lvl_2_chop3}, uses=lvl_2_use *0.9, maxlevel=lvl_2_max_lvl},
-			snappy= {times={[1]=lvl_2_snap1, [2]=lvl_2_snap2, [3]=lvl_2_snap3}, uses=lvl_2_use *0.7, maxlevel=lvl_2_max_lvl},
-			crumbly = {times={[3]=lvl_1_crum3}, uses=base_use*0.9, maxlevel=lvl_1_max_lvl},
+			choppy = {times={[2]=stone_chop2, [3]=stone_chop3}, uses=stone_use *0.9, maxlevel=stone_max_lvl},
+			snappy= {times={[1]=stone_snap1, [2]=stone_snap2, [3]=stone_snap3}, uses=stone_use *0.7, maxlevel=stone_max_lvl},
+			crumbly = {times={[3]=crude_crum3}, uses=base_use*0.9, maxlevel=crude_max_lvl},
 		},
-		damage_groups = {fleshy = lvl_2_dmg},
+		damage_groups = {fleshy = stone_dmg},
 	},
 	groups = {axe = 1},
 	sound = {breaks = "tech_tool_breaks"},
@@ -231,13 +231,13 @@ minetest.register_tool("tech:adze_jade", {
 	inventory_image = "tech_tool_adze_jade.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.1,
-		max_drop_level = lvl_2_max_lvl,
+		max_drop_level = stone_max_lvl,
 		groupcaps={
-			choppy = {times={[2]=lvl_2_chop2, [3]=lvl_2_chop3}, uses=lvl_2_use * 1.5, maxlevel=lvl_2_max_lvl},
-			snappy={times={[1]=lvl_2_snap1, [2]=lvl_2_snap2, [3]=lvl_2_snap3}, uses=lvl_2_use, maxlevel=lvl_2_max_lvl},
-			crumbly = {times={[3]=lvl_1_crum3}, uses=base_use, maxlevel=lvl_1_max_lvl},
+			choppy = {times={[2]=stone_chop2, [3]=stone_chop3}, uses=stone_use * 1.5, maxlevel=stone_max_lvl},
+			snappy={times={[1]=stone_snap1, [2]=stone_snap2, [3]=stone_snap3}, uses=stone_use, maxlevel=stone_max_lvl},
+			crumbly = {times={[3]=crude_crum3}, uses=base_use, maxlevel=crude_max_lvl},
 		},
-		damage_groups = {fleshy = lvl_2_dmg},
+		damage_groups = {fleshy = stone_dmg},
 	},
 	groups = {axe = 1},
 	sound = {breaks = "tech_tool_breaks"},
@@ -251,13 +251,13 @@ minetest.register_tool("tech:stone_club", {
 	inventory_image = "tech_tool_stone_club.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.2,
-		max_drop_level = lvl_2_max_lvl,
+		max_drop_level = stone_max_lvl,
 		groupcaps={
-			choppy = {times={[3]=lvl_1_chop3}, uses=base_use*0.5, maxlevel=lvl_1_max_lvl},
-			snappy = {times={[3]=lvl_1_snap3}, uses=base_use*0.5, maxlevel=lvl_1_max_lvl},
-			crumbly = {times= {[3]=lvl_1_crum3}, uses=base_use*0.5, maxlevel=lvl_1_max_lvl}
+			choppy = {times={[3]=crude_chop3}, uses=base_use*0.5, maxlevel=crude_max_lvl},
+			snappy = {times={[3]=crude_snap3}, uses=base_use*0.5, maxlevel=crude_max_lvl},
+			crumbly = {times= {[3]=crude_crum3}, uses=base_use*0.5, maxlevel=crude_max_lvl}
 		},
-		damage_groups = {fleshy=lvl_2_dmg*2},
+		damage_groups = {fleshy=stone_dmg*2},
 	},
 	groups = {club = 1},
 	sound = {breaks = "tech_tool_breaks"},
@@ -272,28 +272,28 @@ minetest.register_tool("tech:stone_club", {
 
 
 
-local lvl_3 = 0.9
-local lvl_3_use = base_use * 4
-local lvl_3_max_lvl = lvl_1_max_lvl + 1
+local iron = 0.9
+local iron_use = base_use * 4
+local iron_max_lvl = crude_max_lvl + 1
 
 --damage
-local lvl_3_dmg = lvl_2_dmg * 2
+local iron_dmg = stone_dmg * 2
 --snappy
-local lvl_3_snap3 = lvl_2_snap3 * lvl_3
-local lvl_3_snap2 = lvl_2_snap2 * lvl_3
-local lvl_3_snap1 = lvl_2_snap1 * lvl_3
+local iron_snap3 = stone_snap3 * iron
+local iron_snap2 = stone_snap2 * iron
+local iron_snap1 = stone_snap1 * iron
 --crumbly
-local lvl_3_crum3 = lvl_2_crum3 * lvl_3
-local lvl_3_crum2 = lvl_2_crum2 * lvl_3
-local lvl_3_crum1 = lvl_2_crum1 * lvl_3
+local iron_crum3 = stone_crum3 * iron
+local iron_crum2 = stone_crum2 * iron
+local iron_crum1 = stone_crum1 * iron
 --choppy
-local lvl_3_chop3 = lvl_2_chop3 * lvl_3
-local lvl_3_chop2 = lvl_2_chop2 * lvl_3
-local lvl_3_chop1 = (minimal.hand_chop * minimal.t_scale1) * lvl_1 * lvl_2 * lvl_3
+local iron_chop3 = stone_chop3 * iron
+local iron_chop2 = stone_chop2 * iron
+local iron_chop1 = (minimal.hand_chop * minimal.t_scale1) * crude * stone * iron
 --cracky
-local lvl_3_crac3 = minimal.hand_crac * lvl_1 * lvl_2 * lvl_3
-local lvl_3_crac2 = (minimal.hand_crac * minimal.t_scale2) * lvl_1 * lvl_2 * lvl_3
---local lvl_3_crac1 = (minimal.hand_crac * minimal.t_scale1) * lvl_1 * lvl_2 * lvl_3
+local iron_crac3 = minimal.hand_crac * crude * stone * iron
+local iron_crac2 = (minimal.hand_crac * minimal.t_scale2) * crude * stone * iron
+--local iron_crac1 = (minimal.hand_crac * minimal.t_scale1) * crude * stone * iron
 
 
 
@@ -304,13 +304,13 @@ minetest.register_tool("tech:axe_iron", {
 	inventory_image = "tech_tool_axe_iron.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.1,
-		max_drop_level = lvl_3_max_lvl,
+		max_drop_level = iron_max_lvl,
 		groupcaps={
-			choppy = {times={[1]=lvl_3_chop1, [2]=lvl_3_chop2, [3]=lvl_3_chop3}, uses=lvl_3_use, maxlevel=lvl_3_max_lvl},
-			snappy = {times={[1]=lvl_3_snap1, [2]=lvl_3_snap2, [3]=lvl_3_snap3}, uses=lvl_3_use, maxlevel=lvl_3_max_lvl},
-			crumbly = {times={[3]=lvl_1_crum3}, uses= lvl_2_use, maxlevel=lvl_2_max_lvl},
+			choppy = {times={[1]=iron_chop1, [2]=iron_chop2, [3]=iron_chop3}, uses=iron_use, maxlevel=iron_max_lvl},
+			snappy = {times={[1]=iron_snap1, [2]=iron_snap2, [3]=iron_snap3}, uses=iron_use, maxlevel=iron_max_lvl},
+			crumbly = {times={[3]=crude_crum3}, uses= stone_use, maxlevel=stone_max_lvl},
 		},
-		damage_groups = {fleshy = lvl_3_dmg},
+		damage_groups = {fleshy = iron_dmg},
 	},
 	groups = {axe = 1},
 	sound = {breaks = "tech_tool_breaks"},
@@ -323,17 +323,17 @@ minetest.register_tool("tech:shovel_iron", {
 	inventory_image = "tech_tool_shovel_iron.png^[transformR90",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int*1.1,
-		max_drop_level = lvl_3_max_lvl,
+		max_drop_level = iron_max_lvl,
 		groupcaps={
-			crumbly = {times= {[1]=lvl_3_crum1, [2]=lvl_3_crum2, [3]=lvl_3_crum3}, uses=lvl_3_use, maxlevel=lvl_3_max_lvl},
-			snappy = {times= {[3]=lvl_2_snap3}, uses=lvl_3_use *0.8, maxlevel=lvl_3_max_lvl},
+			crumbly = {times= {[1]=iron_crum1, [2]=iron_crum2, [3]=iron_crum3}, uses=iron_use, maxlevel=iron_max_lvl},
+			snappy = {times= {[3]=stone_snap3}, uses=iron_use *0.8, maxlevel=iron_max_lvl},
 		},
-		damage_groups = {fleshy= lvl_3_dmg},
+		damage_groups = {fleshy= iron_dmg},
 	},
 	--groups = {flammable = 1},
 	sound = {breaks = "tech_tool_breaks"},
 	on_place = function(itemstack, placer, pointed_thing)
-		return till_soil(itemstack, placer, pointed_thing, lvl_3_use)
+		return till_soil(itemstack, placer, pointed_thing, iron_use)
 	end
 })
 
@@ -345,13 +345,13 @@ minetest.register_tool("tech:mace_iron", {
 	inventory_image = "tech_tool_mace_iron.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.2,
-		max_drop_level = lvl_3_max_lvl,
+		max_drop_level = iron_max_lvl,
 		groupcaps={
-			choppy = {times={[3]=lvl_1_chop3}, uses=base_use*0.5, maxlevel=lvl_1_max_lvl},
-			snappy = {times={[3]=lvl_1_snap3}, uses=base_use*0.5, maxlevel=lvl_1_max_lvl},
-			crumbly = {times= {[3]=lvl_1_crum3}, uses=base_use*0.5, maxlevel=lvl_1_max_lvl},
+			choppy = {times={[3]=crude_chop3}, uses=base_use*0.5, maxlevel=crude_max_lvl},
+			snappy = {times={[3]=crude_snap3}, uses=base_use*0.5, maxlevel=crude_max_lvl},
+			crumbly = {times= {[3]=crude_crum3}, uses=base_use*0.5, maxlevel=crude_max_lvl},
 		},
-		damage_groups = {fleshy=lvl_3_dmg*2},
+		damage_groups = {fleshy=iron_dmg*2},
 	},
 	groups = {club = 1},
 	sound = {breaks = "tech_tool_breaks"},
@@ -364,14 +364,14 @@ minetest.register_tool("tech:pickaxe_iron", {
 	inventory_image = "tech_tool_pickaxe_iron.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.1,
-		max_drop_level = lvl_3_max_lvl,
+		max_drop_level = iron_max_lvl,
 		groupcaps={
-			choppy = {times={[3]=lvl_2_chop3}, uses=lvl_3_use *0.8, maxlevel=lvl_3_max_lvl},
-			snappy = {times={[3]=lvl_2_snap3}, uses=lvl_3_use *0.8, maxlevel=lvl_3_max_lvl},
-			crumbly = {times={[2]=lvl_2_crum2, [3]=lvl_2_crum3}, uses= lvl_3_use, maxlevel=lvl_3_max_lvl},
-			cracky = {times= {[2]=lvl_3_crac2, [3]=lvl_3_crac3}, uses=lvl_3_use, maxlevel=lvl_3_max_lvl},
+			choppy = {times={[3]=stone_chop3}, uses=iron_use *0.8, maxlevel=iron_max_lvl},
+			snappy = {times={[3]=stone_snap3}, uses=iron_use *0.8, maxlevel=iron_max_lvl},
+			crumbly = {times={[2]=stone_crum2, [3]=stone_crum3}, uses= iron_use, maxlevel=iron_max_lvl},
+			cracky = {times= {[2]=iron_crac2, [3]=iron_crac3}, uses=iron_use, maxlevel=iron_max_lvl},
 		},
-		damage_groups = {fleshy = lvl_3_dmg},
+		damage_groups = {fleshy = iron_dmg},
 	},
 	sound = {breaks = "tech_tool_breaks"},
 })
