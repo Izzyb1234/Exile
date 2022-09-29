@@ -272,7 +272,7 @@ minetest.register_node("tech:lime_mortar", {
 crafting.register_recipe({
 	type = "hammering_block",
 	output = "tech:crushed_lime",
-	items = {'nodes_nature:limestone_boulder'},
+	items = {"group:limestone_cobble 8"},
 	level = 1,
 	always_known = true,
 })

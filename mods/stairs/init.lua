@@ -175,9 +175,8 @@ function stairs.register_slab(subname, recipeitem, craft_station, recycle, group
 
 			local def = minetest.registered_nodes[under.name]
 			if def.on_rightclick then
-			   def.on_rightclick(pointed_thing.under, under,
+			   return def.on_rightclick(pointed_thing.under, under,
 					     placer, itemstack, pointed_thing)
-			   return
 			end
 			if under and under.name:find("^stairs:slab_") then
 				-- place slab using under node orientation

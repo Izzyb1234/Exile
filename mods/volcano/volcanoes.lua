@@ -66,12 +66,14 @@ local c_moss = minetest.get_content_id("nodes_nature:moss")
 local c_lava =  minetest.get_content_id("nodes_nature:lava_source")
 local c_basalt = minetest.get_content_id("nodes_nature:basalt")
 local c_boulder = minetest.get_content_id("nodes_nature:basalt_boulder")
+local c_cobble = {}
+ c_cobble[1] = minetest.get_content_id("nodes_nature:basalt_cobble1")
+ c_cobble[2] = minetest.get_content_id("nodes_nature:basalt_cobble2")
+ c_cobble[3] = minetest.get_content_id("nodes_nature:basalt_cobble3")
 
 local c_air = minetest.get_content_id("air")
 
 local c_cone = c_basalt
-
-
 
 ------------------------------------------------------------------------
 -- offset for alignment
@@ -135,6 +137,7 @@ local perlin_params = {
 local nvals_perlin_buffer = {}
 local nobj_perlin = nil
 local data = {}
+local p2data = {}
 
 
 
@@ -168,6 +171,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
 	vm:get_data(data)
+	vm:get_param2_data(p2data)
 
 	local sidelen = mapgen_chunksize * 16 --length of a mapblock
 	local chunk_lengths = {x = sidelen, y = sidelen, z = sidelen} --table of chunk edges
@@ -296,10 +300,16 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			elseif distance <  current_elevation * -volcano.slope + base_radius then
 				data[vi] = c_cone
 				if data[vi + area.ystride] == c_air and c_dust ~= nil then
-					if c_dust ~= c_boulder and math.random()>0.95 then
-						c_dust = c_boulder
-					end
-					data[vi + area.ystride] = c_dust
+				   local die = math.random()
+				   if c_dust ~= c_boulder then
+				      if die > 0.98 then
+					 c_dust = c_boulder
+				      elseif die>0.95 then
+					 c_dust = c_cobble[math.random(1,3)]
+					 p2data[vi + area.ystride] = math.random(0,3)
+				      end
+				   end
+				   data[vi + area.ystride] = c_dust
 				end
 			elseif c_top ~= nil and c_filler ~= nil and distance < current_elevation * -volcano.slope + base_radius + nvals_perlin[vi3d] +1.5 then
 				data[vi] = c_top
@@ -307,12 +317,16 @@ minetest.register_on_generated(function(minp, maxp, seed)
 					data[vi - area.ystride] = c_filler
 				end
 				if data[vi + area.ystride] == c_air then
-					if math.random()>0.95 then
-						data[vi + area.ystride] = c_moss
-					elseif math.random()>0.995 then
-						data[vi + area.ystride] = c_boulder
+				   local die = math.random()
+					if die > 0.995 then
+					   data[vi + area.ystride] = c_boulder
+					elseif	die > 0.985 then
+					   data[vi + area.ystride] = c_cobble[math.random(1,3)]
+					   p2data[vi + area.ystride] = math.random(0,3)
+					elseif die > 0.95 then
+					   data[vi + area.ystride] = c_moss
 					elseif c_dust ~= nil then
-						data[vi + area.ystride] = c_dust
+					   data[vi + area.ystride] = c_dust
 					end
 				end
 			end
@@ -322,6 +336,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 
 	--send data back to voxelmanip
 	vm:set_data(data)
+	vm:set_param2_data(p2data)
 	--calc lighting
 	vm:set_lighting({day = 0, night = 0})
 	vm:calc_lighting()

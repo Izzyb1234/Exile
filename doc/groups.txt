@@ -8,6 +8,7 @@ slippery
 falling_node
 attached_node
 `nobones`: Don't put this item into bones piles. e.g. crafting spots
+		Note: This destroys the item upon player death
 
 Digging:
 ---------

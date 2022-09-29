@@ -211,7 +211,7 @@ minetest.register_node("nodes_nature:snow", {
 	sounds = nodes_nature.node_sound_snow_defaults(),
 	on_use = exile_eatdrink,
 	on_rightclick = function (pos,node,clicker,itemstack,pointed_thing)
-		minimal.slabs_combine(pos,node,itemstack,'nodes_nature:snow_block')
+		return minimal.slabs_combine(pos,node,itemstack,'nodes_nature:snow_block')
 	end,
 })
 

@@ -69,11 +69,12 @@ From Minetest Game Default:
 
 
 
-Authors of media (textures)
+Authors of media (textures, models)
 ------------------------
 Dokimi (CC BY-SA 3.0)
-
-
+Jan Wielkiewicz (CC BY-SA 3.0)
+    cobble models (modified boulder)
+    
 From Minetest Game Default:
   Gambit (CC BY-SA 3.0):
     default_snow.png
