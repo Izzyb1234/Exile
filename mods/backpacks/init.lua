@@ -39,17 +39,14 @@ function get_description(node,meta)
 end
 
 local on_construct = function(pos, width, height)
-print("-----backpack:on_construct---")
 	local meta = minetest.get_meta(pos)
 	local form = get_formspec(pos, width, height)
 	meta:set_string("formspec", form)
 	local inv = meta:get_inventory()
 	inv:set_size("main", width*height)
-print(dump(meta:to_table()))
 end
 
 local after_place_node = function(pos, placer, itemstack, pointed_thing)
-print('---------backpacks:after_place_node----------')
 	local node = minetest.get_node(pos)
 	local meta = minetest.get_meta(pos)
 	local imeta = itemstack:get_meta()
@@ -75,7 +72,6 @@ print('---------backpacks:after_place_node----------')
 end
 
 local preserve_metadata = function(pos, oldnode, oldmeta, drops,width,height)
-print('---------preserve_metadata----------')
 	local item = drops[1]
 	local imeta = item:get_meta()
 	-- Transfer inventory to item

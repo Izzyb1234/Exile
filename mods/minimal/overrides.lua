@@ -45,25 +45,13 @@ function minetest.node_dig(pos, node, digger)
 	return old_node_dig(pos, node, digger)
 end
 
--- Transfer item metadata to the node.
---minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack, pointed_thing)
---print('!!!!-------------register_on_place-----------------')
---	local imeta = itemstack:get_meta()
---	local meta = minetest.get_meta(pos)
---print(dump(imeta:to_table()))
---print(dump(meta:to_table()))
---	minimal.metadata.after_place_node(imeta,meta)
---end)
-
 -- Transfer metadata from node to item and back.
 minetest.register_on_mods_loaded(function()
 	-- Add a preserve_metadata callback to all nodes
 	for oName, override in pairs( minetest.registered_nodes ) do
---print(oName..">--<"..dump(override))
 		local old_preserve_metadata = override.preserve_metadata
 		minetest.override_item(oName, {
 			preserve_metadata = function(pos, oldNode, oldmeta, drops)
-print('-------OVERRIDE - preserve_metadata -'..oName..'------')
 				if drops[1] then
 					local imeta=drops[1]:get_meta()
 					minimal.metadata.preserve_metadata(imeta,oldmeta)
@@ -77,11 +65,8 @@ print('-------OVERRIDE - preserve_metadata -'..oName..'------')
 		local old_after_place_node = override.after_place_node
 		minetest.override_item(oName, {
 			after_place_node = function(pos, placer, itemstack, pointed_thing)
-print('-------OVERRIDE - after_place_node -'..oName..'------')
 				local imeta = itemstack:get_meta()
 				local meta = minetest.get_meta(pos)
-			print(dump(imeta:to_table()))
-			print(dump(meta:to_table()))
 				minimal.metadata.after_place_node(imeta,meta)
 				if type(old_after_place_node) == 'function' then
 					old_after_place_node(pos, placer, itemstack, pointed_thing)

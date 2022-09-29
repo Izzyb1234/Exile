@@ -7,7 +7,6 @@ local S = tech.S
 
 ---------------------------------------------------
 local function get_storage_formspec(pos, w, h, meta)
-print('-------------tech:storage:get_storage_formspec-----------------')
 	local creator = meta:get_string('creator')
 	local label = meta:get_string('label')
 	minimal.infotext_merge(pos, 'Label: '..label, meta)
@@ -48,7 +47,6 @@ end
 
 
 local on_construct = function(pos, width, height)
-print("----------------Storage:on_construct-------------------")
 	local meta = minetest.get_meta(pos)
 
 	local form = get_storage_formspec(pos, width, height, meta)
@@ -56,8 +54,6 @@ print("----------------Storage:on_construct-------------------")
 
 	local inv = meta:get_inventory()
 	inv:set_size("main", width*height)
-
-print(dump(meta:to_table()))
 end
 
 local on_receive_fields = function(pos, formname, fields, sender, width, height)

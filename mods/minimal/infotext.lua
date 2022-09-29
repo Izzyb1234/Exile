@@ -38,17 +38,6 @@ function table.removekey(table, key)
 	return nil
 end
 
-function infotext.print_debug(msg,old_lines,new_lines,unkeyed,output_lines)
-	if debug == 1 then
-		print (msg)
-		print ("old_lines"..dump(old_lines))
-		print ("new_lines"..dump(new_lines))
-		print ("unkeyed: "..dump(unkeyed))
-		print ("output_lines: "..dump(output_lines))
-	end
-end
-
-
 -- Split infotext line into keyed or unkeyed list. 
 function infotext.parse_key(line,keyed_list,unkeyed_list)
 	local ikey = line:find(':',1,true)
@@ -61,7 +50,6 @@ function infotext.parse_key(line,keyed_list,unkeyed_list)
 		line = ""
 	end
 	if key then
---print("<<<"..(key or "")..">>>")
 		keyed_list[key] = line
 	else
 		table.insert(unkeyed_list,line)
@@ -76,15 +64,11 @@ function infotext.parse_meta(meta)
 	local unkeyed = {} -- lines without keys
 	local infotext_string = meta:get_string("infotext")
 	if infotext_string ~= '' then
---print("---------\nINFOTEXT:  "..infotext_string)
 		for line in infotext_string:gmatch("[^\r\n]+") do
---print ("gmatch: "..line)
 			infotext.parse_key(line,keyed,unkeyed)
 		end
 		table.remove(unkeyed,1) -- remove the description from the old infotext
 	end
---print ("old_lines: "..dump(keyed))
---print ("unkeyed_lines:"..dump(unkeyed))
 	return keyed,unkeyed
 end
 
@@ -100,10 +84,8 @@ function infotext.parse_new(lines,unkeyed)
 			table.insert(lines,line)
 		end
 	end
---print ("infotext.parse_new\n----\n"..dump(lines))
 	if lines and type(lines) == 'table' then
 		for _,line in ipairs(lines) do
---print("parse_new - line: "..line)
 			infotext.parse_key(line,keyed,unkeyed)
 		end
 	end
@@ -149,7 +131,6 @@ function minimal.infotext_output_meta(meta,output_lines)
 	end
 	text = text:sub(1, -2) -- remove last \n
 	meta:set_string("infotext",text)
---print (text)
 	return text
 end
 
@@ -188,10 +169,8 @@ function infotext.append_fixed_order(output_lines,old_lines,new_lines)
 		local new_line=table.removekey(new_lines, ordered_key)
 		if i > 1 then -- skip writing out Owner; already added above
 			if new_line then
---print ("NEW_LINE==="..new_line)
 				table.insert(output_lines,new_line)
 			elseif old_line then
---print ("OLD_LINE==="..old_line)
 				table.insert(output_lines,old_line)
 			end
 		end
@@ -217,21 +196,14 @@ function minimal.infotext_merge(pos, add_lines, meta)
 		meta = minetest.get_meta(pos)
 	end
 
---print ("***************************\n"..dump(pos))
 	local output_lines = infotext.append_desc_owner(pos,meta)
 	local old_lines,unkeyed = infotext.parse_meta(meta)
 	local new_lines = infotext.parse_new(add_lines, nil, unkeyed)
---infotext.print_debug("Before Ordered Lines",old_lines,new_lines,unkeyed,output_lines)
 	infotext.append_fixed_order(output_lines,old_lines,new_lines)
---infotext.print_debug("After Append Ordered Lines",old_lines,new_lines,unkeyed,output_lines)
 	infotext.append_keys(output_lines,new_lines,old_lines)
---infotext.print_debug("After Appending new Keys",old_lines,new_lines,unkeyed,output_lines)
 	infotext.append_keys(output_lines,old_lines)
---infotext.print_debug("After Appending old Keys",old_lines,new_lines,unkeyed,output_lines)
 	infotext.append_unkeyed(output_lines,unkeyed)
---infotext.print_debug("After Appending UNKEYED",old_lines,new_lines,unkeyed,output_lines)
 	local out= minimal.infotext_output_meta(meta,output_lines)
---print(out)
 	return out
 end
 
@@ -256,20 +228,16 @@ function minimal.infotext_set(pos,meta,text)
 	if text and text ~= "" then
 		output=output.."\n"..text
 	end
---print("[minimal.infotext_set()]\n"..output.."\n--------------\n")
 	meta:set_string("infotext",output)
 end
 --XXX More testing needed on this
 function minimal.infotext_delete_key(meta,key)
 	local infotext_string = meta:get_string("infotext")
---print(infotext_string)
 	if infotext_string ~= '' then
---print(key..':')
 		--XXX Not capturing the \n at the end of the line
 		infotext_string = infotext_string:gsub(key..':[^\n]+[\n]*','')
 	end
 	meta:set_string("infotext",infotext_string)
---print(infotext_string)
 end
 
 function minimal.infotext_clear(pos,meta)
@@ -282,28 +250,21 @@ end
 --XXX More testing needed on this
 --update a key in infotext
 function minimal.infotext_update_key(pos,key,text,meta)
-print("---------------[minimal.infotext_update_key]-----------")
 	local infotext_string = meta:get_string("infotext")
-print(infotext_string)
 	if infotext_string ~= '' then
 		infotext_string = infotext_string:gsub('('..key..":)[^\n]+","%1 "..text)
 	end
 	meta:set_string("infotext",infotext_string)
-print(key..":")
-print(infotext_string)
-print("------------------------------------------------------")
 end
 
 --XXX Testing needed on this
 --update a description in infotext
 function minimal.infotext_update_desc(pos,key,text,meta)
 	local infotext_string = meta:get_string("infotext")
---print(infotext_string)
 	if infotext_string ~= '' then
 		infotext_string = infotext_string:gsub("[^\n]+",text,1)
 	end
 	meta:set_string("infotext",infotext_string)
---print(key..":')
 end
 
 
