@@ -394,7 +394,7 @@ minetest.register_node('tech:large_wood_fire', {
 		local meta = minetest.get_meta(pos)
 		local fuel = meta:get_int("fuel")
 		if fuel < 1 then
-			minimal.switch.node(pos, {name = "tech:wood_ash_block"})
+			minimal.switch_node(pos, {name = "tech:wood_ash_block"})
 			return false
 		elseif can_burn_air(pos, meta, "tech:large_wood_fire_smoldering", "tech:wood_ash_block") then
 			hearth_fire_on(pos)
