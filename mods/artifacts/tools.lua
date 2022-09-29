@@ -336,7 +336,6 @@ minetest.register_tool("artifacts:antiquorium_chisel", {
 	inventory_image = "artifacts_antiquorium_chisel.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
-		max_drop_level = 3,
 		groupcaps={
 			cracky = {times={[1]=6.5, [2]=5.5, [3]=4.50}, uses=3000, maxlevel=3},
 		},

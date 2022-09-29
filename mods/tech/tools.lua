@@ -117,7 +117,6 @@ minetest.register_tool("tech:stone_chopper", {
 	inventory_image = "tech_tool_stone_chopper.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int,
-		max_drop_level = crude_max_lvl,
 		groupcaps={
 			choppy = {times={[3]=crude_chop0}, uses=base_use*0.75, maxlevel=crude_max_lvl},
 			snappy= {times={[1]=crude_snap1, [2]=crude_snap2, [3]=crude_snap3}, uses=base_use, maxlevel=crude_max_lvl},
@@ -141,7 +140,6 @@ minetest.register_tool("tech:digging_stick", {
 	inventory_image = "tech_tool_digging_stick.png^[transformR90",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int*1.1,
-		max_drop_level = crude_max_lvl,
 		groupcaps={
 			crumbly = {times= {[1]=crude_crum1, [2]=crude_crum2, [3]=crude_crum3}, uses=base_use, maxlevel=crude_max_lvl}
 		},
@@ -196,7 +194,6 @@ minetest.register_tool("tech:adze_granite", {
 	inventory_image = "tech_tool_adze_granite.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.1,
-		max_drop_level = stone_max_lvl,
 		groupcaps={
 			choppy = {times={[2]=stone_chop2, [3]=stone_chop3}, uses=stone_use, maxlevel=stone_max_lvl},
 			snappy={times={[1]=stone_snap1, [2]=stone_snap2, [3]=stone_snap3}, uses=stone_use *0.8, maxlevel=stone_max_lvl},
@@ -214,7 +211,6 @@ minetest.register_tool("tech:adze_basalt", {
 	inventory_image = "tech_tool_adze_basalt.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.1,
-		max_drop_level = stone_max_lvl,
 		groupcaps={
 			choppy = {times={[2]=stone_chop2, [3]=stone_chop3}, uses=stone_use *0.9, maxlevel=stone_max_lvl},
 			snappy= {times={[1]=stone_snap1, [2]=stone_snap2, [3]=stone_snap3}, uses=stone_use *0.7, maxlevel=stone_max_lvl},
@@ -233,7 +229,6 @@ minetest.register_tool("tech:adze_jade", {
 	inventory_image = "tech_tool_adze_jade.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.1,
-		max_drop_level = stone_max_lvl,
 		groupcaps={
 			choppy = {times={[2]=stone_chop2, [3]=stone_chop3}, uses=stone_use * 1.5, maxlevel=stone_max_lvl},
 			snappy={times={[1]=stone_snap1, [2]=stone_snap2, [3]=stone_snap3}, uses=stone_use, maxlevel=stone_max_lvl},
@@ -253,7 +248,6 @@ minetest.register_tool("tech:stone_club", {
 	inventory_image = "tech_tool_stone_club.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.2,
-		max_drop_level = stone_max_lvl,
 		groupcaps={
 			choppy = {times={[3]=crude_chop3}, uses=base_use*0.5, maxlevel=crude_max_lvl},
 			snappy = {times={[3]=crude_snap3}, uses=base_use*0.5, maxlevel=crude_max_lvl},
@@ -306,7 +300,6 @@ minetest.register_tool("tech:axe_iron", {
 	inventory_image = "tech_tool_axe_iron.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.1,
-		max_drop_level = iron_max_lvl,
 		groupcaps={
 			choppy = {times={[1]=iron_chop1, [2]=iron_chop2, [3]=iron_chop3}, uses=iron_use, maxlevel=iron_max_lvl},
 			snappy = {times={[1]=iron_snap1, [2]=iron_snap2, [3]=iron_snap3}, uses=iron_use, maxlevel=iron_max_lvl},
@@ -325,7 +318,6 @@ minetest.register_tool("tech:shovel_iron", {
 	inventory_image = "tech_tool_shovel_iron.png^[transformR90",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int*1.1,
-		max_drop_level = iron_max_lvl,
 		groupcaps={
 			crumbly = {times= {[1]=iron_crum1, [2]=iron_crum2, [3]=iron_crum3}, uses=iron_use, maxlevel=iron_max_lvl},
 			snappy = {times= {[3]=stone_snap3}, uses=iron_use *0.8, maxlevel=iron_max_lvl},
@@ -347,7 +339,6 @@ minetest.register_tool("tech:mace_iron", {
 	inventory_image = "tech_tool_mace_iron.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.2,
-		max_drop_level = iron_max_lvl,
 		groupcaps={
 			choppy = {times={[3]=crude_chop3}, uses=base_use*0.5, maxlevel=crude_max_lvl},
 			snappy = {times={[3]=crude_snap3}, uses=base_use*0.5, maxlevel=crude_max_lvl},
@@ -366,7 +357,6 @@ minetest.register_tool("tech:pickaxe_iron", {
 	inventory_image = "tech_tool_pickaxe_iron.png",
 	tool_capabilities = {
 		full_punch_interval = base_punch_int * 1.1,
-		max_drop_level = iron_max_lvl,
 		groupcaps={
 			choppy = {times={[3]=stone_chop3}, uses=iron_use *0.8, maxlevel=iron_max_lvl},
 			snappy = {times={[3]=stone_snap3}, uses=iron_use *0.8, maxlevel=iron_max_lvl},
