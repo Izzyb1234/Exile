@@ -213,7 +213,7 @@ local function lay_down(player, level, pos, bed_pos, state, skip)
 	   local p = bed_rest.pos[name] or nil
 	   local bedp = bed_rest.bed_position[name] or nil
 	   if bedp ~= nil then
-	      minetest.get_meta(bedp):set_string("infotext", "")
+		   minimal.infotext_clear(bedp)
 	   end
 	   bed_rest.player[name] = nil
 	   bed_rest.level[name] = nil
@@ -257,10 +257,7 @@ local function lay_down(player, level, pos, bed_pos, state, skip)
 		      and nm ~= name then
 			   minetest.chat_send_player(name, ("This bed is already occupied!"))
 			   local meta = minetest.get_meta(bed_pos)
-			   if meta:get_string("infotext") == "" then
-			      meta:set_string("infotext",
-					      nm.."'s bed")
-			   end
+			   minimal.infotext_merge(bed_pos,'Status: Occupied by '..nm,meta)
 			   return false
 			end
 		end
@@ -269,8 +266,7 @@ local function lay_down(player, level, pos, bed_pos, state, skip)
 		bed_rest.player[name] = 1
 		bed_rest.level[name] = level
 		if not minetest.is_singleplayer() then
-		   minetest.get_meta(bed_pos):set_string("infotext",
-							 name.."'s bed")
+		   minimal.infotext_merge(bed_pos,'Status: Occupied by '..name)
 		   minetest.get_node_timer(bed_pos):start(60 * 60 * 24 *
 							  days_until_timeout)
 		end
@@ -358,7 +354,7 @@ function bed_rest.on_timer(pos, elapsed)
       if vector.distance(pos, other_pos) < 0.1 then
 	 bed_rest.bed_position[nm] = nil
 	 if not minetest.is_singleplayer() then
-	    meta:set_string("infotext", nm.."'s bed (old)")
+		 minimal.infotext_merge(pos,'Status: Occupied by '..nm..'(old)',meta)
 	 end
 	 return false
       end

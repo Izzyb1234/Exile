@@ -420,14 +420,14 @@ local function erode_deplete_ag_soil(pos, depleted_name)
 			new = new:gsub("%_agricultural_soil","")
 			--would prefer stairs:slab, but sand/etc lacks wet
 			new = new:gsub("%nature:","%nature:slope_pike_")
-			minetest.set_node(pos, {name = new})
+			minetest.swap_node(pos, {name = new})
 			return false
 		end
 
 	elseif minetest.get_node({x=pos.x, y=(pos.y+1), z=pos.z}) == 'air' then
 	        -- ^ don't deplete a planted node; already handled in life.lua
 		-- and a 1-2% chance to be depleted via neglect
-		minetest.set_node(pos, {name = depleted_name})
+		minetest.swap_node(pos, {name = depleted_name})
 		return false
 	end
 end
@@ -439,7 +439,7 @@ local function fertilize_ag_soil(pos, puncher, restored_name)
 	local ist_name = itemstack:get_name()
 
 	if minetest.get_item_group(ist_name, "fertilizer") >= 1 then
-		minetest.set_node(pos, {name = restored_name})
+		minetest.swap_node(pos, {name = restored_name})
 		local inv = puncher:get_inventory()
 		inv:remove_item("main", ist_name)
 	end

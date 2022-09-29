@@ -63,9 +63,19 @@ function crafting.make_result_selector(player, type, level, size, context)
 	formspec[#formspec + 1] = ","
 	formspec[#formspec + 1] = tostring(size.y)
 	formspec[#formspec + 1] = "]"
+	
+	-- Crafted by label
+	local creator = context.creator
+	if creator and creator ~= '' then
+		local creator_offset_x =  (3*(30-string.len(creator))/30/2) - 8
+		local craftedby_offset_x = -7.05 -- 3*(30-string.len('crafted by'))/30/2
+
+
+		formspec[#formspec + 1] = "label["..craftedby_offset_x..",0.45;Crafted by:]"
+		formspec[#formspec + 1] = "label["..creator_offset_x..",0.75;"..creator.."]"
+	end
 
 	formspec[#formspec + 1] = "style_type[item_image_button;border=false]"
-
 	formspec[#formspec + 1] = "field_close_on_enter[query;false]"
 	formspec[#formspec + 1] = "field[-4.75,0.81;3,0.8;query;;"
 	formspec[#formspec + 1] = context.crafting_query
@@ -257,12 +267,14 @@ function crafting.make_on_rightclick(type, level, inv_size)
 	end)
 
 	return function(pos, node, player)
+		local meta = minetest.get_meta(pos)
 		local name = player:get_player_name()
 		local context = node_fs_context[name] or {}
 		node_fs_context[name] = context
 		context.pos   = vector.new(pos)
 		context.type  = type
 		context.level = level
+		context.creator = meta:get_string('creator')
 
 		show(player, context)
 	end

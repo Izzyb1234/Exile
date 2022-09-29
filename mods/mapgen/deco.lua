@@ -307,6 +307,24 @@ local gravel_cobble_on = {
    "nodes_nature:gravel",
 }
 
+local cobble_cave_fill_ratio = 0.05
+local cobble_beach_fill_ratio = 0.001
+local cobble_gravel_fill_ratio = 0.001
+
+local beach_cobble_on = {
+   "nodes_nature:silt_wet_salty",
+   "nodes_nature:silt_wet",
+   "nodes_nature:sand_wet_salty",
+   "nodes_nature:sand_wet",
+   "nodes_nature:sand",
+   "nodes_nature:gravel_wet_salty",
+   "nodes_nature:gravel_wet",
+}
+
+local gravel_cobble_on = {
+   "nodes_nature:gravel",
+}
+
 ----Cobbles----
 -- name must be unique to satisfy the mapgen
 -- fill_ratio is the spawn frequency

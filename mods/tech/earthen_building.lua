@@ -267,7 +267,7 @@ minetest.register_node('tech:thatch', {
 	sounds = nodes_nature.node_sound_leaves_defaults(),
 	on_burn = function(pos)
 		if math.random()<0.5 then
-			minetest.set_node(pos, {name = "tech:small_wood_fire"})
+			minimal.switch_node(pos, {name = "tech:small_wood_fire"})
 			minetest.check_for_falling(pos)
 		else
 			minetest.remove_node(pos)

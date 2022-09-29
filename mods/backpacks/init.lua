@@ -4,32 +4,63 @@ backpacks = {}
 local S = minetest.get_translator("backpacks")
 
 local function get_formspec(pos, w, h)
-	local main_offset = 0.85 + h
+	local meta = minetest.get_meta(pos)
+	local creator = meta:get_string('creator')
+	local label = meta:get_string('label')
+
+	local formspec_size_h = 3.85 + h
+	local main_offset = 1.85 + h
+	local label_offset = 0.85 + h
+	local creator_offset_x =  (3*(30-string.len(creator))/30/2) + 5
+	local craftedby_offset_x = 6.05 -- 3*(30-string.len('crafted by'))/30/2 + 5
 
 	local formspec = {
-		"size[8,7]",
+		"size[8,"..formspec_size_h.."]",
 		"list[current_name;main;0,0.3;"..w..","..h.."]",
+		"field[0.5,"..label_offset..";5,1;label;Label:;"..label.."]",
+		"field_close_on_enter[label;false]",
+		"label["..craftedby_offset_x..","..(label_offset-.35)..";Crafted by:]",
+		"label["..creator_offset_x..","..label_offset..";"..creator.."]",
 		"list[current_player;main;0,"..main_offset..";8,2]",
 		"listring[current_name;main]",
-		"listring[current_player;main]",}
-
+		"listring[current_player;main]",
+	}
+	minimal.infotext_merge(pos,'Label: '..label, meta)
 	return table.concat(formspec, "")
 end
 
-local on_construct = function(pos, width, height)
-	local meta = minetest.get_meta(pos)
+function get_description(node,meta)
+	local desc = minetest.registered_nodes[node.name].description
+	local label = meta:get_string('label')
+	if label ~= '' then
+		desc = desc.." - "..label
+	end
+	return desc
+end
 
-	meta:set_string("infotext", S("Backpack"))
+local on_construct = function(pos, width, height)
+print("-----backpack:on_construct---")
+	local meta = minetest.get_meta(pos)
 	local form = get_formspec(pos, width, height)
 	meta:set_string("formspec", form)
-
 	local inv = meta:get_inventory()
 	inv:set_size("main", width*height)
+print(dump(meta:to_table()))
 end
 
 local after_place_node = function(pos, placer, itemstack, pointed_thing)
+print('---------backpacks:after_place_node----------')
+	local node = minetest.get_node(pos)
+	local meta = minetest.get_meta(pos)
+	local imeta = itemstack:get_meta()
+	-- Load inventory
+	local inv_main=imeta:get_string('inv_main')
+		local inv=meta:get_inventory()
+	if inv_main then
+		inv:set_list('main',minetest.deserialize(inv_main))
+	end
+	-- set color
 	if minetest.is_player(placer) == true then
-	   local node = minetest.get_node(pos)
 	   local face = { x = 0, y = 0, z = 1}
 	   local axis = { x = 0, y = 1, z = 0}
 	   local ldir = placer:get_look_horizontal()
@@ -40,20 +71,15 @@ local after_place_node = function(pos, placer, itemstack, pointed_thing)
 	   node.param2 = color + ndir
 	   minetest.swap_node(pos, node)
 	end
-	local meta = minetest.get_meta(pos)
-	local stuff = minetest.deserialize(itemstack:get_metadata())
-	if stuff then
-		meta:from_table(stuff)
-	end
 	itemstack:take_item()
 end
 
-local on_dig = function(pos, node, digger, width, height)
-	if minetest.is_protected(pos, digger:get_player_name()) then
-		return false
-	end
+local preserve_metadata = function(pos, oldnode, oldmeta, drops,width,height)
+print('---------preserve_metadata----------')
+	local item = drops[1]
+	local imeta = item:get_meta()
+	-- Transfer inventory to item
 	local meta = minetest.get_meta(pos)
-	local desc = meta:get_string('description')---
 	local inv = meta:get_inventory()
 	local list = {}
 	for i, stack in ipairs(inv:get_list("main")) do
@@ -63,18 +89,37 @@ local on_dig = function(pos, node, digger, width, height)
 			list[i] = stack:to_string()
 		end
 	end
-	local new_list = {inventory = {main = list},
-			fields = {infotext = S("Backpack"), formspec = get_formspec(pos, width, height), meta:set_string("description", desc)}}
-	local new_list_as_string = minetest.serialize(new_list)
-	local new = ItemStack(node)
-	new:set_metadata(new_list_as_string)
-	local color = minetest.strip_param2_color(node.param2,
+	imeta:set_string('inv_main', minetest.serialize(list))
+	-- Set color
+	local color = minetest.strip_param2_color(oldnode.param2,
 						  "colorwallmounted")
-	new:get_meta():set_int("palette_index", color)
+	imeta:set_int('palette_index', color)
+	-- Set Description
+	imeta:set_string('description', get_description(oldnode,meta))
+	-- Set Formspec
+	imeta:set_string('formspec', get_formspec(pos,width,height))
+end
+
+local on_dig = function(pos, node, digger, width, height)
+	if minetest.is_protected(pos, digger:get_player_name()) then
+		return false
+	end
 	local player_inv = digger:get_inventory()
+	-- See if it fits in invenotry
+	local new = ItemStack(node)
 	if player_inv:room_for_item("main", new) then
-		player_inv:add_item("main", new)
-		minetest.remove_node(pos)
+		--Call default node_dig() to remove node and make item
+		--Causes preserve_metadata() to be called. 
+		return minetest.node_dig(pos, node, digger)
+	end
+	return false
+end
+local on_receive_fields = function (pos, formname, fields, sender, width, height)
+	local label = fields.label
+	if label then
+		local meta = minetest.get_meta(pos)
+		meta:set_string('label', label)
+		on_construct(pos, width, height)
 	end
 end
 
@@ -128,10 +173,18 @@ function backpacks.register_backpack(name, desc, texture, width, height, groups,
 		end,
 		after_place_node = function(pos, placer, itemstack, pointed_thing)
 			after_place_node(pos, placer, itemstack, pointed_thing)
+			on_construct(pos, width, height)
 		end,
 		on_dig = function(pos, node, digger)
 			on_dig(pos, node, digger, width, height)
 		end,
+		preserve_metadata = function(pos, oldnode, oldmeta, drops)
+			preserve_metadata(pos, oldnode, oldmeta, drops, width, height)
+		end,
+		on_receive_fields = function(pos, formname, fields, sender)
+			on_receive_fields(pos, formname, fields, sender, width, height)
+		end,
+
 		allow_metadata_inventory_put = function(pos, listname, index, stack, player)
 			return allow_metadata_inventory_put(pos, listname, index, stack, player)
 		end,

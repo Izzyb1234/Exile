@@ -20,14 +20,15 @@ minimal.S = minetest.get_translator("minimal")
 minimal.FS = function(...)
 	return minetest.formspec_escape(minimal.S(...))
 end
-
-dofile(minetest.get_modpath('minimal')..'/item_names.lua')
-dofile(minetest.get_modpath('minimal')..'/settingswarn.lua')
-dofile(minetest.get_modpath('minimal')..'/aliases.lua')
-dofile(minetest.get_modpath('minimal')..'/overrides.lua')
-dofile(minetest.get_modpath('minimal')..'/protection.lua')
-dofile(minetest.get_modpath('minimal')..'/utility.lua')
-dofile(minetest.get_modpath('minimal')..'/triggers.lua')
+local modpath=minetest.get_modpath('minimal')
+dofile(modpath..'/item_names.lua')
+dofile(modpath..'/settingswarn.lua')
+dofile(modpath..'/aliases.lua')
+dofile(modpath..'/overrides.lua')
+dofile(modpath..'/protection.lua')
+dofile(modpath..'/utility.lua')
+dofile(modpath..'/infotext.lua')
+dofile(modpath..'/metadata.lua')
 
 -- GUI related stuff
 

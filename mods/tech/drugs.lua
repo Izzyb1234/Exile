@@ -173,7 +173,7 @@ minetest.register_node("tech:tang", {
 
 			meta:set_int("thirst", thirst)
       meta:set_int("energy", energy)
-			minetest.set_node(pos, {name = "tech:clay_water_pot"})
+			minetest.swap_node(pos, {name = "tech:clay_water_pot"})
 			minetest.sound_play("nodes_nature_slurp",	{pos = pos, max_hear_distance = 3, gain = 0.25})
 		end
 	end
@@ -264,7 +264,7 @@ minetest.register_node("tech:tang_unfermented", {
 		local meta = minetest.get_meta(pos)
 		local ferment = meta:get_int("ferment")
 		if ferment < 1 then
-			minetest.set_node(pos, {name = "tech:tang"})
+			minetest.swap_node(pos, {name = "tech:tang"})
 			--minetest.check_for_falling(pos)
 			return false
 		else

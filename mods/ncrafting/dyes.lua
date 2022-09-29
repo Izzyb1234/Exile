@@ -386,7 +386,6 @@ minetest.register_node(":ncrafting:dye_table", {
 	   end
 	end,
 	after_place_node = function(pos, placer, itemstack, pointed_thing)
-		minimal.protection_after_place_node(pos, placer, itemstack, pointed_thing)
 	   local meta = minetest.get_meta(pos)
 	   meta:set_string("formspec", table_formspec[0])
 	   local inv = meta:get_inventory()
@@ -521,7 +520,7 @@ local function dyepot_stir(pos, puncher)
       meta:set_int("dye_soak", soak + 1)
    end
    node.param2 = color*8 + spin_table[rotation]
-   minetest.swap_node(pos, node)
+   minimal.switch_node(pos, node)
    return false
 end
 
@@ -611,7 +610,6 @@ minetest.register_node(":ncrafting:dye_pot", {
 	--sounds = nodes_nature.node_sound_stone_defaults(),
 	on_punch = dyepot_punch,
 	after_place_node = function(pos, placer, itemstack, pointed_thing)
-		minimal.protection_after_place_node(pos, placer, itemstack, pointed_thing)
 	   local node = minetest.get_node(pos)
 	   local color = tonumber(itemstack:get_meta():get_string(
 				     "palette_index")) or 31*8

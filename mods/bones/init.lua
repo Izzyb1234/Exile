@@ -124,7 +124,7 @@ minetest.register_node("bones:bones", {
 			return
 		end
 
-		if minetest.get_meta(pos):get_string("infotext") == "" then
+		if minimal.infotext_is_empty(pos) then
 			return
 		end
 
@@ -158,7 +158,7 @@ minetest.register_node("bones:bones", {
 		local meta = minetest.get_meta(pos)
 		local time = meta:get_int("time") + elapsed
 		if time >= share_bones_time then
-			meta:set_string("infotext", S("@1's old bones", meta:get_string("owner")))
+			minimal.infotext_merge(pos,'Status: '.. S("@1's old bones", meta:get_string("owner")),meta)
 			meta:set_string("owner", "")
 		else
 			meta:set_int("time", time)
@@ -321,8 +321,7 @@ minetest.register_on_dieplayer(function(player)
 	meta:set_string("owner", player_name)
 
 	if share_bones_time ~= 0 then
-		meta:set_string("infotext", S("@1's fresh bones", player_name))
-
+		minimal.infotext_merge(pos,'Status: '..S("@1's fresh bones", player_name),meta)
 		if share_bones_time_early == 0 or not minetest.is_protected(pos, player_name) then
 			meta:set_int("time", 0)
 		else
@@ -331,6 +330,7 @@ minetest.register_on_dieplayer(function(player)
 
 		minetest.get_node_timer(pos):start(10)
 	else
-		meta:set_string("infotext", S("@1's bones", player_name))
+
+		minimal.infotext_merge(pos,'Status: '..S("@1's bones", player_name),meta)
 	end
 end)
