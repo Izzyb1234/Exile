@@ -83,9 +83,10 @@ end
 --1st level
 --Crude emergency tools
 
+local hand_max_lvl = minimal.hand_max_lvl
 local crude = 0.8
 --local crude_use = base_use
-local crude_max_lvl = minimal.hand_max_lvl
+local crude_max_lvl = hand_max_lvl
 
 --damage
 local crude_dmg = minimal.hand_dmg * 2
@@ -165,7 +166,7 @@ Granite is harder than basalt.
 
 local stone = 0.8
 local stone_use = base_use * 2
-local stone_max_lvl = crude_max_lvl
+local stone_max_lvl = hand_max_lvl
 
 --damage
 local stone_dmg = crude_dmg * 2
@@ -270,7 +271,7 @@ minetest.register_tool("tech:stone_club", {
 
 local iron = 0.9
 local iron_use = base_use * 4
-local iron_max_lvl = crude_max_lvl + 1
+local iron_max_lvl = hand_max_lvl + 1
 
 --damage
 local iron_dmg = stone_dmg * 2
