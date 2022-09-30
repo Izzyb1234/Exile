@@ -92,17 +92,17 @@ local crude_max_lvl = hand_max_lvl
 local crude_dmg = minimal.hand_dmg * 2
 --snappy
 local crude_snap3 = minimal.hand_snap * crude
-local crude_snap2 = (minimal.hand_snap * minimal.t_scale2) * crude
-local crude_snap1 = (minimal.hand_snap * minimal.t_scale1) * crude
+local crude_snap2 = crude_snap3 * minimal.t_scale2
+local crude_snap1 = crude_snap3 * minimal.t_scale1
 local crude_snap0 = 100 -- really long dig time - effectively disabled
 --crumbly
 local crude_crum3 = minimal.hand_crum * crude
-local crude_crum2 = (minimal.hand_crum * minimal.t_scale2) * crude
-local crude_crum1 = (minimal.hand_crum * minimal.t_scale1) * crude
+local crude_crum2 = crude_crum3 * minimal.t_scale2
+local crude_crum1 = crude_crum3 * minimal.t_scale1
 local crude_crum0 = 100 -- really long dig time - effectively disabled
 --choppy
 local crude_chop3 = minimal.hand_chop * crude
-local crude_chop2 = (minimal.hand_chop * minimal.t_scale2) * crude
+local crude_chop2 = crude_chop3 * minimal.t_scale2
 --cracky
 --none at this level
 
