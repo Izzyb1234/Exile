@@ -26,7 +26,15 @@ tech_boil.ogg adapted from Bubbling Cauldron, Mike Koenig, Attribution 3.0 , htt
 
 Authors of media (textures)
 ------------------------
-Unless stated, Dokimi (CC BY-SA 3.0)
+Unless stated, Dokimi (CC BY-SA 3.0).
+
+Jan Wielkiewicz (CC BY-SA 3.0)
+- hammer textures
+  modified tech_stick.png originally by BlockMen
+  modified granite, basalt, jade textures by Dokimi
+  * tech_tool_hammer_granite.png
+  * tech_tool_hammer_basalt.png
+  * tech_tool_hammer_jade.png
 
 cx384, WTFPL:
 - tech_charcoal.png

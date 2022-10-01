@@ -310,6 +310,7 @@ local gravel_cobble_on = {
 local cobble_cave_fill_ratio = 0.05
 local cobble_beach_fill_ratio = 0.001
 local cobble_gravel_fill_ratio = 0.001
+local cobble_soil_fill_ratio = 0.0005
 
 local beach_cobble_on = {
    "nodes_nature:silt_wet_salty",
@@ -319,6 +320,10 @@ local beach_cobble_on = {
    "nodes_nature:sand",
    "nodes_nature:gravel_wet_salty",
    "nodes_nature:gravel_wet",
+   "nodes_nature:loam",
+   "nodes_nature:loam_wet",
+   "nodes_nature:clay",
+   "nodes_nature:clay_wet",
 }
 
 local gravel_cobble_on = {
@@ -364,7 +369,7 @@ function generate_cobbles(name, fill_ratio, place_on)
 		  cobble_fill_ratio,                        -- fill_ratio
 		  nil,                                      -- noise_params
 		  y_max,                                    -- y_max
-		     -31000,                                   -- y_min
+		  -31000,                                   -- y_min
 		  "nodes_nature:"..rock_name.."_cobble"..j, -- decoration
 		  nil,                                      -- spawn_by
 		  nil,                                      -- num_spawn_by
@@ -382,6 +387,7 @@ end
 generate_cobbles("cave", cobble_cave_fill_ratio, {})
 generate_cobbles("beach", cobble_beach_fill_ratio, beach_cobble_on)
 generate_cobbles("gravel", cobble_gravel_fill_ratio, gravel_cobble_on)
+generate_cobbles("soil", cobble_soil_fill_ratio, all_soils_on)
 
 ----Register----
 for i in ipairs(decoration_list) do

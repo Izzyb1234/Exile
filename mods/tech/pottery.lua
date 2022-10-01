@@ -15,6 +15,7 @@ local firing_int = ncrafting.firing_int
 ---
 --Broken Pottery
 --if you smash it up, or from failed firings
+--slab
 minetest.register_node("tech:broken_pottery", {
 	description = S("Broken Pottery"),
 	tiles = {"tech_broken_pottery.png"},
@@ -25,6 +26,20 @@ minetest.register_node("tech:broken_pottery", {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
 	},
+	groups = {cracky = 3, falling_node = 1, oddly_breakable_by_hand = 3},
+	sounds = nodes_nature.node_sound_gravel_defaults(),
+        on_rightclick = function (pos,node,clicker,itemstack,pointed_thing)
+           return minimal.slabs_combine(pos,node,itemstack,"tech:broken_pottery_block")
+	end,
+})
+
+--full block
+minetest.register_node("tech:broken_pottery_block", {
+	description = S("Broken Pottery"),
+	tiles = {"tech_broken_pottery.png"},
+	stack_max = minimal.stack_max_bulky,
+	paramtype = "light",
+	drawtype = "nodebox",
 	groups = {cracky = 3, falling_node = 1, oddly_breakable_by_hand = 3},
 	sounds = nodes_nature.node_sound_gravel_defaults(),
 })
@@ -520,6 +535,23 @@ crafting.register_recipe({
 	type = "mixing_spot",
 	output = "tech:broken_pottery",
 	items = {"group:pottery"},
+	level = 1,
+	always_known = true,
+})
+
+--Combine broken pottery slabs and vice versa
+crafting.register_recipe({
+	type = "mixing_spot",
+	output = "tech:broken_pottery_block",
+	items = {"tech:broken_pottery 2"},
+	level = 1,
+	always_known = true,
+})
+
+crafting.register_recipe({
+	type = "mixing_spot",
+	output = "tech:broken_pottery 2",
+	items = {"tech:broken_pottery_block"},
 	level = 1,
 	always_known = true,
 })
