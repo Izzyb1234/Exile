@@ -109,6 +109,14 @@ function bed_rest.register_bed(name, def)
 			return itemstack
 		end,
 
+		preserve_metadata = function(pos, oldnode, oldmeta, drops)
+			local bedInv = minetest.get_meta(pos):get_inventory()
+			local blanket=bedInv:get_stack('main',1)
+			if blanket:get_count() > 0 then
+				drops[2]=blanket
+			end
+		end,
+
 		on_destruct = function(pos)
 			destruct_bed(pos, 1)
 		end,

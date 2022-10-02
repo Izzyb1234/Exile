@@ -133,32 +133,26 @@ local function break_taker(name, prefs)
 	end
 end
 
-
---grab_blanket(inv = clothing_inv, list = "clothing") for removal
------------------------------------------------------------------
-local function wear_blanket(player, donning)
-   local name = player:get_player_name()
-   local plyrinv = player:get_inventory()
-   local frominvl = "cloths"  local toinvl = "main"
-   if donning then
-      frominvl = "main"
-      toinvl = "cloths"
-   end
-   local cinv = plyrinv:get_list(frominvl)
-   local newstack = ItemStack("")
+local function blanket_find(inv,listName)
+   local cinv = inv:get_list(listName)
+   local blanket = nil  --ItemStack("")
    for i = 1, #cinv do
       local stack = ItemStack(cinv[i])
       if stack:get_count() > 0 then
 	 local def = stack:get_definition()
 	 if def.groups.blanket and def.groups.blanket > 0 then
-	    newstack = ItemStack(def.name)
-	    plyrinv:remove_item(frominvl, newstack)
-	    break
+	    blanket = ItemStack(def.name)
+	    inv:remove_item(listName, blanket)
+	    return blanket
 	 end
       end
    end
-   if plyrinv:room_for_item(toinvl, newstack) then
-      local tinv = plyrinv:get_list(toinvl)
+   return nil
+end
+
+local function blanket_put(newstack,inv,listName)
+   if inv:room_for_item(listName, newstack) then
+      local tinv = inv:get_list(listName)
       local pointer = 0 -- find the last empty slot, put it there, not first
       for i = 1, #tinv do
 	 if ItemStack(tinv[i]):item_fits(newstack) then
@@ -166,15 +160,65 @@ local function wear_blanket(player, donning)
 	 end
       end
       newstack:add_item(ItemStack(tinv[pointer]))
-      plyrinv:set_stack(toinvl, pointer, newstack)
-   elseif donning then -- can't put it on, return it to main inv
-      plyrinv:add_item(frominvl, newstack)
-   else -- or drop it at our feet if there's no room when taking it off
-      local ppos = player:get_pos()
-      minetest.item_drop(newstack, player, ppos)
-      minetest.chat_send_player(name, "You have no room to hold your blanket, so you drop it.")
-      minetest.sound_play("nodes_nature_dig_snappy",
-			  {pos = ppos, gain = .8, max_hear_distance = 2})
+      inv:set_stack(listName, pointer, newstack)
+      return true
+   end
+   return false
+end
+
+--grab_blanket(inv = clothing_inv, list = "clothing") for removal
+-----------------------------------------------------------------
+local function wear_blanket(player, bed_pos, donning)
+   local bed_meta = minetest.get_meta(bed_pos)
+   local bedInv = bed_meta:get_inventory()
+   bedInv:set_size('main',1)
+
+   local name = player:get_player_name()
+   local plyrInv = player:get_inventory()
+   local frominvl = "cloths"  local toinvl = "main" local putInv = bedInv
+   local newstack = ItemStack('')
+   if donning then
+	frominvl = "main"
+	toinvl = "cloths"
+	putInv = plyrInv
+	newstack = bedInv:get_stack('main',1)
+	if newstack:get_count() > 0 then
+		-- remove it
+		bedInv:set_stack('main',1,ItemStack(''))
+	else
+		-- Find one in players inventory
+		newstack = blanket_find(plyrInv, frominvl)
+	end
+   else
+		   -- Find it in players 'cloths' inventory
+		   newstack = blanket_find(plyrInv,frominvl) 
+   end
+
+   if newstack and newstack:get_count() > 0 then
+		--We have a blanket put it someplace
+		if blanket_put(newstack, putInv, toinvl) then
+			newstack = ItemStack('')
+		else
+			if donning then -- can't put it on, return it to bed or main inventory
+				if bedInv:add_item(frominvl, newstack) ~= nil then
+					-- Cant add to bed, add to player
+					newstack = plyrInv:add_item(frominvl, newstack)
+				end
+			else -- failed to put it in bed inventory, try players
+				newstack = blanket_put(newstack, plyrInv, toinvl)
+			end
+		end
+		if newstack:get_count() > 0  then
+			--drop it at our feet if there's no room when taking it off
+			local ppos = player:get_pos()
+			minetest.item_drop(newstack, player, ppos)
+			minetest.chat_send_player(name, "You have no room to hold your blanket, so you drop it.")
+			minetest.sound_play("nodes_nature_dig_snappy",
+				  {pos = ppos, gain = .8, max_hear_distance = 2})
+		end
+   end
+   if not bedInv:is_empty('main') then 
+	   bed_meta:set_string('infotext','Bed: Contains Blanket')
    end
    clothing:update_temp(player)
    player_api.set_texture(player)
@@ -232,7 +276,7 @@ local function lay_down(player, level, pos, bed_pos, state, skip)
 		bed_rest.bed_position[name] = nil
 
 		--remove blanket
-		wear_blanket(player, false)
+		wear_blanket(player, bedp, false)
 
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
@@ -275,7 +319,7 @@ local function lay_down(player, level, pos, bed_pos, state, skip)
 		break_taker(name,player:get_meta():get_string("BreaktakerPref"))
 
 		--wear a blanket from inventory
-		wear_blanket(player, true)
+		wear_blanket(player, bed_pos, true)
 
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x = 0, y = -12, z = 0}, {x = 0, y = -4.5, z = 0})
