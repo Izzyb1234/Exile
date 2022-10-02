@@ -93,10 +93,12 @@ local crude_dmg = minimal.hand_dmg * 2
 local crude_snap3 = minimal.hand_snap * crude
 local crude_snap2 = (minimal.hand_snap * minimal.t_scale2) * crude
 local crude_snap1 = (minimal.hand_snap * minimal.t_scale1) * crude
+local crude_snap0 = 100 -- really long dig time - effectively disabled
 --crumbly
 local crude_crum3 = minimal.hand_crum * crude
 local crude_crum2 = (minimal.hand_crum * minimal.t_scale2) * crude
 local crude_crum1 = (minimal.hand_crum * minimal.t_scale1) * crude
+local crude_crum0 = 100 -- really long dig time - effectively disabled
 --choppy
 local crude_chop3 = minimal.hand_chop * crude
 local crude_chop2 = (minimal.hand_chop * minimal.t_scale2) * crude
@@ -117,9 +119,9 @@ minetest.register_tool("tech:stone_chopper", {
 		full_punch_interval = base_punch_int,
 		max_drop_level = crude_max_lvl,
 		groupcaps={
-			choppy = {times={[3]=crude_chop3}, uses=base_use*0.75, maxlevel=crude_max_lvl},
+			choppy = {times={[3]=crude_chop0}, uses=base_use*0.75, maxlevel=crude_max_lvl},
 			snappy= {times={[1]=crude_snap1, [2]=crude_snap2, [3]=crude_snap3}, uses=base_use, maxlevel=crude_max_lvl},
-			crumbly = {times={[3]=crude_crum3}, uses=base_use*0.5, maxlevel=crude_max_lvl}
+			crumbly = {times={[3]=crude_crum0}, uses=base_use*0.5, maxlevel=crude_max_lvl}
 		},
 		damage_groups = {fleshy= crude_dmg},
 	},

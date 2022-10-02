@@ -293,11 +293,11 @@ for i in ipairs(plantlist) do
 	   g = {snappy = 3, fibrous_plant = 1, attached_node = 1,
 		flammable = 1, flora = 1, temp_pass = 1}
 	elseif type == "mushroom" then
-	   g = {crumbly = 3, attached_node = 1, flammable = 3,
+	   g = {snappy = 3, attached_node = 1, flammable = 3,
 		mushroom = 1, temp_pass = 1}
-	   gs = {crumbly = 3, attached_node = 1, flammable = 3,
+	   gs = {snappy = 3, attached_node = 1, flammable = 3,
 		 mushroom = 1, seedling = 1, temp_pass = 1}
-	   g_seed = {crumbly = 3, attached_node = 1, flammable = 3,
+	   g_seed = {snappy = 3, attached_node = 1, flammable = 3,
 		     mushroom = 1, seed = 1, temp_pass = 1}
 	else
 	   g = {snappy = 3, attached_node = 1, flammable = 2,
@@ -911,7 +911,7 @@ minetest.register_node("nodes_nature:glow_worm", {
 --glowing mushroom
 minetest.override_item("nodes_nature:merki",{
 	light_source = 2,
-	groups = {crumbly = 3, attached_node = 1, flammable = 3, mushroom = 1, temp_pass = 1, bioluminescent= 1}
+	groups = {snappy = 3, attached_node = 1, flammable = 3, mushroom = 1, temp_pass = 1, bioluminescent= 1}
 })
 
 
@@ -1023,7 +1023,7 @@ minetest.override_item("nodes_nature:lambakap",{
 			{-0.0625, -0.1875, 0.0625, 0.0625, 0, 0.1875},
 		}
 	},
-	groups = {crumbly = 3, mushroom = 1, falling_node = 1,
+	groups = {snappy = 3, mushroom = 1, falling_node = 1,
 		  attached_node = 1, flammable = 6, flora = 1,
 		  temp_pass = 1, bioluminescent = 1}
 })
@@ -1065,7 +1065,7 @@ minetest.override_item("nodes_nature:mahal",{
 			{-0.1875, 0.3125, -0.1875, 0.1875, 0.375, 0.1875}, -- NodeBox4
 		}
 	},
-	groups = {choppy = 3, mushroom = 1, woody_plant = 1,
+	groups = {snappy = 3, mushroom = 1, woody_plant = 1,
 		  falling_node = 1, attached_node = 1, flammable = 2,
 		  flora = 1, temp_pass = 1, bioluminescent = 1}
 })
