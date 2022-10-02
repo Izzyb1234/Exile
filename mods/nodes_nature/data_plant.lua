@@ -50,6 +50,7 @@ plantlist = {
 	{"zufani", "Zufani", nil, 1, "mushroom", nil, 2, nil, nil, plant_base_growth * 2, 1, "yellow"},
 	{"galanta", "Galanta", nil, 1, "herbaceous_plant", nil, 4, nil, nil, plant_base_growth *0.8, 1, "green"},
 	{"momo", "Momo", nil, 1, "herbaceous_plant", nil, 2, nil, nil, plant_base_growth *2, 1, "red"},
+	{"tsaplop", "Tsaplop", nil, 1.2, "woody_plant", nil, 0, nil, nil, plant_base_growth * 1.3, 1, "green"},
 	--No function/decorative (when new features get added, consider using these for something)
 	{"orom", "Orom", nil, 1, "herbaceous_plant", nil, 1, nil, nil, plant_base_growth *2, 1, "black"},
 	{"veke", "Veke", nil, 1, "herbaceous_plant", nil, 0, nil, nil, plant_base_growth *2, 1, "black"},
