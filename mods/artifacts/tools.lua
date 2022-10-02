@@ -388,26 +388,41 @@ local animal_probe = function(user, pointed_thing)
     return
   end
 
-  local ent = pointed_thing.ref:get_luaentity()
+  local name = user:get_player_name()
+  local pt_ref = pointed_thing.ref
+  if pt_ref:is_player() then
+	local pt_meta = pt_ref:get_meta()
+	local stats = {
+		health = pt_ref:get_hp(),
+		hunger = (pt_meta:get_int('hunger')/1000*100)..'%',
+		thirst = (pt_meta:get_int('thirst')/100*100)..'%',
+		energy = (pt_meta:get_int('energy')/1000*100)..'%',
+		body_temp = pt_meta:get_int('temperature'),
+		effects = pt_meta:get_int('effects_num'),
+	}
+	minetest.chat_send_player(name, minetest.colorize("#00ff00", "PLAYER CONDITION:"))
+	minetest.chat_send_player(name, minetest.colorize("#cc6600",
+		"Health: "..stats.health..
+		"    Energy: "..stats.energy..
+		"    Body Temp: "..stats.body_temp..
+		"    Hunger: "..stats.hunger..
+		"    Thirst: "..stats.thirst..
+		"    Effects: "..stats.effects
+	))
+  else
+	local ent = pt_ref:get_luaentity()
+	if not ent.memory then -- not a mobkit entity with a memory
+		return
+	end
+	local r_ent_e = math.floor(mobkit.recall(ent,'energy'))
+	local r_ent_a = math.floor(mobkit.recall(ent,'age'))
 
-  if not ent.memory then -- not a mobkit entity with a memory
-     return
-  end
-
-  local r_ent_e = math.floor(mobkit.recall(ent,'energy'))
-  local r_ent_a = math.floor(mobkit.recall(ent,'age'))
-
-  if not r_ent_e or not r_ent_a then
-    return
-  end
-
-
-  local name =user:get_player_name()
-
+	if not r_ent_e or not r_ent_a then
+		return
+	end
 	minetest.chat_send_player(name, minetest.colorize("#00ff00", "ANIMAL CONDITION:"))
-
-  minetest.chat_send_player(name, minetest.colorize("#cc6600","Age: "..r_ent_a.. " sec    Energy: "..r_ent_e.." units"))
-
+	minetest.chat_send_player(name, minetest.colorize("#cc6600","Age: "..r_ent_a.. " sec    Energy: "..r_ent_e.." units"))
+  end
 end
 
 minetest.register_craftitem("artifacts:animal_probe", {
