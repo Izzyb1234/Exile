@@ -50,7 +50,7 @@ minetest.register_node("tech:broken_pottery_block", {
 -------------------------------------------------------------------
 --THIS SHOULD BE MOVED somewhere GENERALIZED to handle non-pottery pots
 function water_pot(pos, pot_name, elapsed)
-	local light = minetest.get_natural_light({x=pos.x, y=pos.y + 1, z=pos.z}, 0.5)
+	local light = minimal.get_daylight({x=pos.x, y=pos.y + 1, z=pos.z}, 0.5)
 	--collect rain
 	if light == 15 then
 	   if climate.get_rain(pos, light) or

@@ -8,6 +8,7 @@ local S = nodes_nature.S
 ---------------------------------------
 local random = math.random
 local floor = math.floor
+local c_alpha = minimal.compat_alpha
 
 plant_base_growth = plant_base_growth
 plant_base_timer = plant_base_timer
@@ -101,7 +102,7 @@ local function grow_seed(pos, seed_name, plant_name, place_p2, timer_avg, elapse
 
 	--cannot grow indoors (unless a mushroom)
 	if minetest.get_item_group(plant_name, "mushroom") == 0 then
-		local light = minetest.get_natural_light({x=pos.x, y=pos.y + 1, z=pos.z}, 0.5)
+		local light = minimal.get_daylight({x=pos.x, y=pos.y + 1, z=pos.z}, 0.5)
 		if not light or light < 13 then
 			return
 		end
@@ -514,7 +515,7 @@ for i in ipairs(plantlist) do
 			fixed = {-0.3, -0.5, -0.3,  0.3, -0.48, 0.3},
 		},
 		stack_max = minimal.stack_max_light,
-		use_texture_alpha = "clip",
+		use_texture_alpha = c_alpha.clip,
 		paramtype = "light",
 		floodable = true,
 		sunlight_propagates = true,

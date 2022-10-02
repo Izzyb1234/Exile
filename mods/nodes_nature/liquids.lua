@@ -7,7 +7,7 @@ local S = nodes_nature.S
 
 local ran = math.random
 
-
+local c_alpha = minimal.compat_alpha
 
 --Water
 local list = {
@@ -21,7 +21,7 @@ for i in ipairs(list) do
 	local name = list[i][1]
 	local desc = list[i][2]
 	local water_g = list[i][3]
-	local alpha = "blend" -- list[i][4]
+	local alpha = c_alpha.blend -- list[i][4]
 	local post_alpha = list[i][5]
 	local renew = list[i][6]
 
@@ -265,7 +265,7 @@ minetest.register_node("nodes_nature:ice", {
 	tiles = {"nodes_nature_ice.png"},
 	stack_max = minimal.stack_max_bulky,
 	paramtype = "light",
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	temp_effect = -4,
 	temp_effect_max = 0,
 	groups = {cracky = 3, crumbly = 1, cools_lava = 1, puts_out_fire = 1, slippery = 3, temp_effect = 1},
@@ -280,7 +280,7 @@ minetest.register_node("nodes_nature:sea_ice", {
 	tiles = {"nodes_nature_ice.png"},
 	paramtype = "light",
 	drop = "nodes_nature:ice",
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	temp_effect = -4,
 	temp_effect_max = 0,
 	groups = {cracky = 3, crumbly = 1, cools_lava = 1, puts_out_fire = 1, slippery = 3, temp_effect = 1},

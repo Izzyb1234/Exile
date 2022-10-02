@@ -41,6 +41,8 @@ Panes: cast on to an iron tray, then polished. Only get small panes.
 -- Internationalization
 local S = tech.S
 
+local c_alpha = minimal.compat_alpha
+
 -- Pre-roast  functions
 local function set_roast(pos, length, interval)
 	-- and firing count
@@ -148,7 +150,7 @@ minetest.register_node("tech:green_glass_ingot", {
 	paramtype = "light",
 	groups = {cracky = 3, oddly_breakable_by_hand = 3, falling_node = 1, temp_pass = 1, heatable = 20},
 	sounds = nodes_nature.node_sound_glass_defaults(),
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	sunlight_propagates = true,
 	on_construct = function(pos)
 	   minetest.get_node_timer(pos):start(20)
@@ -231,7 +233,7 @@ minetest.register_node("tech:potash_source", {
 	drawtype = "flowingliquid",
 	tiles = {"tech_potash.png"},
 	special_tiles = {"tech_potash.png"},
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	paramtype = "light",
 	paramtype2 = "flowingliquid",
 	walkable = false,
@@ -403,7 +405,7 @@ minetest.register_node("tech:clear_glass_ingot", {
 	paramtype = "light",
 	groups = {cracky = 3, oddly_breakable_by_hand = 3, falling_node = 1, temp_pass = 1, heatable = 20},
 	sounds = nodes_nature.node_sound_glass_defaults(),
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	sunlight_propagates = true,
 	on_construct = function(pos)
 	   minetest.get_node_timer(pos):start(20)
@@ -549,7 +551,7 @@ minetest.register_node("tech:pane_green",
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky = 3, oddly_breakable_by_hand = 3},
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	sunlight_propagates = true,
 	sounds = nodes_nature.node_sound_glass_defaults(),
 	after_place_node = minimal.protection_after_place_node,
@@ -570,7 +572,7 @@ minetest.register_node("tech:pane_clear",
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky = 3, oddly_breakable_by_hand = 3},
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	sunlight_propagates = true,
 	sounds = nodes_nature.node_sound_glass_defaults(),
 	after_place_node = minimal.protection_after_place_node,
@@ -618,7 +620,7 @@ minetest.register_node("tech:window_clear",
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky = 3, oddly_breakable_by_hand = 3},
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	sunlight_propagates = true,
 	sounds = nodes_nature.node_sound_glass_defaults(),
 	after_place_node = minimal.protection_after_place_node,
@@ -663,7 +665,7 @@ minetest.register_node("tech:glass_bottle_green", {
 	end,
 	groups = {dig_immediate = 2, pottery = 1, temp_pass = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	selection_box = {
 		type='fixed',
 		fixed={-0.275, -0.5, -0.225, 0.25, 0.35, 0.275},
@@ -689,7 +691,7 @@ minetest.register_node("tech:glass_bottle_clear", {
 	end,
 	groups = {dig_immediate = 2, pottery = 1, temp_pass = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	selection_box = {
 		type='fixed',
 		fixed={-0.275, -0.5, -0.225, 0.25, 0.35, 0.275},
@@ -752,7 +754,7 @@ liquid_store.register_stored_liquid(
 
 minetest.override_item("tech:glass_bottle_green_saltwater",
 {
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	sunlight_propagates = true,
 	stack_max = minimal.stack_max_bulky * 2,
 	drawtype = "mesh",
@@ -796,7 +798,7 @@ liquid_store.register_stored_liquid(
 
 minetest.override_item("tech:glass_bottle_clear_saltwater",
 {
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	sunlight_propagates = true,
 	stack_max = minimal.stack_max_bulky * 2,
 	drawtype = "mesh",
@@ -844,7 +846,7 @@ minetest.override_item("tech:glass_bottle_green_freshwater",
 {
 	drawtype = "mesh",
 	mesh = "tech_bottle_liquid.obj",
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	sunlight_propagates = true,
 	stack_max = minimal.stack_max_bulky * 2,
 	selection_box = {
@@ -910,7 +912,7 @@ minetest.override_item("tech:glass_bottle_clear_freshwater",
 {
 	drawtype = "mesh",
 	mesh = "tech_bottle_liquid.obj",
-	use_texture_alpha = "blend",
+	use_texture_alpha = c_alpha.blend,
 	sunlight_propagates = true,
 	stack_max = minimal.stack_max_bulky * 2,
 	selection_box = {

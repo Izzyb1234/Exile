@@ -4,6 +4,7 @@
 --also for getting weather status
 -- for use by other mods (e.g. health)
 
+local c_alpha = minimal.compat_alpha
 
 
 -------------------------------
@@ -17,7 +18,7 @@ climate.get_rain = function(pos, l)
 	end
 	--check if raining and outside
 	if not l then
-		l = minetest.get_natural_light({x=pos.x, y=pos.y + 1, z=pos.z}, 0.5)
+		l = minimal.get_daylight({x=pos.x, y=pos.y + 1, z=pos.z}, 0.5)
 	end
 
 	local w = climate.active_weather.name
@@ -41,7 +42,7 @@ climate.get_snow = function(pos, l)
 	end
 	--check if raining and outside
 	if not l then
-		l = minetest.get_natural_light({x=pos.x, y=pos.y + 1, z=pos.z}, 0.5)
+		l = minimal.get_daylight({x=pos.x, y=pos.y + 1, z=pos.z}, 0.5)
 	end
 
 	local w = climate.active_weather.name
@@ -67,7 +68,7 @@ climate.can_evaporate = function(pos, l)
 	end
 
 	if not l then
-		l = minetest.get_natural_light(posa, 0.5)
+		l = minimal.get_daylight(posa, 0.5)
 	end
 
 	--not when raining, i.e high humidity
@@ -171,7 +172,7 @@ climate.get_damage_weather = function(pos, l)
 	end
 	--check if a damage weather and outside
 	if not l then
-		l = minetest.get_natural_light({x=pos.x, y=pos.y + 1, z=pos.z}, 0.5)
+		l = minimal.get_daylight({x=pos.x, y=pos.y + 1, z=pos.z}, 0.5)
 	end
 
 	if l == 15 and climate.active_weather.damage then
@@ -200,11 +201,11 @@ local adjust_for_heatable = function(pos, name, temp)
 	return temp
 end
 
---Shelter. 
+--Shelter.
 local adjust_for_shelter = function(pos, temp, av_temp)
 	--Shelter. Brings temp closer to average
 	--daytime dark is the closest proxy for shelter.
-	local light = minetest.get_natural_light({x=pos.x, y=pos.y+1, z=pos.z}, 0.5)
+	local light = minimal.get_daylight({x=pos.x, y=pos.y+1, z=pos.z}, 0.5)
 	if light and light <= 14 then
 		if light <= 10 then     -- 1-10
 			temp = (temp*0.25)+(av_temp*0.75)
@@ -482,7 +483,7 @@ local air_def = {
 	end,
 	post_effect_color = {a = 5, r = 254, g = 254, b = 254},
 	color = {a=0, r=254, g = 254, b = 254},
-	use_texture_alpha = "blend"
+	use_texture_alpha = c_alpha.blend
 }
 minetest.register_node("climate:air_temp", air_def)
 air_def.description = "Temperature Effect Air (Visible)"

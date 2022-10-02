@@ -31,9 +31,9 @@ end
 
 function minimal.get_daylight(pos, tod)
    if minetest.get_natural_light then
-      minetest.get_natural_light(pos, tod)
+      return minetest.get_natural_light(pos, tod)
    else
-      minetest.get_node_light(pos,tod)
+      return minetest.get_node_light(pos,tod)
    end
 end
 
