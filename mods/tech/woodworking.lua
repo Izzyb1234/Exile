@@ -146,7 +146,7 @@ minetest.override_item("tech:wooden_water_pot_freshwater",{
 			--e.g. rain vs mud puddle
 
 			meta:set_int("thirst", thirst)
-			minetest.set_node(pos, {name = "tech:wooden_water_pot"})
+			minetest.swap_node(pos, {name = "tech:wooden_water_pot"})
 			minetest.sound_play("nodes_nature_slurp",	{pos = pos, max_hear_distance = 3, gain = 0.25})
 		end
 	end
@@ -195,7 +195,7 @@ minetest.register_node("tech:wooden_ladder", {
     local pos_under = {x = pos.x, y = pos.y - 1, z = pos.z}
     local under = minetest.get_node(pos_under)
     if minetest.get_item_group(under.name, "ladder") > 0 then
-       minetest.set_node(pos, {name = node.name, param1 = node.param1,
+       minetest.swap_node(pos, {name = node.name, param1 = node.param1,
 			       param2 = under.param2})
     end
  end,

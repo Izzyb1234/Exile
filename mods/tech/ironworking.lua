@@ -61,12 +61,12 @@ local function roast(pos, selfname, name, length, heat, smelt)
 		--for others doesn't matter
 		if name == "tech:iron_and_slag" then
 			temp = meta:get_float("temp")
-			minetest.set_node(pos, {name = name})
+			minimal.switch_node(pos, {name = name})
 			meta:set_float("temp", temp)
 			minetest.check_for_falling(pos)
 			return false
 		else
-			minetest.set_node(pos, {name = name})
+			minimal.switch_node(pos, {name = name})
 			minetest.check_for_falling(pos)
 			return false
 		end
@@ -518,4 +518,22 @@ crafting.register_recipe({
 	level = 1,
 	always_known = true,
 })
+
+-- Protection Nails
+minetest.register_craftitem("tech:nails", {
+        description = S("Protection Nails - Click 3 times"),
+        inventory_image = "tech_iron_nails.png",
+        stack_max = minimal.stack_max_light,
+	on_use = minimal.protection_nail_use
+})
+
+
+crafting.register_recipe({
+	type = "anvil",
+	output = "tech:nails 8",
+	items = {'tech:iron_ingot 1',},
+	level = 1,
+	always_known = true,
+})
+
 

@@ -60,7 +60,7 @@ local function till_soil(itemstack, placer, pointed_thing, uses)
 		--figure out what soil it is from dropped
 		local ag_soil = nodedef._ag_soil
 
-		minetest.set_node(pointed_thing.under, {name = ag_soil})
+		minetest.swap_node(pointed_thing.under, {name = ag_soil})
 		minetest.sound_play("nodes_nature_dig_crumbly", {pos = pointed_thing.under, gain = 0.5,})
 
 

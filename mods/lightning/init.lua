@@ -184,7 +184,7 @@ lightning.strike = function(pos, cosmetic)
 	pos2.y = pos2.y - 1
 	local n = minetest.get_node(pos2)
 	if minetest.get_item_group(n.name, "tree") > 0 then
-		minetest.set_node(pos2, { name = "tech:large_wood_fire_smoldering"})
+		minetest.swap_node(pos2, { name = "tech:large_wood_fire_smoldering"})
 	--elseif minetest.get_item_group(n.name, "sand") > 0 then
 		--minetest.set_node(pos2, { name = "default:glass"})
 	--elseif minetest.get_item_group(n.name, "soil") > 0 then

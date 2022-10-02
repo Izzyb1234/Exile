@@ -71,7 +71,7 @@ local function roast(pos, selfname, name, heat)
 
 	if roasting <= 0 then
 		--finished firing
-    minetest.set_node(pos, {name = name})
+    minimal.switch_node(pos, {name = name})
     if minetest.get_item_group(name,"heatable") > 0 then
        meta:set_float("temp", temp)
     end
@@ -98,12 +98,12 @@ local function pane_cast_check(pos)
 		local name = minetest.get_node(pos).name
 		if name == "tech:green_glass_ingot" then
 			minetest.set_node(pos, {name = "air"})
-			minetest.set_node(pbelow, {name = "tech:pane_tray_green"})
+			minetest.swap_node(pbelow, {name = "tech:pane_tray_green"})
 			minetest.sound_play("tech_boil", {pos = pos, max_hear_distance = 8, gain = 1})
 			return true
 		elseif name == "tech:clear_glass_ingot" then
 			minetest.set_node(pos, {name = "air"})
-			minetest.set_node(pbelow, {name = "tech:pane_tray_clear"})
+			minetest.swap_node(pbelow, {name = "tech:pane_tray_clear"})
 			minetest.sound_play("tech_boil", {pos = pos, max_hear_distance = 8, gain = 1})
 			return true
 		end
@@ -358,7 +358,7 @@ minetest.override_item("tech:clay_water_pot_potash",
 	end,
 	on_timer = function(pos, elapsed)
 		if climate.get_point_temp(pos) > 100 then
-			minetest.set_node(pos, {name = "tech:dry_potash_pot"})
+			minetest.swap_node(pos, {name = "tech:dry_potash_pot"})
 			return false
 		end
 
@@ -450,7 +450,6 @@ minetest.register_node("tech:pane_tray",
 	paramtype2 = "facedir",
 	groups = {cracky = 3, oddly_breakable_by_hand = 3},
 	sunlight_propagates = true,
-	after_place_node = minimal.protection_after_place_node,
 })
 
 -- Trays with glass panes
@@ -655,7 +654,6 @@ minetest.register_node("tech:glass_bottle_green", {
 	paramtype = "light",
 	liquids_pointable = true,
 	sunlight_prpagates = true,
---	after_place_node = minimal.protection_after_place_node,
 	on_use = function(itemstack, user, pointed_thing)
 		return liquid_store.on_use_empty_bucket(itemstack, user, pointed_thing)
 	end,
@@ -682,7 +680,6 @@ minetest.register_node("tech:glass_bottle_clear", {
 	paramtype = "light",
 	liquids_pointable = true,
 	sunlight_prpagates = true,
---	after_place_node = minimal.protection_after_place_node,
 	on_use = function(itemstack, user, pointed_thing)
 		return liquid_store.on_use_empty_bucket(itemstack, user, pointed_thing)
 	end,
@@ -765,7 +762,6 @@ minetest.override_item("tech:glass_bottle_green_saltwater",
 		fixed={-0.25, -0.5, -0.25, 0.25, 0.35, 0.25},
 	},
 	inventory_image = "tech_bottle_green_icon.png",
---	after_place_node = minimal.protection_after_place_node,
 })
 
 liquid_store.register_stored_liquid(
@@ -811,7 +807,6 @@ minetest.override_item("tech:glass_bottle_clear_saltwater",
 	},
 
 	inventory_image = "tech_bottle_clear_icon.png",
---	after_place_node = minimal.protection_after_place_node,
 })
 
 
@@ -873,12 +868,10 @@ minetest.override_item("tech:glass_bottle_green_freshwater",
 			--e.g. rain vs mud puddle
 
 			meta:set_int("thirst", thirst)
---			minetest.swap_node(pos, {name = "tech:glass_bottle_green"})
-			minetest.set_node(pos, {name = "tech:glass_bottle_green"})
+			minimal.switch_node(pos, {name = "tech:glass_bottle_green"})
 			minetest.sound_play("nodes_nature_slurp",	{pos = pos, max_hear_distance = 3, gain = 0.25})
 		end
 	end,
---	after_place_node = minimal.protection_after_place_node,
 
 })
 
@@ -941,13 +934,11 @@ minetest.override_item("tech:glass_bottle_clear_freshwater",
 			--e.g. rain vs mud puddle
 
 			meta:set_int("thirst", thirst)
---			minetest.swap_node(pos, {name = "tech:glass_bottle_clear"})
-			minetest.set_node(pos, {name = "tech:glass_bottle_clear"})
+			minimal.switch_node(pos, {name = "tech:glass_bottle_clear"})
 			minetest.sound_play("nodes_nature_slurp",
 					    {pos = pos,
 					     max_hear_distance = 3, gain = 0.25})
 		end
 	end,
---	after_place_node = minimal.protection_after_place_node,
 
 })

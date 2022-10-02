@@ -20,19 +20,21 @@ minimal.S = minetest.get_translator("minimal")
 minimal.FS = function(...)
 	return minetest.formspec_escape(minimal.S(...))
 end
-
-dofile(minetest.get_modpath('minimal')..'/item_names.lua')
-dofile(minetest.get_modpath('minimal')..'/compat.lua')
-dofile(minetest.get_modpath('minimal')..'/settingswarn.lua')
-dofile(minetest.get_modpath('minimal')..'/aliases.lua')
-dofile(minetest.get_modpath('minimal')..'/overrides.lua')
-dofile(minetest.get_modpath('minimal')..'/protection.lua')
-dofile(minetest.get_modpath('minimal')..'/utility.lua')
-dofile(minetest.get_modpath('minimal')..'/triggers.lua')
+local modpath=minetest.get_modpath('minimal')
+dofile(modpath..'/item_names.lua')
+dofile(modpath..'/compat.lua')
+dofile(modpath..'/settingswarn.lua')
+dofile(modpath..'/aliases.lua')
+dofile(modpath..'/overrides.lua')
+dofile(modpath..'/protection.lua')
+dofile(modpath..'/utility.lua')
+dofile(modpath..'/infotext.lua')
+dofile(modpath..'/metadata.lua')
+dofile(modpath..'/triggers.lua')
 
 -- GUI related stuff
 
-function minimal.set_hotbar(player,pref) 
+function minimal.set_hotbar(player,pref)
 	if pref == "true" then
 		-- use wide hotbar
 		player:hud_set_hotbar_image("gui_hotbar16.png")
@@ -111,7 +113,10 @@ minetest.register_item(":", {
 			choppy = {times={[3]=minimal.hand_chop}, uses=0, maxlevel=minimal.hand_max_lvl},
 			crumbly = {times={[3]=minimal.hand_crum}, uses=0, maxlevel=minimal.hand_max_lvl},
 			snappy = {times={[3]=minimal.hand_snap}, uses=0, maxlevel=minimal.hand_max_lvl},
-			oddly_breakable_by_hand = {times={[1]=minimal.hand_crum*minimal.t_scale1,[2]=minimal.hand_crum*minimal.t_scale2,[3]=minimal.hand_crum}, uses=0},
+			oddly_breakable_by_hand = {
+			   times={[1]=minimal.hand_crum*minimal.t_scale1,
+			      [2]=minimal.hand_crum*minimal.t_scale2,
+			      [3]=minimal.hand_crum}, uses=0},
 		},
 		damage_groups = {fleshy=minimal.hand_dmg},
 	}

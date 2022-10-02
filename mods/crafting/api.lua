@@ -279,14 +279,17 @@ function crafting.perform_craft(name, inv, listname, outlistname, recipe)
 	for i=1, #crafting.registered_on_crafts do
 		crafting.registered_on_crafts[i](name, recipe)
 	end
-
+	-- create item - set creator
+	local itemstack=ItemStack(recipe.output)
+	local imeta=itemstack:get_meta()
+	imeta:set_string('creator', name)
 	-- Add output
-	if inv:room_for_item("main", recipe.output) then
-	   inv:add_item(outlistname, recipe.output)
+	if inv:room_for_item("main", itemstack) then
+	   inv:add_item(outlistname, itemstack)
 	else
 	   local pos = minetest.get_player_by_name(name):get_pos()
 	   minetest.chat_send_player(name, "No room in inventory!")
-	   minetest.add_item(pos, recipe.output)
+	   minetest.add_item(pos, itemstack)
 	end
 	return true
 end

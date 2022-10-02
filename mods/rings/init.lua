@@ -30,7 +30,6 @@ minetest.register_node("rings:antiquorium", {
 	sounds = nodes_nature.node_sound_glass_defaults(),
 	paramtype = "light",
 	groups = {cracky = 1, not_in_creative_inventory = 1},
-	after_place_node = minimal.protection_after_place_node,
 	drop = "artifacts:antiquorium"
 })
 minetest.register_node("rings:moon_glass", {
@@ -44,7 +43,6 @@ minetest.register_node("rings:moon_glass", {
 	use_texture_alpha = "clip",
 	sounds = nodes_nature.node_sound_glass_defaults(),
 	groups = {cracky = 1,},
-	after_place_node = minimal.protection_after_place_node,
 	drop = "artifacts:moon_glass",
 })
 

@@ -55,7 +55,7 @@ function water_pot(pos, pot_name, elapsed)
 	if light == 15 then
 	   if climate.get_rain(pos, light) or
 	      climate.time_since_rain(elapsed) > 0 then
-	          minetest.set_node(pos, {name = pot_name.."_freshwater"})
+	          minetest.swap_node(pos, {name = pot_name.."_freshwater"})
 		  return
 	   end
 	else
@@ -88,7 +88,7 @@ function water_pot(pos, pot_name, elapsed)
 			name_a == "nodes_nature:snow_block" or
 			name_a == "nodes_nature:freshwater_source" ) then
 			if climate.can_thaw(posa) then
-				minetest.set_node(pos, {name = pot_name.."_freshwater"})
+				minetest.swap_node(pos, {name = pot_name.."_freshwater"})
 				minetest.remove_node(posa)
 				return
 			end
@@ -275,7 +275,7 @@ local after_place_oil_lamp = function(pos, placer, itemstack, pointed_thing)
 	   fuel = 0
 	end
 	meta:set_int("fuel", fuel)
-	meta:set_string("infotext", fuel_string(fuel))
+	minimal.infotext_merge(pos,'Status: '..fuel_string(fuel),meta)
 end
 
 --unfired oil clay lamp
@@ -366,10 +366,10 @@ minetest.register_node("tech:clay_oil_lamp_unlit", {
 	   local meta = minetest.get_meta(pos)
 	   local fuel = meta:get_int("fuel")
 	   if fuel and fuel > 0 then
-	      minetest.swap_node(pos, {name = 'tech:clay_oil_lamp'})
+	      minimal.switch_node(pos, {name = 'tech:clay_oil_lamp'})
 	      minetest.registered_nodes["tech:clay_oil_lamp"].on_construct(pos)
 	      meta:set_int("fuel", fuel)
-	      meta:set_string("infotext", fuel_string(fuel))
+	      minimal.infotext_merge(pos,'Status: '..fuel_string(fuel),meta)
 	   end
 	end,
 
@@ -382,7 +382,7 @@ minetest.register_node("tech:clay_oil_lamp_unlit", {
 		   if fuel and fuel < 1550 then
 		      fuel = fuel + math.random(1450,1550)
 		      meta:set_int("fuel", fuel)
-		      meta:set_string("infotext",fuel_string(fuel))
+		      minimal.infotext_merge(pos,'Status: '..fuel_string(fuel),meta)
 		      local name = clicker:get_player_name()
 		      if not minetest.is_creative_enabled(name) then
 			 itemstack:take_item()
@@ -447,7 +447,7 @@ minetest.register_node("tech:clay_oil_lamp", {
 	on_timer =function(pos, elapsed)
 		local meta = minetest.get_meta(pos)
 		local fuel = meta:get_int("fuel")
-		meta:set_string("infotext",fuel_string(fuel))
+		minimal.infotext_merge(pos,'Status: '..fuel_string(fuel),meta)
 		if fuel < 1 then
 			minetest.swap_node(pos, {name = "tech:clay_oil_lamp_unlit"})
 			--minetest.check_for_falling(pos)
@@ -464,7 +464,7 @@ minetest.register_node("tech:clay_oil_lamp", {
 		minetest.swap_node(pos, {name = 'tech:clay_oil_lamp_unlit'})
 		if fuel then
 		   meta:set_int("fuel", fuel)
-		   meta:set_string("infotext",fuel_string(fuel))
+		   minimal.infotext_merge(pos,'Status: '..fuel_string(fuel),meta)
 		end
 		return itemstack
 	end,
@@ -633,7 +633,7 @@ minetest.override_item("tech:clay_water_pot_freshwater",{
 			--e.g. rain vs mud puddle
 
 			meta:set_int("thirst", thirst)
-			minetest.set_node(pos, {name = "tech:clay_water_pot"})
+			minetest.swap_node(pos, {name = "tech:clay_water_pot"})
 			minetest.sound_play("nodes_nature_slurp",	{pos = pos, max_hear_distance = 3, gain = 0.25})
 		end
 	end
