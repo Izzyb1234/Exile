@@ -22,6 +22,7 @@ minimal.FS = function(...)
 end
 
 dofile(minetest.get_modpath('minimal')..'/item_names.lua')
+dofile(minetest.get_modpath('minimal')..'/compat.lua')
 dofile(minetest.get_modpath('minimal')..'/settingswarn.lua')
 dofile(minetest.get_modpath('minimal')..'/aliases.lua')
 dofile(minetest.get_modpath('minimal')..'/overrides.lua')
@@ -122,24 +123,11 @@ minetest.register_on_joinplayer(function(player)
       --Custom small inventory
       minetest.get_inventory({type="player", name=p_name}):set_size("main", 16)
       --enable shadows if using minetest 5.6.0+
-      local mt560 = false
-      local version = minetest.get_version()
-      local tabstr = string.split(version.string,".")
-      local major = tabstr[1]
-      local minor = tabstr[2]
-      local patch = tabstr[3]
-      minetest.log("action", "Running on version: "..version.project.." "..
-		   major.."."..minor.."."..patch)
-      if ( version.project == "Minetest" and
-	   tonumber(major) == 5 and tonumber(minor) >= 6 )then
-	 mt560 = true
-      end
-      if mt560 then
-	 minetest.log("action", "MT5.6.0+, enabling shadows")
+      if minimal.mt_required_version(5,6,0) then
+	 minetest.log("action", "MT5.6.0+, enabling shadows for "..p_name)
 	 player:set_lighting({
 	    shadows = { intensity = 0.33 }
       })
-
       end
 end)
 
