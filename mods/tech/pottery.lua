@@ -633,7 +633,7 @@ minetest.override_item("tech:clay_water_pot_freshwater",{
 			--e.g. rain vs mud puddle
 
 			meta:set_int("thirst", thirst)
-			minetest.swap_node(pos, {name = "tech:clay_water_pot"})
+			minimal.switch_node(pos, {name = "tech:clay_water_pot"})
 			minetest.sound_play("nodes_nature_slurp",	{pos = pos, max_hear_distance = 3, gain = 0.25})
 		end
 	end
