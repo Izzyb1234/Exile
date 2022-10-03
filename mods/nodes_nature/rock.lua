@@ -12,8 +12,10 @@ function cobble_on_place(itemstack, placer, pointed_thing, name)
 	local pt_pos = minetest.get_pointed_thing_position(pointed_thing)
 	local cobble_nr = math.random(1,3)
 	local param2 = math.random(0,3)
-	itemstack = ItemStack("nodes_nature:"..name.."_cobble"..cobble_nr)
-	return minetest.item_place_node(itemstack, placer, pointed_thing, param2)
+	local place_item = ItemStack("nodes_nature:"..name.."_cobble"..cobble_nr)
+	itemstack:take_item(1)
+	minetest.item_place_node(place_item, placer, pointed_thing, param2)
+	return itemstack
 end
 
 
@@ -271,7 +273,7 @@ for i in ipairs(rock_list) do
                          groups = cobble_groups,
 			 drop = "nodes_nature:"..name.."_cobble1",
 			 on_place = function(itemstack, placer, pointed_thing)
-				 cobble_on_place(itemstack, placer, pointed_thing, name)
+				 return cobble_on_place(itemstack, placer, pointed_thing, name)
 			end,
                          selection_box = {
                             type = "fixed",
