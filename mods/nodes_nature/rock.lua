@@ -8,6 +8,16 @@ local S = nodes_nature.S
 stone_list = stone_list
 rock_list  = rock_list
 
+function cobble_on_place(itemstack, placer, pointed_thing, name)
+	local pt_pos = minetest.get_pointed_thing_position(pointed_thing)
+	local cobble_nr = math.random(1,3)
+	local param2 = math.random(0,3)
+	itemstack = ItemStack("nodes_nature:"..name.."_cobble"..cobble_nr)
+	return minetest.item_place_node(itemstack, placer, pointed_thing, param2)
+end
+
+
+
 for i in ipairs(stone_list) do
 	local name = stone_list[i][1]
 	local desc = stone_list[i][2]
@@ -259,6 +269,10 @@ for i in ipairs(rock_list) do
                          paramtype = "light",
                          paramtype2 = "facedir",
                          groups = cobble_groups,
+			 drop = "nodes_nature:"..name.."_cobble1",
+			 on_place = function(itemstack, placer, pointed_thing)
+				 cobble_on_place(itemstack, placer, pointed_thing, name)
+			end,
                          selection_box = {
                             type = "fixed",
                             fixed = {-5/16, -8/16, -5/16, 5/16, -4/16, 5/16},
