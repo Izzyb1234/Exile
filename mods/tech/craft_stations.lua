@@ -333,7 +333,7 @@ minetest.register_node("tech:chopping_block", {
 		},
 	stack_max     = minimal.stack_max_bulky,
 	paramtype     = "light",
-	groups        = {dig_immediate = 3, falling_node = 1, temp_pass = 1},
+	groups        = {dig_immediate = 3, falling_node = 1, temp_pass = 1, craftedby = 1},
 	sounds        = nodes_nature.node_sound_wood_defaults(),
 	on_rightclick = crafting.make_on_rightclick("chopping_block", 2, { x = 8, y = 3 }),
 	})
@@ -348,7 +348,7 @@ minetest.register_node("tech:mortar_pestle_basalt",{
 	stack_max     = minimal.stack_max_bulky *2,
 	paramtype     = "light",
 	paramtype2    = "facedir",
-	groups        = {falling_node = 1, dig_immediate=3},
+	groups        = {falling_node = 1, dig_immediate=3, craftedby = 1},
 	node_box      = {
 		type  = "fixed",
 		fixed = {
@@ -372,7 +372,7 @@ minetest.register_node("tech:mortar_pestle_granite",{
 	stack_max     = minimal.stack_max_bulky *2,
 	paramtype     = "light",
 	paramtype2    = "facedir",
-	groups        = {falling_node = 1, dig_immediate=3},
+	groups        = {falling_node = 1, dig_immediate = 3, craftedby = 1},
 	node_box      = {
 		type  = "fixed",
 		fixed = {
@@ -396,7 +396,7 @@ minetest.register_node("tech:mortar_pestle_limestone",{
 	stack_max     = minimal.stack_max_bulky *2,
 	paramtype     = "light",
 	paramtype2    = "facedir",
-	groups        = {falling_node = 1, dig_immediate=3},
+	groups        = {falling_node = 1, dig_immediate = 3, craftedby = 1},
 	node_box      = {
 		type  = "fixed",
 		fixed = {
@@ -431,7 +431,7 @@ minetest.register_node("tech:anvil", { --anvil--metal  working
 	stack_max     = minimal.stack_max_bulky,
 	paramtype     = "light",
 	paramtype2    = "facedir",
-	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1},
+	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1, craftedby = 1},
 	sounds        = nodes_nature.node_sound_stone_defaults(),
 	on_rightclick = crafting.make_on_rightclick("anvil", 2, { x = 8, y = 3 }),
 	})
@@ -454,8 +454,8 @@ minetest.register_node("tech:carpentry_bench", { --carpentry_bench--more sophist
 	stack_max     = minimal.stack_max_bulky,
 	paramtype     = "light",
 	paramtype2    = "facedir",
-	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1,
-			 flammable = 8},
+	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1, 
+			 flammable = 8, craftedby = 1},
 	sounds        = nodes_nature.node_sound_wood_defaults(),
 	on_rightclick = crafting.make_on_rightclick("carpentry_bench", 2, { x = 8, y = 3 }),
 	})
@@ -481,7 +481,7 @@ minetest.register_node("tech:masonry_bench", { --masonry_bench--more sophisticat
 	stack_max     = minimal.stack_max_bulky,
 	paramtype     = "light",
 	paramtype2    = "facedir",
-	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1},
+	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1, craftedby = 1},
 	sounds        = nodes_nature.node_sound_wood_defaults(),
 	on_rightclick = crafting.make_on_rightclick("masonry_bench", 2, { x = 8, y = 3 }),
 	})
@@ -515,7 +515,7 @@ minetest.register_node("tech:brick_makers_bench", {
 	paramtype     = "light",
 	paramtype2    = "facedir",
 	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1,
-			 flammable = 8},
+			 flammable = 8, craftedby = 1},
 	sounds        = nodes_nature.node_sound_wood_defaults(),
 	on_rightclick = crafting.make_on_rightclick("brick_makers_bench", 2, { x = 8, y = 3 }),
 	})
@@ -543,7 +543,7 @@ minetest.register_node("tech:spinning_wheel", {
 	paramtype     = "light",
 	paramtype2    = "facedir",
 	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1,
-			 flammable = 8},
+			 flammable = 8, craftedby = 1},
 	sounds        = nodes_nature.node_sound_wood_defaults(),
 	on_rightclick = crafting.make_on_rightclick("spinning_wheel", 2, { x = 8, y = 3 }),
 	})
@@ -576,7 +576,7 @@ minetest.register_node("tech:loom", {
 		},
 	paramtype2    = "facedir",
 	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1,
-			 flammable = 8},
+			 flammable = 8, craftedby = 1},
 	sounds        = nodes_nature.node_sound_wood_defaults(),
 	on_rightclick = crafting.make_on_rightclick("loom", 2, { x = 8, y = 3 }),
 	})
@@ -601,7 +601,7 @@ minetest.register_node("tech:glass_furnace", {
 	stack_max     = minimal.stack_max_bulky,
 	paramtype     = "light",
 	paramtype2    = "facedir",
-	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1},
+	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1, craftedby = 1},
 	sounds        = nodes_nature.node_sound_wood_defaults(),
 	on_rightclick = crafting.make_on_rightclick("glass_furnace", 2, { x = 8, y = 3 }),
 	})
@@ -764,7 +764,7 @@ if legacy_stations == true then
         stack_max     = minimal.stack_max_bulky,
         paramtype     = "light",
         paramtype2    = "facedir",
-        groups        = {falling_node = 1, dig_immediate=3},
+        groups        = {falling_node = 1, dig_immediate = 3, craftedby = 1},
         node_box      = {
 	   type  = "fixed",
 	   fixed = {
@@ -795,7 +795,7 @@ if legacy_stations == true then
         stack_max     = minimal.stack_max_bulky,
         paramtype     = "light",
         paramtype2    = "facedir",
-        groups        = {falling_node = 1, dig_immediate=3},
+        groups        = {falling_node = 1, dig_immediate = 3, craftedby = 1},
         node_box      = {
                 type  = "fixed",
                 fixed = {
@@ -829,7 +829,7 @@ if legacy_stations == true then
                 },
         stack_max     = minimal.stack_max_bulky,
         paramtype     = "light",
-        groups        = {dig_immediate = 3, falling_node = 1, temp_pass = 1},
+        groups        = {dig_immediate = 3, falling_node = 1, temp_pass = 1, craftedby = 1},
         sounds        = nodes_nature.node_sound_wood_defaults(),
         on_rightclick = crafting.make_on_rightclick("chopping_block", 2, { x = 8, y = 3 }),
    })
@@ -853,7 +853,7 @@ if legacy_stations == true then
                 },
         stack_max     = minimal.stack_max_bulky,
         paramtype     = "light",
-        groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1},
+        groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1, craftedby = 1},
         sounds        = nodes_nature.node_sound_wood_defaults(),
         on_rightclick = crafting.make_on_rightclick("hammering_block", 2, { x = 8, y = 3 }),
    })

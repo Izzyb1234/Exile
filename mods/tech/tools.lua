@@ -125,7 +125,7 @@ minetest.register_tool("tech:stone_chopper", {
 		},
 		damage_groups = {fleshy= crude_dmg},
 	},
-	--groups = {},
+	groups = {knife = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
 
@@ -146,7 +146,7 @@ minetest.register_tool("tech:digging_stick", {
 		},
 		damage_groups = {fleshy= crude_dmg},
 	},
-	--groups = {flammable = 1},
+	groups = {shovel = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 	on_place = function(itemstack, placer, pointed_thing)
 		return till_soil(itemstack, placer, pointed_thing, base_use)
@@ -202,7 +202,7 @@ minetest.register_tool("tech:adze_granite", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
-	groups = {axe = 1},
+	groups = {axe = 1,craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
 
@@ -219,7 +219,7 @@ minetest.register_tool("tech:adze_basalt", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
-	groups = {axe = 1},
+	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
 
@@ -237,7 +237,7 @@ minetest.register_tool("tech:adze_jade", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
-	groups = {axe = 1},
+	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
 
@@ -256,7 +256,7 @@ minetest.register_tool("tech:stone_club", {
 		},
 		damage_groups = {fleshy=stone_dmg*2},
 	},
-	groups = {club = 1},
+	groups = {club = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
 
@@ -308,7 +308,7 @@ minetest.register_tool("tech:axe_iron", {
 		},
 		damage_groups = {fleshy = iron_dmg},
 	},
-	groups = {axe = 1},
+	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
 
@@ -325,7 +325,7 @@ minetest.register_tool("tech:shovel_iron", {
 		},
 		damage_groups = {fleshy= iron_dmg},
 	},
-	--groups = {flammable = 1},
+	groups = {shovel = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 	on_place = function(itemstack, placer, pointed_thing)
 		return till_soil(itemstack, placer, pointed_thing, iron_use)
@@ -347,7 +347,7 @@ minetest.register_tool("tech:mace_iron", {
 		},
 		damage_groups = {fleshy=iron_dmg*2},
 	},
-	groups = {club = 1},
+	groups = {club = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
 
@@ -366,6 +366,7 @@ minetest.register_tool("tech:pickaxe_iron", {
 		},
 		damage_groups = {fleshy = iron_dmg},
 	},
+	groups = {pickaxe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
 

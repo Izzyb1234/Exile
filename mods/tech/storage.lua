@@ -89,7 +89,7 @@ minetest.register_node("tech:clay_storage_pot", {
 				{-0.5, -0.25, -0.5, 0.5, 0.25, 0.5},
 			}
 		},
-	groups = {dig_immediate = 3, pottery = 1},
+	groups = {dig_immediate = 3, pottery = 1, craftedby = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
 
 	on_construct = function(pos)
@@ -160,7 +160,7 @@ minetest.register_node("tech:primitive_wooden_chest", {
 				{-0.5, -0.25, -0.5, 0.5, 0.25, 0.5},
 			}
 		},
-	groups = {dig_immediate = 3},
+	groups = {dig_immediate = 3, craftedby = 1},
 	sounds = nodes_nature.node_sound_wood_defaults(),
 
 	on_construct = function(pos)
@@ -229,7 +229,7 @@ minetest.register_node("tech:wicker_storage_basket", {
 				{-0.5, -0.25, -0.5, 0.5, 0.25, 0.5},
 			}
 		},
-	groups = {dig_immediate = 3},
+	groups = {dig_immediate = 3, craftedby = 1},
 	sounds = nodes_nature.node_sound_leaves_defaults(),
 
 	on_construct = function(pos)
@@ -298,7 +298,7 @@ minetest.register_node("tech:woven_storage_basket", {
 				{-0.5, -0.25, -0.5, 0.5, 0.25, 0.5},
 			}
 		},
-	groups = {dig_immediate = 3},
+	groups = {dig_immediate = 3, craftedby = 1},
 	sounds = nodes_nature.node_sound_leaves_defaults(),
 
 	on_construct = function(pos)
@@ -378,7 +378,7 @@ minetest.register_node("tech:wooden_chest", {
 			{-0.0625, 0.25, -0.4375, 0.0625, 0.375, -0.375}, -- NodeBox10
 		}
 	},
-	groups = {dig_immediate = 3},
+	groups = {dig_immediate = 3, craftedby = 1},
 	sounds = nodes_nature.node_sound_wood_defaults(),
 
 	on_construct = function(pos)
@@ -458,7 +458,7 @@ minetest.register_node("tech:iron_chest", {
 			{-0.0625, 0.25, -0.4375, 0.0625, 0.375, -0.375}, -- NodeBox10
 		}
 	},
-	groups = {dig_immediate = 3},
+	groups = {dig_immediate = 3, craftedby = 1},
 	sounds = nodes_nature.node_sound_wood_defaults(),
 
 	on_construct = function(pos)

@@ -281,8 +281,10 @@ function crafting.perform_craft(name, inv, listname, outlistname, recipe)
 	end
 	-- create item - set creator
 	local itemstack=ItemStack(recipe.output)
-	local imeta=itemstack:get_meta()
-	imeta:set_string('creator', name)
+	if minetest.get_item_group(recipe.output, 'craftedby') > 0 then
+		local imeta=itemstack:get_meta()
+		imeta:set_string('creator', name)
+	end
 	-- Add output
 	if inv:room_for_item("main", itemstack) then
 	   inv:add_item(outlistname, itemstack)
