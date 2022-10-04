@@ -70,8 +70,8 @@ minetest.register_chatcommand("eat2x", {
 function eat_ok (itemstack, user, pointed_thing)
 	local pt_pos = minetest.get_pointed_thing_position(pointed_thing)
 	local pname = user:get_player_name()
-	local cache = __eat_click_settings_cache
-	if cache[pname] == nil then
+	local single_click = __eat_click_settings_cache
+	if single_click[pname] == nil then
 		local pmeta = user:get_meta()
 		local eat2x = pmeta:get_string("conf_eat2x") or minetest.settings:get('exile_eat_doubleclick') or 'false'
 		if eat2x == 'true' then
@@ -79,9 +79,9 @@ function eat_ok (itemstack, user, pointed_thing)
 		else 
 			eat2x = false
 		end
-		cache[pname] = not eat2x
+		single_click[pname] = not eat2x
 	end
-	if ( not cache[pname] ) or minimal.click_count_ready(pname, pt_pos, 2, 2) then
+	if ( single_click[pname] ) or minimal.click_count_ready(pname, pt_pos, 2, 2) then
 		return true
 	else
 	minetest.chat_send_player(pname, S("double click to eat"))
