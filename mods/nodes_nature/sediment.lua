@@ -489,6 +489,8 @@ local sediment_list = {
                            fertility = 5, sound = sounds.gravel, sound_wet = sounds.gravel_wet}),
     loam = sediment.new({name = "loam", description = S("Loam"), hardness = hardness.soft,
                          fertility = 1, sound = sounds.dirt, sound_wet = sounds.dirt_wet}),
+    volcanic_ash = sediment.new({name = "volcanic_ash", description = S("Volcanic ash"), hardness = hardness.soft,
+                                 fertility = 1, sound = sounds.sand, sound_wet = sounds.sand_wet}),
 }
 
 -- this is only for paint

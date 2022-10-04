@@ -73,7 +73,8 @@ Authors of media (textures, models)
 ------------------------
 Dokimi (CC BY-SA 3.0)
 Jan Wielkiewicz (CC BY-SA 3.0)
-    cobble models (modified boulder)
+    cobble models (modified boulder by Dokimi)
+    volcanic ash (modified sand, basalt textures by Dokimi)
     
 From Minetest Game Default:
   Gambit (CC BY-SA 3.0):
