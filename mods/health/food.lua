@@ -64,10 +64,74 @@ function exile_eatdrink(itemstack, user)
    return HEALTH.use_item(itemstack, user, t[1], t[2], t[3], t[4], t[5], t[6])
 end
 
+local __eat_click_settings_cache = {}
+local __cache_timeout = 60 -- 1 minute timeout on cache values
+function single_click_eat(pname, user)
+	local epoch = os.time()
+	local cache = __eat_click_settings_cache
+	if not (cache[pname] and cache[pname].timeout > epoch) then
+		local pmeta = user:get_meta()
+		local eat2x = pmeta:get_string("conf_eat2x") or minetest.settings:get('exile_eat_doubleclick') or 'false'
+		if eat2x == 'true' then
+			eat2x = true
+		else 
+			eat2x = false
+		end
+		cache[pname] = {
+			timeout = epoch + __cache_timeout,
+			single_click = not eat2x,
+		}
+	end
+print(dump(cache))
+	return cache[pname].single_click
+end
+
+minetest.register_chatcommand("eat2x", {
+        params = "true or false",
+        description = "Toggles double-click to eat",
+        func = function(name, param)
+        local player = minetest.get_player_by_name(name)
+        local meta = player:get_meta()
+        local eat2x=meta:get_string("conf_eat2x") or minetest.settings:get("exile_eat_doubleclick") or "false"
+        if param and param ~="" then
+                local wlist = "/eat2x:\n"..
+                "Toggle double-click to eat"
+                return false, wlist
+        end
+        if eat2x == "true" then
+                eat2x = "false"
+        else
+                eat2x = "true"
+        end
+	
+        meta:set_string("conf_eat2x", eat2x)
+	minetest.chat_send_player(name,"Double-Click to eat: "..eat2x)
+	if eat2x == 'true' then
+		eat2x = true
+	else
+		eat2x = false
+	end
+
+	local epoch = os.time()
+	__eat_click_settings_cache[name] = {
+		timeout = epoch + __cache_timeout,
+		single_click = not eat2x,
+	}
+        end,
+})
+
 -- Overrides for edible and bakable nodes
 local eat_redef = {
    on_use = function(itemstack, user, pointed_thing)
-      return exile_eatdrink(itemstack, user)
+	   local pt_pos = minetest.get_pointed_thing_position(pointed_thing)
+	   local pname = user:get_player_name()
+	   local singleclick = single_click_eat(pname,user)
+	   if singleclick or minimal.click_count_ready(pname, pt_pos, 2, 2) then
+		return exile_eatdrink(itemstack, user)
+	   else
+		minetest.chat_send_player(user:get_player_name(),
+			S("Double click to eat"))
+	   end
 end}
 
 local function bake_error(pos, selfname)
