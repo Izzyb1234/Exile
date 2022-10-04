@@ -6,393 +6,57 @@
 -- Internationalization
 local S = nodes_nature.S
 
---recipes
---loam
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:loam 3",
-	items = {"nodes_nature:clay 1","nodes_nature:silt 1","nodes_nature:sand 1"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:loam_wet 3",
-	items = {"nodes_nature:clay_wet 1","nodes_nature:silt_wet 1","nodes_nature:sand_wet 1"},
-	level = 1,
-	always_known = true,
-})
+-- Useful objects for node definitions
+hardness = {
+    soft = 3,
+    medium = 2,
+    hard = 1,
+}
 
+textures = {
+    wet = "nodes_nature_mud.png",
+    salty = "nodes_nature_mud_salt.png",
+    agri_top = "nodes_nature_ag_top.png",
+    agri_side = "nodes_nature_ag_side.png",
+    agri_top_depleted = "nodes_nature_ag_dep_top.png",
+    agri_side_depleted = "nodes_nature_ag_dep_side.png",
+}
 
---Ag soils from raw and fertilizer
---otherwise have to wait for natural regeneration
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:loam_agricultural_soil",
-	items = {"nodes_nature:loam 1","group:fertilizer 1"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:loam_agricultural_soil_wet",
-	items = {"nodes_nature:loam_wet 1","group:fertilizer 1"},
-	level = 1,
-	always_known = true,
-})
+sounds = {
+    dirt = nodes_nature.node_sound_dirt_defaults(),
+    dirt_wet = nodes_nature.node_sound_dirt_defaults({
+            footstep = {name = "nodes_nature_mud", gain = 0.4},
+            dug = {name = "nodes_nature_mud", gain = 0.4}}),
 
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:clay_agricultural_soil",
-	items = {"nodes_nature:clay 1","group:fertilizer 1"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:clay_agricultural_soil_wet",
-	items = {"nodes_nature:clay_wet 1","group:fertilizer 1"},
-	level = 1,
-	always_known = true,
-})
+    sand = nodes_nature.node_sound_sand_defaults(),
+    sand_wet = nodes_nature.node_sound_sand_defaults({
+            footstep = {name = "nodes_nature_mud", gain = 0.4},
+            dug = {name = "nodes_nature_mud", gain = 0.4}}),
 
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:silt_agricultural_soil",
-	items = {"nodes_nature:silt 1","group:fertilizer 1"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:silt_agricultural_soil_wet",
-	items = {"nodes_nature:silt_wet 1","group:fertilizer 1"},
-	level = 1,
-	always_known = true,
-})
+    gravel = nodes_nature.node_sound_gravel_defaults(),
+    gravel_wet = nodes_nature.node_sound_gravel_defaults({
+            footstep = {name = "nodes_nature_mud", gain = 0.4},
+            dug = {name = "nodes_nature_mud", gain = 0.4}}),
+}
 
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:sand_agricultural_soil",
-	items = {"nodes_nature:sand 1","group:fertilizer 1"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:sand_agricultural_soil_wet",
-	items = {"nodes_nature:sand_wet 1","group:fertilizer 1"},
-	level = 1,
-	always_known = true,
-})
+-- Utility functions
+-----------------------------------
 
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:gravel_agricultural_soil",
-	items = {"nodes_nature:gravel 1","group:fertilizer 1"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:gravel_agricultural_soil_wet",
-	items = {"nodes_nature:gravel_wet 1","group:fertilizer 1"},
-	level = 1,
-	always_known = true,
-})
-
--------------------------------------------------
---set groups and sounds by basic sediment type
-local function property_by_type(type, hardness, special)
-	local s, sw, g, g2, g3
-
-	--core sounds
-	local s_dirt = nodes_nature.node_sound_dirt_defaults()
-	local s_dirt_w = nodes_nature.node_sound_dirt_defaults({
-		footstep = {name = "nodes_nature_mud", gain = 0.4},
-		dug = {name = "nodes_nature_mud", gain = 0.4}})
-
-	local s_sand = nodes_nature.node_sound_sand_defaults()
-	local s_sand_w = nodes_nature.node_sound_sand_defaults({
-		footstep = {name = "nodes_nature_mud", gain = 0.4},
-		dug = {name = "nodes_nature_mud", gain = 0.4}})
-
-	local s_gravel = nodes_nature.node_sound_gravel_defaults()
-	local s_gravel_w = nodes_nature.node_sound_gravel_defaults({
-		footstep = {name = "nodes_nature_mud", gain = 0.4},
-		dug = {name = "nodes_nature_mud", gain = 0.4}})
-
-	--Specials
-	if special == "spreading" then
-		--by type
-		if type == "loam" then
-			s = s_dirt
-			sw = s_dirt_w
-			g = {falling_node = 1, crumbly = hardness, sediment = 1, spreading = 1}
-			g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 1, spreading = 1}
-			return s, sw, g, g2
-
-		elseif type == "clay" then
-			s = s_dirt
-			sw = s_dirt_w
-			g = {falling_node = 1, crumbly = hardness, sediment = 2, spreading = 1}
-			g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 2, spreading = 1}
-			return s, sw, g, g2
-
-		elseif type == "silt" then
-			s = s_dirt
-			sw = s_dirt_w
-			g = {falling_node = 1, crumbly = hardness, sediment = 3, spreading = 1}
-			g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 3, spreading = 1}
-			return s, sw, g, g2
-
-		elseif type == "sand" then
-			s = s_sand
-			sw = s_sand_w
-			g = {falling_node = 1, crumbly = hardness, sediment = 4, spreading = 1}
-			g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 4, spreading = 1}
-			return s, sw, g, g2
-
-		elseif type == "gravel" then
-			s = s_gravel
-			sw = s_gravel_w
-			g = {falling_node = 1, crumbly = hardness, sediment = 5, spreading = 1}
-			g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 5, spreading = 1}
-			return s, sw, g, g2
-		end
-	elseif special == "agricultural" then
-		local g4
-		if type == "loam" then
-			s = s_dirt
-			sw = s_dirt_w
-			g = {falling_node = 1, crumbly = hardness, sediment = 1, agricultural_soil = 1}
-			g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 1, agricultural_soil = 1}
-			g3 = {falling_node = 1, crumbly = hardness, sediment = 1, depleted_agricultural_soil = 1}
-			g4 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 1, depleted_agricultural_soil = 1}
-			return s, sw, g, g2, g3, g4
-
-		elseif type == "clay" then
-			s = s_dirt
-			sw = s_dirt_w
-			g = {falling_node = 1, crumbly = hardness, sediment = 2, agricultural_soil = 1}
-			g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 2, agricultural_soil = 1}
-			g3 = {falling_node = 1, crumbly = hardness, sediment = 2, depleted_agricultural_soil = 1}
-			g4 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 2, depleted_agricultural_soil = 1}
-			return s, sw, g, g2, g3, g4
-
-		elseif type == "silt" then
-			s = s_dirt
-			sw = s_dirt_w
-			g = {falling_node = 1, crumbly = hardness, sediment = 3, agricultural_soil = 1}
-			g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 3, agricultural_soil = 1}
-			g3 = {falling_node = 1, crumbly = hardness, sediment = 3, depleted_agricultural_soil = 1}
-			g4 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 3, depleted_agricultural_soil = 1}
-			return s, sw, g, g2, g3, g4
-
-		elseif type == "sand" then
-			s = s_sand
-			sw = s_sand_w
-			g = {falling_node = 1, crumbly = hardness, sediment = 4, agricultural_soil = 1}
-			g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 4, agricultural_soil = 1}
-			g3 = {falling_node = 1, crumbly = hardness, sediment = 4, depleted_agricultural_soil = 1}
-			g4 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 4, depleted_agricultural_soil = 1}
-			return s, sw, g, g2, g3, g4
-
-		elseif type == "gravel" then
-			s = s_gravel
-			sw = s_gravel_w
-			g = {falling_node = 1, crumbly = hardness, sediment = 5, agricultural_soil = 1}
-			g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 5, agricultural_soil = 1}
-			g3 = {falling_node = 1, crumbly = hardness, sediment = 5, depleted_agricultural_soil = 1}
-			g4 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 5, depleted_agricultural_soil = 1}
-			return s, sw, g, g2, g3, g4
-		end
-
-	end
-
-	--Not special
-	--by type
-	if type == "loam" then
-		s = s_dirt
-		sw = s_dirt_w
-		g = {falling_node = 1, crumbly = hardness, sediment = 1}
-		g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 1}
-		g3 = {falling_node = 1, crumbly = hardness, wet_sediment = 2, puts_out_fire = 1, sediment = 1}
-		return s, sw, g, g2, g3
-
-	elseif type == "clay" then
-		s = s_dirt
-		sw = s_dirt_w
-		g = {falling_node = 1, crumbly = hardness, sediment = 2}
-		g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 2}
-		g3 = {falling_node = 1, crumbly = hardness, wet_sediment = 2, puts_out_fire = 1, sediment = 2}
-		return s, sw, g, g2, g3
-
-	elseif type == "silt" then
-		s = s_dirt
-		sw = s_dirt_w
-		g = {falling_node = 1, crumbly = hardness, sediment = 3}
-		g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 3}
-		g3 = {falling_node = 1, crumbly = hardness, wet_sediment = 2, puts_out_fire = 1, sediment = 3}
-		return s, sw, g, g2, g3
-
-	elseif type == "sand" then
-		s = s_sand
-		sw = s_sand_w
-		g = {falling_node = 1, crumbly = hardness, sediment = 4}
-		g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 4}
-		g3 = {falling_node = 1, crumbly = hardness, wet_sediment = 2, puts_out_fire = 1, sediment = 4}
-		return s, sw, g, g2, g3
-
-	elseif type == "gravel" then
-		s = s_gravel
-		sw = s_gravel_w
-		g = {falling_node = 1, crumbly = hardness, sediment = 5}
-		g2 = {falling_node = 1, crumbly = hardness, wet_sediment = 1, puts_out_fire = 1, sediment = 5}
-		g3 = {falling_node = 1, crumbly = hardness, wet_sediment = 2, puts_out_fire = 1, sediment = 5}
-		return s, sw, g, g2, g3
-	end
+function merge_tables (t1, t2)
+    local new_table = {}
+    --copy table
+    for key, value in pairs(t1) do
+        new_table[key] = value
+    end
+    --merge tables
+    for key, value in pairs(t2) do
+        new_table[key] = value
+    end
+    return new_table
 end
 
-
-
-
----------------------------------------------------------
---SEDIMENT
---all are falling
---can make stairs
---has  wet versions for salt and fresh
-
-
-
-local doslopes = minetest.settings:get_bool('exile_enableslopes')
-local slopechance = minetest.settings:get('exile_slopechance') or 20
-
-for i in ipairs(sed_list) do
-	local name = sed_list[i][1]
-	local desc = sed_list[i][2]
-	local hardness = sed_list[i][3]
-	local type = sed_list[i][4]
-
- 	local s, sw, g, g2, g3 = property_by_type(type, hardness)
-
-
-	--register raw
-	minetest.register_node("nodes_nature:"..name, {
-		description = desc,
-		tiles = {"nodes_nature_"..name..".png"},
-		stack_max = minimal.stack_max_bulky,
-		groups = g,
-		drop = "nodes_nature:"..name,
-		sounds = s,
-		_wet_name = "nodes_nature:"..name.."_wet",
-		_wet_salty_name = "nodes_nature:"..name.."_wet_salty",
-	})
-
-
-	--register wet
-	minetest.register_node("nodes_nature:"..name.."_wet", {
-		description = S("Wet @1", desc),
-		tiles = {"nodes_nature_"..name..".png^nodes_nature_mud.png"},
-		stack_max = minimal.stack_max_bulky,
-		groups = g2,
-		drop = "nodes_nature:"..name.."_wet",
-		sounds = sw,
-		_dry_name = "nodes_nature:"..name,
-	})
-
-	minetest.register_node("nodes_nature:"..name.."_wet_salty", {
-		description = S("Salty Wet @1", desc),
-		tiles = {"nodes_nature_"..name..".png^nodes_nature_mud.png^nodes_nature_mud_salt.png"},
-		stack_max = minimal.stack_max_bulky,
-		groups = g3,
-		drop = "nodes_nature:"..name.."_wet_salty",
-		sounds = sw,
-		_dry_name = "nodes_nature:"..name,
-	})
-
-
-	--stairs and slabs
-	--raw
-	stairs.register_stair_and_slab(
-		name,
-		"nodes_nature:"..name,
-		"mixing_spot",
-		"true",
-		{falling_node = 1, crumbly = hardness},
-		{"nodes_nature_"..name..".png" },
-		desc.." Stair",
-		desc.." Slab",
-		minimal.stack_max_bulky *2,
-		s
-	)
-
-	if doslopes then
-	   naturalslopeslib.register_slope("nodes_nature:"..name, {}, slopechance)
-	   naturalslopeslib.register_slope("nodes_nature:"..name.."_wet", {}, slopechance)
-	   naturalslopeslib.register_slope("nodes_nature:"..name.."_wet_salty", {}, slopechance)
-	end
-end
-
-
----------------------------------------------------------
---SURFACE SEDIMENT
---i.e. having surface textures
---all are falling
-
-
-for i in ipairs(soil_list) do
-	local name = soil_list[i][1]
-	local desc = soil_list[i][2]
-	local hardness = soil_list[i][3]
-	local dropped = soil_list[i][4]
-	local type = soil_list[i][5]
-
-	local s, sw, g, g2 = property_by_type(type, hardness, "spreading")
-
-	--register raw
-	minetest.register_node("nodes_nature:"..name, {
-		description = desc,
-		tiles = {"nodes_nature_"..name..".png", "nodes_nature_"..dropped..".png",
-		{name = "nodes_nature_"..dropped..".png^nodes_nature_"..name.."_side.png"}},
-		stack_max = minimal.stack_max_bulky,
-		groups = g,
-		drop = "nodes_nature:"..dropped,
-		sounds = s,
-		_wet_name = "nodes_nature:"..name.."_wet",
-		_wet_salty_name = "nodes_nature:"..dropped.."_wet_salty",
-		_ag_soil = "nodes_nature:"..dropped.."_agricultural_soil",
-	})
-
-
-	--register wet
-	minetest.register_node("nodes_nature:"..name.."_wet", {
-		description = S("Wet @1", desc),
-		tiles = {"nodes_nature_"..name..".png^nodes_nature_mud.png",
-		{name = "nodes_nature_"..dropped..".png^nodes_nature_"..name.."_side.png^nodes_nature_mud.png"}},
-		stack_max = minimal.stack_max_bulky,
-		groups = g2,
-		drop = "nodes_nature:"..dropped.."_wet",
-		sounds = sw,
-		_dry_name = "nodes_nature:"..name,
-		_ag_soil = "nodes_nature:"..dropped.."_agricultural_soil_wet",
-	})
-	if doslopes then
-	   naturalslopeslib.register_slope("nodes_nature:"..name, {}, slopechance)
-	   naturalslopeslib.register_slope("nodes_nature:"..name.."_wet", {}, slopechance)
-	end
-
-	--no salty as salty kills the surface life
-	--wet salty is just the raw sediment version.
-
-
-end
-
-
----------------------------------------------------------
---AGRICULTURAL SOILS
---for growing seed faster
--- two types per sediment: normal, depleted
+-- Soil erosion and fertilizers
+-----------------------------------
 
 --soil degrades from farming
 local function erode_deplete_ag_soil(pos, depleted_name)
@@ -445,113 +109,447 @@ local function fertilize_ag_soil(pos, puncher, restored_name)
 	end
 end
 
+-- Sediments
+-----------------------------------
+sediment = {}
 
-
-
-
-for i in ipairs(agri_soil_list) do
-	local name = agri_soil_list[i][1]
-	local desc = agri_soil_list[i][2]
-	local hardness = agri_soil_list[i][3]
-	local source = agri_soil_list[i][4]		--derived from this type of sediment
-	local type = agri_soil_list[i][5]
-
-
-	local s, sw, g, g2, g3, g4 = property_by_type(type, hardness, "agricultural")
-
-
-	--register agricultural soil
-	minetest.register_node("nodes_nature:"..name, {
-		description = desc,
-		tiles = {
-			{name = "nodes_nature_"..type..".png^nodes_nature_ag_top.png"},
-			"nodes_nature_"..type..".png",
-			{name = "nodes_nature_"..type..".png^nodes_nature_ag_side.png"}},
-		stack_max = minimal.stack_max_bulky,
-		groups = g,
-		sounds = s,
-		drop = source,
-		_wet_name = "nodes_nature:"..name.."_wet",
-		_wet_salty_name = "nodes_nature:"..type.."_wet_salty",
-		on_construct = function(pos)
-			--speed of erosion, degrade to depleted
-			minetest.get_node_timer(pos):start(math.random(90, 300))
-		end,
-		on_timer = function(pos,elapsed)
-			return erode_deplete_ag_soil(pos, "nodes_nature:"..name.."_depleted")
-		end,
-	})
-
-	--register wet agricultural soil
-	minetest.register_node("nodes_nature:"..name.."_wet", {
-		description = S("Wet @1", desc),
-		tiles = {
-			{name = "nodes_nature_"..type..".png^nodes_nature_ag_top.png^nodes_nature_mud.png"},
-			"nodes_nature_"..type..".png^nodes_nature_mud.png",
-			{name = "nodes_nature_"..type..".png^nodes_nature_ag_side.png^nodes_nature_mud.png"}},
-		stack_max = minimal.stack_max_bulky,
-		groups = g2,
-		sounds = sw,
-		drop = source.."_wet",
-		_dry_name = "nodes_nature:"..name,
-		on_construct = function(pos)
-			--speed of erosion, degrade to depleted
-			minetest.get_node_timer(pos):start(math.random(60, 300))
-		end,
-		on_timer = function(pos,elapsed)
-			return erode_deplete_ag_soil(pos, "nodes_nature:"..name.."_wet_depleted")
-		end,
-	})
-
-
-
-	--register depleted soil
-	minetest.register_node("nodes_nature:"..name.."_depleted", {
-		description = S("Depleted @1", desc),
-		tiles = {
-			{name = "nodes_nature_"..type..".png^nodes_nature_ag_dep_top.png"},
-			"nodes_nature_"..type..".png",
-			{name = "nodes_nature_"..type..".png^nodes_nature_ag_dep_side.png"}},
-		stack_max = minimal.stack_max_bulky,
-		groups = g3,
-		sounds = s,
-		drop = source,
-		_wet_name = "nodes_nature:"..name.."_wet_depleted",
-		_wet_salty_name = "nodes_nature:"..type.."_wet_salty",
-		on_punch = function(pos, node, puncher, pointed_thing)
-			fertilize_ag_soil(pos, puncher, "nodes_nature:"..name)
-		end,
-		on_construct = function(pos)
-			--speed of erosion, reversion to natural/depleted
-			minetest.get_node_timer(pos):start(math.random(60, 300))
-		end,
-		on_timer = function(pos,elapsed)
-			return erode_deplete_ag_soil(pos, source)
-		end,
-	})
-
-	--register wet depleted soil
-	minetest.register_node("nodes_nature:"..name.."_wet_depleted", {
-		description = S("Wet Depleted @1", desc),
-		tiles = {
-			{name = "nodes_nature_"..type..".png^nodes_nature_ag_dep_top.png^nodes_nature_mud.png"},
-			"nodes_nature_"..type..".png^nodes_nature_mud.png",
-			{name = "nodes_nature_"..type..".png^nodes_nature_ag_dep_side.png^nodes_nature_mud.png"}},
-		stack_max = minimal.stack_max_bulky,
-		groups = g4,
-		sounds = sw,
-		drop = source.."_wet",
-		_dry_name = "nodes_nature:"..name.."_depleted",
-		on_punch = function(pos, node, puncher, pointed_thing)
-			fertilize_ag_soil(pos, puncher, "nodes_nature:"..name.."_wet")
-		end,
-		on_construct = function(pos)
-			--speed of erosion, reversion to natural/depleted
-			minetest.get_node_timer(pos):start(math.random(60, 300))
-		end,
-		on_timer = function(pos,elapsed)
-			return erode_deplete_ag_soil(pos, source.."_wet")
-		end,
-	})
-
+function sediment.new(args)
+    local groups =
+        {falling_node = 1, crumbly = args.hardness, sediment = args.fertility}
+    local mod_name = args.mod_name or "nodes_nature" -- allows making artificial soils
+    local node_name = mod_name..":"..args.name
+    local texture_name = args.texture_name or mod_name.."_"..args.name..".png"
+    local sed = {
+        name = args.name,
+        description = args.description,
+        hardness = args.hardness,
+        fertility = args.fertility,
+        texture_name = texture_name,
+        dry_node_name = node_name,
+        wet_node_name = node_name.."_wet",
+        wet_salty_node_name = node_name.."_wet_salty",
+        ag_soil = node_name.."_agricultural_soil",
+        ag_soil_wet = node_name.."_agricultural_soil_wet",
+        sound = args.sound,
+        sound_wet = args.sound_wet,
+        groups = groups,
+        groups_wet =
+            merge_tables(groups, {wet_sediment = 1, puts_out_fire = 1}),
+        groups_wet_salty =
+            merge_tables(groups, {wet_sediment = 2, puts_out_fire = 1}),
+        mod_name = mod_name,
+        
+    }
+    return sed
 end
+
+function sediment.get_dry_node_props(sed)
+    local props = {
+        description = sed.description,
+        tiles = {sed.texture_name},
+        stack_max = minimal.stack_max_bulky,
+        groups = sed.groups,
+        drop = sed.dry_node_name,
+        sounds = sed.sound,
+        _wet_name = sed.wet_node_name,
+        _wet_salty_name = sed.wet_salty_node_name,
+    }
+    return props
+end
+
+function sediment.register_dry(sed)
+    local props = sediment.get_dry_node_props(sed)
+    minetest.register_node(sed.dry_node_name, props)
+end
+
+function sediment.get_wet_node_props(sed)
+    local props = {
+        description = S("Wet @1", sed.description),
+        tiles = {sed.texture_name.."^"..textures.wet},
+        stack_max = minimal.stack_max_bulky,
+        groups = sed.groups_wet,
+        drop = sed.wet_node_name,
+        sounds = sed.sound_wet,
+        _dry_name = sed.dry_node_name,
+    }
+    return props
+end
+
+function sediment.register_wet(sed)
+    local props = sediment.get_wet_node_props(sed)
+    minetest.register_node(sed.wet_node_name, props)
+end
+
+function sediment.get_wet_salty_node_props(sed)
+    local props = {
+        description = S("Salty Wet @1", sed.description),
+        tiles = {sed.texture_name.."^"..textures.wet.."^"..textures.salty},
+        stack_max = minimal.stack_max_bulky,
+        groups = sed.groups_wet_salty,
+        drop = sed.wet_salty_node_name,
+        sounds = sed.sound_wet,
+        _dry_name = sed.dry_node_name,
+    }
+    return props
+end
+
+function sediment.register_wet_salty(sed)
+    local props = sediment.get_wet_salty_node_props(sed)
+    minetest.register_node(sed.wet_salty_node_name, props)
+end
+
+function sediment.register_stair_and_slab(sed)
+    stairs.register_stair_and_slab(
+        sed.name,
+        sed.dry_node_name,
+        "mixing_spot",
+        "true",
+        sed.groups,
+        {sed.texture_name},
+        sed.description.." Stair",
+        sed.description.." Slab",
+        minimal.stack_max_bulky * 2,
+        sed.sound
+    )
+end
+
+function sediment.do_slopes(sed)
+    local doslopes = minetest.settings:get_bool('exile_enableslopes')
+    local slopechance = minetest.settings:get('exile_slopechance') or 20
+    if doslopes then
+        naturalslopeslib.register_slope(sed.dry_node_name, {}, slopechance)
+        naturalslopeslib.register_slope(sed.wet_node_name, {}, slopechance)
+        naturalslopeslib.register_slope(sed.wet_salty_node_name, {}, slopechance)
+    end
+end
+
+-- Soils
+-----------------------------------
+soil = {}
+
+function soil.new(args)
+    local mod_name = args.mod_name or "nodes_nature"
+    local node_name = mod_name..":"..args.name
+    local soil = {
+        name = args.name,
+        description = args.description,
+        sediment = args.sediment,
+        dry_node_name = node_name,
+        wet_node_name = node_name.."_wet",
+        texture_name = mod_name.."_"..args.name..".png",
+        texture_side_name = mod_name.."_"..args.name.."_side.png",
+    }
+    return soil
+end
+
+function soil.register_dry(soil)
+    local sed = soil.sediment
+    local additional_properties = {
+        description = soil.description,
+        groups = merge_tables(sed.groups, {spreading = 1}),
+        tiles = {soil.texture_name, sed.texture_name,
+                 {name = sed.texture_name.."^"..soil.texture_side_name}},
+        _ag_soil = sed.ag_soil,
+    }
+    local sed_props = sediment.get_dry_node_props(sed)
+    local soil_props = merge_tables(sed_props, additional_properties)
+    minetest.register_node(soil.dry_node_name, soil_props)
+end
+
+function soil.register_wet(soil)
+    local sed = soil.sediment
+    local additional_properties = {
+        description = S("Wet @1", soil.description),
+        groups = merge_tables(sed.groups_wet, {spreading = 1}),
+        tiles = {soil.texture_name, sed.texture_name,
+                 {name = sed.texture_name.."^"..soil.texture_side_name.."^"..textures.wet}},
+        _ag_soil = sed.ag_soil_wet,
+    }
+    local sed_props = sediment.get_wet_node_props(sed)
+    local soil_props = merge_tables(sed_props, additional_properties)
+    minetest.register_node(soil.wet_node_name, soil_props)
+end
+
+function soil.do_slopes(soil)
+    local doslopes = minetest.settings:get_bool('exile_enableslopes')
+    local slopechance = minetest.settings:get('exile_slopechance') or 20
+    if doslopes then
+        naturalslopeslib.register_slope(soil.dry_node_name, {}, slopechance)
+        naturalslopeslib.register_slope(soil.wet_node_name, {}, slopechance)
+    end
+end
+
+-- Agricultural soils
+-----------------------------------
+agricultural_soil = {}
+
+function agricultural_soil.new(args)
+    local sed = args.sediment
+    local name = args.name
+    local mod_name = args.mod_name or sed.mod_name or "nodes_nature"
+    local node_name = mod_name..":"..name
+    local ag_soil = {
+        name = name,
+        description = args.description,
+        sediment = sed,
+        texture_name = textures.agri_top,
+        texture_side_name = textures.agri_side,
+        texture_depleted_name = textures.agri_top_depleted,
+        texture_depleted_side_name = textures.agri_side_depleted,
+        dry_node_name = node_name,
+        wet_node_name = node_name.."_wet",
+        depleted_node_name = node_name.."_depleted",
+        wet_depleted_node_name = node_name.."_wet_depleted",
+    }
+    return ag_soil
+end
+
+function agricultural_soil.register_dry(ag_soil)
+    local sed = ag_soil.sediment
+    local props = {
+        description = ag_soil.description,
+        tiles = {
+            {name = sed.texture_name.."^"..ag_soil.texture_name},
+            sed.texture_name,
+            {name = sed.texture_name.."^"..ag_soil.texture_side_name}},
+        stack_max = minimal.stack_max_bulky,
+        groups = merge_tables(sed.groups, {agricultural_soil = 1}),
+        sounds = sed.sound,
+        drop = sed.dry_node_name,
+        _wet_name = ag_soil.wet_node_name,
+        _wet_salty_name = sed.wet_salty_node_name,
+        on_construct = function(pos)
+            --speed of erosion, degrade to depleted
+            minetest.get_node_timer(pos):start(math.random(90, 300))
+        end,
+        on_timer = function(pos,elapsed)
+            return erode_deplete_ag_soil(pos, ag_soil.depleted_node_name)
+        end,
+    }
+    minetest.register_node(ag_soil.dry_node_name, props)
+end
+
+function agricultural_soil.register_wet(ag_soil)
+    local sed = ag_soil.sediment
+    local props = {
+        description = S("Wet @1", ag_soil.description),
+        tiles = {
+            {name = sed.texture_name.."^"..ag_soil.texture_name.."^"..textures.wet},
+            sed.texture_name.."^"..textures.wet,
+            {name = sed.texture_name.."^"..ag_soil.texture_side_name.."^"..textures.wet}},
+        stack_max = minimal.stack_max_bulky,
+        groups = merge_tables(sed.groups_wet, {agricultural_soil = 1}),
+        sounds = sed.sound_wet,
+        drop = sed.wet_node_name,
+        _dry_name = ag_soil.dry_node_name,
+        on_construct = function(pos)
+            --speed of erosion, degrade to depleted
+            minetest.get_node_timer(pos):start(math.random(90, 300))
+        end,
+        on_timer = function(pos, elapsed)
+            return erode_deplete_ag_soil(pos, ag_soil.depleted_node_name)
+        end,
+    }
+    minetest.register_node(ag_soil.wet_node_name, props)
+end
+
+function agricultural_soil.register_depleted(ag_soil)
+    local sed = ag_soil.sediment
+    local props = {
+        description = S("Depleted @1", ag_soil.description),
+        tiles = {
+            {name = sed.texture_name.."^"..ag_soil.texture_depleted_name},
+            sed.texture_name,
+            {name = sed.texture_name.."^"..ag_soil.texture_depleted_side_name}},
+        stack_max = minimal.stack_max_bulky,
+        groups = merge_tables(sed.groups, {agricultural_soil = 1, depleted_agricultural_soil = 1}),
+        sounds = sed.sound,
+        drop = sed.dry_node_name,
+        _wet_name = ag_soil.wet_depleted_node_name,
+        _wet_salty_name = sed.wet_salty_node_name,
+        on_punch = function(pos, node, puncher, pointed_thing)
+            fertilize_ag_soil(pos, puncher, ag_soil.dry_node_name)
+        end,
+        on_construct = function(pos)
+            --speed of erosion, reversion to natural/depleted
+            minetest.get_node_timer(pos):start(math.random(60, 300))
+        end,
+        on_timer = function(pos,elapsed)
+            return erode_deplete_ag_soil(pos, sed.dry_node_name)
+        end,
+    }
+    minetest.register_node(ag_soil.depleted_node_name, props)
+end
+
+function agricultural_soil.register_wet_depleted(ag_soil)
+    local sed = ag_soil.sediment
+    local props = {
+        description = S("Wet Depleted @1", ag_soil.description),
+        tiles = {
+            {name = sed.texture_name.."^"..ag_soil.texture_depleted_name.."^"..textures.wet},
+            sed.texture_name.."^"..textures.wet,
+            {name = sed.texture_name.."^"..ag_soil.texture_depleted_side_name.."^"..textures.wet}},
+        stack_max = minimal.stack_max_bulky,
+        groups = merge_tables(sed.groups_wet, {agricultural_soil = 1, depleted_agricultural_soil = 1}),
+        sounds = sed.sound_wet,
+        drop = sed.wet_node_name,
+        _dry_name = ag_soil.dry_node_name,
+        on_punch = function(pos, node, puncher, pointed_thing)
+            fertilize_ag_soil(pos, puncher, ag_soil.wet_node_name)
+        end,
+        on_construct = function(pos)
+            --speed of erosion, reversion to natural/depleted
+            minetest.get_node_timer(pos):start(math.random(60, 300))
+        end,
+        on_timer = function(pos,elapsed)
+            return erode_deplete_ag_soil(pos, sed.wet_node_name)
+        end,
+    }
+    minetest.register_node(ag_soil.wet_depleted_node_name, props)
+end
+
+function agricultural_soil.register_recipe(agri_soil)
+    crafting.register_recipe({
+            type = "mixing_spot",
+            output = agri_soil.dry_node_name,
+            items = {agri_soil.sediment.dry_node_name.." 1","group:fertilizer 1"},
+            level = 1,
+            always_known = true,
+    })
+end
+
+function agricultural_soil.register_recipe_wet(agri_soil)
+    crafting.register_recipe({
+            type = "mixing_spot",
+            output = agri_soil.wet_node_name,
+            items = {agri_soil.sediment.wet_node_name.." 1","group:fertilizer 1"},
+            level = 1,
+            always_known = true,
+    })
+end
+
+-- Functions for making sets: sediment + soil + agricultural soil
+---------------------------------------------------
+
+-- Registers sediments, their slabs, wet, salty, slopes etc. and crafting recipes
+function register_sed_variants(sed)
+    sediment.register_dry(sed)
+    sediment.register_wet(sed)
+    sediment.register_wet_salty(sed)
+    sediment.register_stair_and_slab(sed)
+    sediment.do_slopes(sed)
+end
+
+-- Registers agricultural soils and their variants
+-- (dry, wet, depleted) and recipes to craft them
+function register_agri_soil_variants(sed)
+    local agri =
+        agricultural_soil.new({name = sed.name.."_agricultural_soil",
+                               description = S("@1 Agricultural Soil", sed.description),
+                               sediment = sed})
+    agricultural_soil.register_dry(agri)
+    agricultural_soil.register_wet(agri)
+    agricultural_soil.register_depleted(agri)
+    agricultural_soil.register_wet_depleted(agri)
+    agricultural_soil.register_recipe(agri)
+    agricultural_soil.register_recipe_wet(agri)
+end
+
+-- Registers soils with "grasses" and their variants including slopes
+function register_soil_variants(soil_list)
+    for _, s in ipairs(soil_list) do
+        soil.register_dry(s)
+        soil.register_wet(s)
+        soil.do_slopes(s)
+    end
+end
+
+-- Registers sediments, their variants (slabs, wet, salty, etc.) and agricultural soils
+-- including crafting recipes
+function register_all_sed_and_agri_variants(sed_list)
+    for _, sed in pairs(sed_list) do
+        register_sed_variants(sed)
+        register_agri_soil_variants(sed)
+    end
+end
+
+---------------------------------------------
+-- Nodes and recipes are defined here
+---------------------------------------------
+
+-- list of sediments to be used for mapgen
+local sediment_list = {
+    sand = sediment.new({name = "sand", description = S("Sand"), hardness = hardness.soft,
+                         fertility = 4, sound = sounds.sand, sound_wet = sounds.sand_wet}),
+    silt = sediment.new({name = "silt", description = S("Silt"), hardness = hardness.soft,
+                         fertility = 3, sound = sounds.dirt, sound_wet = sounds.dirt_wet}),
+    clay = sediment.new({name = "clay", description = S("Clay"), hardness = hardness.medium,
+                         fertility = 2, sound = sounds.dirt, sound_wet = sounds.dirt_wet}),
+    gravel = sediment.new({name = "gravel", description = S("Gravel"), hardness = hardness.soft,
+                           fertility = 5, sound = sounds.gravel, sound_wet = sounds.gravel_wet}),
+    loam = sediment.new({name = "loam", description = S("Loam"), hardness = hardness.soft,
+                         fertility = 1, sound = sounds.dirt, sound_wet = sounds.dirt_wet}),
+}
+
+-- this is only for paint
+local red_ochre = sediment.new({name = "red_ochre", description = S("Red Ochre"), hardness = hardness.medium,
+                                fertility = 2, sound = sounds.dirt, sound_wet = sounds.dirt_wet})
+sediment.register_dry(red_ochre)
+sediment.register_wet(red_ochre)
+sediment.register_wet_salty(red_ochre)
+sediment.do_slopes(red_ochre)
+
+
+
+local soil_list = {
+    --Forest & Woodland
+    soil.new({name = "rich_forest_soil", description = S("Rich Forest Soil"), sediment = sediment_list.loam}),
+    soil.new({name = "rich_woodland_soil", description = S("Rich Woodland Soil"), sediment = sediment_list.loam}),
+    soil.new({name = "forest_soil", description = S("Forest Soil"), sediment = sediment_list.silt}),
+    soil.new({name = "woodland_soil", description = S("Woodland Soil"), sediment = sediment_list.silt}),
+    soil.new({name = "upland_forest_soil", description = S("Upland Forest Soil"), sediment = sediment_list.clay}),
+    soil.new({name = "upland_woodland_soil", description = S("Upland Woodland Soil"), sediment = sediment_list.clay}),
+
+    --Wetlands
+    soil.new({name = "marshland_soil", description = S("Marshland Soil"), sediment = sediment_list.silt}),
+    soil.new({name = "swamp_forest_soil", description = S("Swamp Forest Soil"), sediment = sediment_list.silt}),
+
+    --Shrubland & Grassland
+    soil.new({name = "coastal_shrubland_soil", description = S("Coastal Shrubland Soil"), sediment = sediment_list.silt}),
+    soil.new({name = "coastal_grassland_soil", description = S("Coastal Grassland Soil"), sediment = sediment_list.clay}),
+    soil.new({name = "grassland_soil", description = S("Grassland Soil"), sediment = sediment_list.clay}),
+    soil.new({name = "shrubland_soil", description = S("Shrubland Soil"), sediment = sediment_list.clay}),
+
+    --Barrenland & Duneland
+    soil.new({name = "barrenland_soil", description = S("Barren Grassland Soil"), sediment = sediment_list.gravel}),
+    soil.new({name = "duneland_soil", description = S("Duneland Soil"), sediment = sediment_list.sand}),
+
+    -- Highland
+    soil.new({name = "highland_soil", description = S("Highland Soil"), sediment = sediment_list.gravel}),
+
+    --Legacy
+    soil.new({name = "grassland_barren_soil", description = S("Barren Grassland Soil"), sediment = sediment_list.gravel}),
+    soil.new({name = "woodland_dry_soil", description = S("Dry Woodland Soil"), sediment = sediment_list.silt}),
+}
+
+-- Recipes for loam
+crafting.register_recipe({
+	type = "mixing_spot",
+	output = "nodes_nature:loam 3",
+	items = {"nodes_nature:clay 1","nodes_nature:silt 1","nodes_nature:sand 1"},
+	level = 1,
+	always_known = true,
+})
+
+crafting.register_recipe({
+	type = "mixing_spot",
+	output = "nodes_nature:loam_wet 3",
+	items = {"nodes_nature:clay_wet 1","nodes_nature:silt_wet 1","nodes_nature:sand_wet 1"},
+	level = 1,
+	always_known = true,
+})
+
+-- Actually registers (almost) all soils in the game
+-- see red_ochre above
+register_all_sed_and_agri_variants(sediment_list)
+register_soil_variants(soil_list)
