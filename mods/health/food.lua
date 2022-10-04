@@ -36,51 +36,7 @@ local function do_food_harm(user, nodename)
    end
 end
 
-function exile_eatdrink_playermade(itemstack, user)
-   local imeta = itemstack:get_meta()
-   local pname = user:get_player_name()
-   local t = minetest.deserialize(imeta:get_string("eat_value"))
-   if t == nil then minetest.log("warning", pname..
-				    " ate an invalid food of type "..
-				    itemstack:get_name())
-      return
-   end
-   return HEALTH.use_item(itemstack, user, t[1], t[2], t[3], t[4], t[5], t[6])
-end
-
-function exile_eatdrink(itemstack, user)
-   local name = itemstack:get_name()
-
-   if minetest.registered_aliases[name] then
-      name = minetest.registered_aliases[name]
-   end
-   if not food_table[name] then
-      minetest.chat_send_player(user:get_player_name(),
-				S("This is inedible."))
-      return
-   end
-   do_food_harm(user, name)
-   local t = food_table[name]
-   return HEALTH.use_item(itemstack, user, t[1], t[2], t[3], t[4], t[5], t[6])
-end
-
 local __eat_click_settings_cache = {}
-function single_click_eat(pname, user)
-	local epoch = os.time()
-	local cache = __eat_click_settings_cache
-	if not cache[pname] then
-		local pmeta = user:get_meta()
-		local eat2x = pmeta:get_string("conf_eat2x") or minetest.settings:get('exile_eat_doubleclick') or 'false'
-		if eat2x == 'true' then
-			eat2x = true
-		else 
-			eat2x = false
-		end
-		cache[pname] = not eat2x
-	end
-	return cache[pname]
-end
-
 minetest.register_chatcommand("eat2x", {
         params = "true or false",
         description = "Toggles double-click to eat",
@@ -107,21 +63,70 @@ minetest.register_chatcommand("eat2x", {
 		eat2x = false
 	end
 	__eat_click_settings_cache[name] = not eat2x
+	print(dump(__eat_click_settings_cache))
         end,
 })
+
+function eat_ok (itemstack, user, pointed_thing)
+	local pt_pos = minetest.get_pointed_thing_position(pointed_thing)
+	local pname = user:get_player_name()
+	local cache = __eat_click_settings_cache
+	if cache[pname] == nil then
+		local pmeta = user:get_meta()
+		local eat2x = pmeta:get_string("conf_eat2x") or minetest.settings:get('exile_eat_doubleclick') or 'false'
+		if eat2x == 'true' then
+			eat2x = true
+		else 
+			eat2x = false
+		end
+		cache[pname] = not eat2x
+	end
+	if ( not cache[pname] ) or minimal.click_count_ready(pname, pt_pos, 2, 2) then
+		return true
+	else
+	minetest.chat_send_player(pname, S("double click to eat"))
+	end
+end
+
+function exile_eatdrink_playermade(itemstack, user, pointed_thing)
+   local imeta = itemstack:get_meta()
+   local pname = user:get_player_name()
+   local t = minetest.deserialize(imeta:get_string("eat_value"))
+   if t == nil then minetest.log("warning", pname..
+				    " ate an invalid food of type "..
+				    itemstack:get_name())
+      return
+   end
+   if eat_ok(itemstack, user, pointed_thing) then
+ 	  return HEALTH.use_item(itemstack, user, t[1], t[2], t[3], t[4], t[5], t[6])
+   end
+end
+
+function exile_eatdrink(itemstack, user, pointed_thing)
+   local name = itemstack:get_name()
+
+   if minetest.registered_aliases[name] then
+      name = minetest.registered_aliases[name]
+   end
+   if not (food_table[name] or (minetest.get_item_group(name,'edible') > 0))  then
+      minetest.chat_send_player(user:get_player_name(),
+				S("This is inedible."))
+      return
+   end
+   if eat_ok(itemstack, user, pointed_thing) then
+	   do_food_harm(user, name)
+	   local t = food_table[name]
+	   return HEALTH.use_item(itemstack, user, t[1], t[2], t[3], t[4], t[5], t[6])
+   else
+      return
+   end
+end
+
 
 -- Overrides for edible and bakable nodes
 local eat_redef = {
    on_use = function(itemstack, user, pointed_thing)
-	   local pt_pos = minetest.get_pointed_thing_position(pointed_thing)
-	   local pname = user:get_player_name()
-	   local singleclick = single_click_eat(pname,user)
-	   if singleclick or minimal.click_count_ready(pname, pt_pos, 2, 2) then
-		return exile_eatdrink(itemstack, user)
-	   else
-		minetest.chat_send_player(user:get_player_name(),
-			S("Double click to eat"))
-	   end
+		return exile_eatdrink(itemstack, user, pointed_thing)
 end}
 
 local function bake_error(pos, selfname)
@@ -178,7 +183,7 @@ function exile_add_harm(table)
 end
 
 function exile_add_food_hooks(name)
-   if food_table[name] then
+   if (minetest.get_item_group(name,'edible') > 0) or food_table[name] then
       minetest.override_item(name, eat_redef)
    end
    if bake_table[name] then
@@ -189,6 +194,14 @@ function exile_add_food_hooks(name)
    end
 end
 
+-- Add food hooks to all nodes in edible group
+minetest.register_on_mods_loaded(function()
+	for name,_ in pairs(minetest.registered_nodes) do
+		if minetest.get_item_group(name,'edible') > 0 then
+			exile_add_food_hooks(name)
+		end
+	end
+end)
 
 -- Finalized table list
 --Outputs a compilned list of all added foods to the minetest log, info level

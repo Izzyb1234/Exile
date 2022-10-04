@@ -207,9 +207,8 @@ minetest.register_node("animals:gundu_eggs", {
 	description = S('Gundu Eggs'),
 	tiles = {"animals_gundu_eggs.png"},
 	stack_max = minimal.stack_max_bulky,
-	groups = {snappy = 3},
+	groups = {snappy = 3, edible = 1},
 	sounds = nodes_nature.node_sound_defaults(),
-	on_use = exile_eatdrink,
 	on_construct = function(pos)
 		minetest.get_node_timer(pos):start(math.random(egg_timer,egg_timer*2))
 	end,

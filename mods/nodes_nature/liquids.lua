@@ -207,9 +207,10 @@ minetest.register_node("nodes_nature:snow", {
 	},
 	temp_effect = -2,
 	temp_effect_max = 0,
-	groups = {crumbly = 3, falling_node = 1, temp_effect = 1, temp_pass = 1, puts_out_fire = 1, fall_damage_add_percent = -25},
+	groups = {crumbly = 3, falling_node = 1, temp_effect = 1, temp_pass = 1, 
+		puts_out_fire = 1, fall_damage_add_percent = -25,
+		edible = 1},
 	sounds = nodes_nature.node_sound_snow_defaults(),
-	on_use = exile_eatdrink,
 	on_rightclick = function (pos,node,clicker,itemstack,pointed_thing)
 		return minimal.slabs_combine(pos,node,itemstack,'nodes_nature:snow_block')
 	end,
@@ -221,9 +222,11 @@ minetest.register_node("nodes_nature:snow_block", {
 	stack_max = minimal.stack_max_bulky,
 	temp_effect = -4,
 	temp_effect_max = 0,
-	groups = {crumbly = 3, falling_node = 1, temp_effect = 1, puts_out_fire = 1, cools_lava = 1, fall_damage_add_percent = -50},
+	groups = {crumbly = 3, falling_node = 1, temp_effect = 1, 
+		puts_out_fire = 1, cools_lava = 1, fall_damage_add_percent = -50,
+		edible = 1,
+	},
 	sounds = nodes_nature.node_sound_snow_defaults(),
-	on_use = exile_eatdrink
 })
 
 
