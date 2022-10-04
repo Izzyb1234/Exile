@@ -65,11 +65,10 @@ function exile_eatdrink(itemstack, user)
 end
 
 local __eat_click_settings_cache = {}
-local __cache_timeout = 60 -- 1 minute timeout on cache values
 function single_click_eat(pname, user)
 	local epoch = os.time()
 	local cache = __eat_click_settings_cache
-	if not (cache[pname] and cache[pname].timeout > epoch) then
+	if not cache[pname] then
 		local pmeta = user:get_meta()
 		local eat2x = pmeta:get_string("conf_eat2x") or minetest.settings:get('exile_eat_doubleclick') or 'false'
 		if eat2x == 'true' then
@@ -77,13 +76,9 @@ function single_click_eat(pname, user)
 		else 
 			eat2x = false
 		end
-		cache[pname] = {
-			timeout = epoch + __cache_timeout,
-			single_click = not eat2x,
-		}
+		cache[pname] = not eat2x
 	end
-print(dump(cache))
-	return cache[pname].single_click
+	return cache[pname]
 end
 
 minetest.register_chatcommand("eat2x", {
@@ -111,12 +106,7 @@ minetest.register_chatcommand("eat2x", {
 	else
 		eat2x = false
 	end
-
-	local epoch = os.time()
-	__eat_click_settings_cache[name] = {
-		timeout = epoch + __cache_timeout,
-		single_click = not eat2x,
-	}
+	__eat_click_settings_cache[name] = not eat2x
         end,
 })
 
