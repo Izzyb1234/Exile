@@ -33,19 +33,15 @@ minetest.register_node("tech:broken_pottery", {
 	end,
 })
 
---full block
-minetest.register_node("tech:broken_pottery_block", {
-	description = S("Broken Pottery"),
-	tiles = {"tech_broken_pottery.png"},
-	stack_max = minimal.stack_max_bulky,
-	paramtype = "light",
-	drawtype = "nodebox",
-	groups = {cracky = 3, falling_node = 1, oddly_breakable_by_hand = 3},
-	sounds = nodes_nature.node_sound_gravel_defaults(),
-})
-
-
-
+-- Broken pottery full blocks and soil
+local broken_pottery =
+    sediment.new({name = "broken_pottery_block", description = S("Broken Pottery"), hardness = hardness.soft,
+                  fertility = 5, sound = sounds.gravel, sound_wet = sounds.gravel_wet,
+                  texture_name = "tech_broken_pottery.png", mod_name = "tech"})
+sediment.register_dry(broken_pottery)
+sediment.register_wet(broken_pottery)
+sediment.register_wet_salty(broken_pottery)
+register_agri_soil_variants(broken_pottery)
 
 -------------------------------------------------------------------
 --THIS SHOULD BE MOVED somewhere GENERALIZED to handle non-pottery pots
