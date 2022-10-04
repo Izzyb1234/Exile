@@ -261,7 +261,7 @@ function soil.register_wet(soil)
     local additional_properties = {
         description = S("Wet @1", soil.description),
         groups = merge_tables(sed.groups_wet, {spreading = 1}),
-        tiles = {soil.texture_name, sed.texture_name,
+        tiles = {soil.texture_name.."^"..textures.wet, sed.texture_name.."^"..textures.wet,
                  {name = sed.texture_name.."^"..soil.texture_side_name.."^"..textures.wet}},
         _ag_soil = sed.ag_soil_wet,
     }
