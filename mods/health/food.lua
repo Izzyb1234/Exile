@@ -108,7 +108,7 @@ function exile_eatdrink(itemstack, user, pointed_thing)
    if minetest.registered_aliases[name] then
       name = minetest.registered_aliases[name]
    end
-   if not (food_table[name] or (minetest.get_item_group(name,'edible') > 0))  then
+   if not food_table[name] then
       minetest.chat_send_player(user:get_player_name(),
 				S("This is inedible."))
       return
