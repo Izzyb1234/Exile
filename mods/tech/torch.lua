@@ -398,3 +398,11 @@ crafting.register_recipe({
 	level = 1,
 	always_known = true,
 })
+
+crafting.register_recipe({
+	type = "knife",
+	output = "tech:torch 1",
+	items = {"tech:stick 1", "group:fibrous_plant 4"},
+	level = 1,
+	always_known = true,
+})

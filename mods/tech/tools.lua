@@ -125,10 +125,10 @@ minetest.register_tool("tech:stone_chopper", {
 		},
 		damage_groups = {fleshy= crude_dmg},
 	},
+	on_place = crafting.make_on_place("knife", 2, { x = 8, y = 3 }),
 	groups = {knife = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
-
 
 
 --

@@ -292,7 +292,7 @@ minetest.register_craftitem("tech:vegetable_oil", {
 
 --Sticks from woody plants
 crafting.register_recipe({
-	type = "crafting_spot",
+	type = "knife",
 	output = "tech:stick 2",
 	items = {"group:woody_plant"},
 	level = 1,
@@ -302,7 +302,7 @@ crafting.register_recipe({
 
 --peel tubers
 crafting.register_recipe({
-	type = "crafting_spot",
+	type = "knife",
 	output = "tech:peeled_anperla",
 	items = {"nodes_nature:anperla_seed"},
 	level = 1,
