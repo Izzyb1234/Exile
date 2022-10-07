@@ -281,7 +281,7 @@ minetest.register_craftitem("tech:vegetable_oil", {
 
 --Sticks from woody plants
 crafting.register_recipe({
-	type = "crafting_spot",
+	type = "knife",
 	output = "tech:stick 2",
 	items = {"group:woody_plant"},
 	level = 1,
