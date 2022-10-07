@@ -89,7 +89,7 @@ doors.register_trapdoor("tech:trapdoor_iron", {
 
 --wattle panels plus something to tie them on
 crafting.register_recipe({
-	type = "crafting_spot",
+	type = "knife",
 	output = "doors:door_wattle",
 	items = {"tech:wattle 2", "group:fibrous_plant 2", "tech:stick 2"},
 	level = 1,
@@ -98,7 +98,7 @@ crafting.register_recipe({
 
 --wattle panels plus something to tie them on
 crafting.register_recipe({
-	type = "crafting_spot",
+	type = "knife",
 	output = "tech:trapdoor_wattle",
 	items = {"tech:wattle", "group:fibrous_plant", "tech:stick"},
 	level = 1,

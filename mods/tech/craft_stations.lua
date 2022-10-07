@@ -29,6 +29,13 @@ crafting.register_type("spinning_wheel")
 crafting.register_type("loom")
 crafting.register_type("glass_furnace")
 
+-- Tool based crafting stations
+crafting.register_type("knife")
+crafting.register_type("hammer")
+crafting.register_type('farming_tool')
+crafting.register_type('shovel')
+crafting.register_type('Axe')
+crafting.register_type('pickaxe')
 
 -- location limit craft spots --------------------
 -- grouplist/banlistg {{group1, group_number}, {'stone', 1}}
