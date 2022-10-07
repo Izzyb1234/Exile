@@ -832,7 +832,7 @@ minetest.register_node('tech:large_charcoal_fire_ext', {
 ----craft unlit fire from Sticks, tinder
 --small fire
 crafting.register_recipe({
-	type = "crafting_spot",
+	type = "knife",
 	output = "tech:small_wood_fire_unlit",
 	items = {"tech:stick 6", "group:fibrous_plant 1"},
 	level = 1,
@@ -847,7 +847,7 @@ crafting.register_recipe({
 })
 --large fire
 crafting.register_recipe({
-	type = "crafting_spot",
+	type = "knife",
 	output = "tech:large_wood_fire_unlit",
 	items = {"tech:stick 12", "group:fibrous_plant 2"},
 	level = 1,
