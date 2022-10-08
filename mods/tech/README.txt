@@ -35,6 +35,7 @@ Jan Wielkiewicz (CC BY-SA 3.0)
   * tech_tool_hammer_granite.png
   * tech_tool_hammer_basalt.png
   * tech_tool_hammer_jade.png
+- hammer model
 
 cx384, WTFPL:
 - tech_charcoal.png
