@@ -32,9 +32,9 @@ crafting.register_type("glass_furnace")
 
 -- location limit craft spots --------------------
 -- grouplist/banlistg {{group1, group_number}, {'stone', 1}}
--- blocklist/banlistn {node_name, 'nodes_nature:sandstone'}
+-- nodelist/banlistn {node_name, 'nodes_nature:sandstone'}
 -- msg string "stone or sandstone"
-local function on_place_loclim_spot(itemstack, placer, pointed_thing, grouplist, blocklist, msg, banlistg, banlistn)
+local function on_place_loclim_spot(itemstack, placer, pointed_thing, grouplist, nodelist, msg, banlistg, banlistn)
    local ground = minetest.get_node(pointed_thing.under)
 
 	 --check lists to see if it's a valid substrate
@@ -53,11 +53,11 @@ local function on_place_loclim_spot(itemstack, placer, pointed_thing, grouplist,
 		 end
 	 end
 
-	 if blocklist and #blocklist >= 1 then
+	 if nodelist and #nodelist >= 1 then
 		 vcheck = true
 		 local gname = ground.name
-		 for i in ipairs(blocklist) do
-		    local name = blocklist[i]
+		 for i in ipairs(nodelist) do
+		    local name = nodelist[i]
 			if gname == name then
 				valid = true
 				break
