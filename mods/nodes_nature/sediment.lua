@@ -98,15 +98,15 @@ end
 
 --For using fertilizer on punch
 local function fertilize_ag_soil(pos, puncher, restored_name)
-	--hit it with fertilizer to restore
-	local itemstack = puncher:get_wielded_item()
-	local ist_name = itemstack:get_name()
+   --hit it with fertilizer to restore
+   local itemstack = puncher:get_wielded_item()
+   local ist_name = itemstack:get_name()
 
-	if minetest.get_item_group(ist_name, "fertilizer") >= 1 then
-		minetest.swap_node(pos, {name = restored_name})
-		local inv = puncher:get_inventory()
-		inv:remove_item("main", ist_name)
-	end
+   if minetest.get_item_group(ist_name, "fertilizer") >= 1 then
+      minetest.swap_node(pos, {name = restored_name})
+      local inv = puncher:get_inventory()
+      inv:remove_item("main", ist_name)
+   end
 end
 
 -- Sediments
@@ -114,36 +114,36 @@ end
 sediment = {}
 
 function sediment.new(args)
-    local groups =
-        {falling_node = 1, crumbly = args.hardness, sediment = args.fertility}
-    local mod_name = args.mod_name or "nodes_nature" -- allows making artificial soils
-    local node_name = mod_name..":"..args.name
-    local texture_name = args.texture_name or mod_name.."_"..args.name..".png"
-    local sed = {
-        name = args.name,
-        description = args.description,
-        hardness = args.hardness,
-        fertility = args.fertility,
-        texture_name = texture_name,
-        dry_node_name = node_name,
-        wet_node_name = node_name.."_wet",
-        wet_salty_node_name = node_name.."_wet_salty",
-        ag_soil = node_name.."_agricultural_soil",
-        ag_soil_wet = node_name.."_agricultural_soil_wet",
-        sound = args.sound,
-        sound_wet = args.sound_wet,
-        groups = groups,
-        groups_wet =
-            merge_tables(groups, {wet_sediment = 1, puts_out_fire = 1}),
-        groups_wet_salty =
-            merge_tables(groups, {wet_sediment = 2, puts_out_fire = 1}),
-        mod_name = mod_name,
+   local groups =
+      {falling_node = 1, crumbly = args.hardness, sediment = args.fertility}
+   local mod_name = args.mod_name or "nodes_nature" -- allows making artificial soils
+   local node_name = mod_name..":"..args.name
+   local texture_name = args.texture_name or mod_name.."_"..args.name..".png"
+   local sed = {
+      name = args.name,
+      description = args.description,
+      hardness = args.hardness,
+      fertility = args.fertility,
+      texture_name = texture_name,
+      dry_node_name = node_name,
+      wet_node_name = node_name.."_wet",
+      wet_salty_node_name = node_name.."_wet_salty",
+      ag_soil = node_name.."_agricultural_soil",
+      ag_soil_wet = node_name.."_agricultural_soil_wet",
+      sound = args.sound,
+      sound_wet = args.sound_wet,
+      groups = groups,
+      groups_wet =
+	 merge_tables(groups, {wet_sediment = 1, puts_out_fire = 1}),
+      groups_wet_salty =
+	 merge_tables(groups, {wet_sediment = 2, puts_out_fire = 1}),
+      mod_name = mod_name,
 
-    }
-    return sed
+   }
+   return sed
 end
 
-local function sediment.get_dry_node_props(sed)
+local function get_dry_node_props(sed)
     local props = {
         description = sed.description,
         tiles = {sed.texture_name},
@@ -158,11 +158,11 @@ local function sediment.get_dry_node_props(sed)
 end
 
 function sediment.register_dry(sed)
-    local props = sediment.get_dry_node_props(sed)
+    local props = get_dry_node_props(sed)
     minetest.register_node(sed.dry_node_name, props)
 end
 
-local function sediment.get_wet_node_props(sed)
+local function get_wet_node_props(sed)
     local props = {
         description = S("Wet @1", sed.description),
         tiles = {sed.texture_name.."^"..textures.wet},
@@ -176,11 +176,11 @@ local function sediment.get_wet_node_props(sed)
 end
 
 function sediment.register_wet(sed)
-    local props = sediment.get_wet_node_props(sed)
+    local props = get_wet_node_props(sed)
     minetest.register_node(sed.wet_node_name, props)
 end
 
-local function sediment.get_wet_salty_node_props(sed)
+local function get_wet_salty_node_props(sed)
     local props = {
         description = S("Salty Wet @1", sed.description),
         tiles = {sed.texture_name.."^"..textures.wet.."^"..textures.salty},
@@ -194,7 +194,7 @@ local function sediment.get_wet_salty_node_props(sed)
 end
 
 function sediment.register_wet_salty(sed)
-    local props = sediment.get_wet_salty_node_props(sed)
+    local props = get_wet_salty_node_props(sed)
     minetest.register_node(sed.wet_salty_node_name, props)
 end
 
@@ -251,7 +251,7 @@ function soil.register_dry(soil)
                  {name = sed.texture_name.."^"..soil.texture_side_name}},
         _ag_soil = sed.ag_soil,
     }
-    local sed_props = sediment.get_dry_node_props(sed)
+    local sed_props = get_dry_node_props(sed)
     local soil_props = merge_tables(sed_props, additional_properties)
     minetest.register_node(soil.dry_node_name, soil_props)
 end
@@ -265,7 +265,7 @@ function soil.register_wet(soil)
                  {name = sed.texture_name.."^"..soil.texture_side_name.."^"..textures.wet}},
         _ag_soil = sed.ag_soil_wet,
     }
-    local sed_props = sediment.get_wet_node_props(sed)
+    local sed_props = get_wet_node_props(sed)
     local soil_props = merge_tables(sed_props, additional_properties)
     minetest.register_node(soil.wet_node_name, soil_props)
 end
