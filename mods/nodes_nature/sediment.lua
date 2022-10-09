@@ -68,7 +68,7 @@ local function erode_deplete_ag_soil(pos, depleted_name)
 	end
 
 	if c < (0.05 * adjust) then -- 90-95% chance nothing happens
-	   return true 
+	   return true
 	end
 	--4-8% chance of rain/water erosion
 	if c > (0.01 * adjust) then
@@ -138,7 +138,7 @@ function sediment.new(args)
         groups_wet_salty =
             merge_tables(groups, {wet_sediment = 2, puts_out_fire = 1}),
         mod_name = mod_name,
-        
+
     }
     return sed
 end
@@ -479,23 +479,39 @@ end
 
 -- list of sediments to be used for mapgen
 local sediment_list = {
-    sand = sediment.new({name = "sand", description = S("Sand"), hardness = hardness.soft,
-                         fertility = 4, sound = sounds.sand, sound_wet = sounds.sand_wet}),
-    silt = sediment.new({name = "silt", description = S("Silt"), hardness = hardness.soft,
-                         fertility = 3, sound = sounds.dirt, sound_wet = sounds.dirt_wet}),
-    clay = sediment.new({name = "clay", description = S("Clay"), hardness = hardness.medium,
-                         fertility = 2, sound = sounds.dirt, sound_wet = sounds.dirt_wet}),
-    gravel = sediment.new({name = "gravel", description = S("Gravel"), hardness = hardness.soft,
-                           fertility = 5, sound = sounds.gravel, sound_wet = sounds.gravel_wet}),
-    loam = sediment.new({name = "loam", description = S("Loam"), hardness = hardness.soft,
-                         fertility = 1, sound = sounds.dirt, sound_wet = sounds.dirt_wet}),
-    volcanic_ash = sediment.new({name = "volcanic_ash", description = S("Volcanic ash"), hardness = hardness.soft,
-                                 fertility = 1, sound = sounds.sand, sound_wet = sounds.sand_wet}),
+   sand = sediment.new({name = "sand",
+			description = S("Sand"), hardness = hardness.soft,
+			fertility = 4, sound = sounds.sand,
+			sound_wet = sounds.sand_wet}),
+   silt = sediment.new({name = "silt",
+			description = S("Silt"), hardness = hardness.soft,
+			fertility = 3, sound = sounds.dirt,
+			sound_wet = sounds.dirt_wet}),
+   clay = sediment.new({name = "clay",
+			description = S("Clay"), hardness = hardness.medium,
+			fertility = 2, sound = sounds.dirt,
+			sound_wet = sounds.dirt_wet}),
+   gravel = sediment.new({name = "gravel",
+			  description = S("Gravel"), hardness = hardness.soft,
+			  fertility = 5, sound = sounds.gravel,
+			  sound_wet = sounds.gravel_wet}),
+   loam = sediment.new({name = "loam",
+			description = S("Loam"), hardness = hardness.soft,
+			fertility = 1, sound = sounds.dirt,
+			sound_wet = sounds.dirt_wet}),
+   volcanic_ash = sediment.new({name = "volcanic_ash",
+				description = S("Volcanic ash"),
+				hardness = hardness.soft,
+				fertility = 1, sound = sounds.sand,
+				sound_wet = sounds.sand_wet}),
 }
 
 -- this is only for paint
-local red_ochre = sediment.new({name = "red_ochre", description = S("Red Ochre"), hardness = hardness.medium,
-                                fertility = 2, sound = sounds.dirt, sound_wet = sounds.dirt_wet})
+local red_ochre = sediment.new({name = "red_ochre",
+				description = S("Red Ochre"),
+				hardness = hardness.medium,
+                                fertility = 2, sound = sounds.dirt,
+				sound_wet = sounds.dirt_wet})
 sediment.register_dry(red_ochre)
 sediment.register_wet(red_ochre)
 sediment.register_wet_salty(red_ochre)
@@ -505,33 +521,65 @@ sediment.do_slopes(red_ochre)
 
 local soil_list = {
     --Forest & Woodland
-    soil.new({name = "rich_forest_soil", description = S("Rich Forest Soil"), sediment = sediment_list.loam}),
-    soil.new({name = "rich_woodland_soil", description = S("Rich Woodland Soil"), sediment = sediment_list.loam}),
-    soil.new({name = "forest_soil", description = S("Forest Soil"), sediment = sediment_list.silt}),
-    soil.new({name = "woodland_soil", description = S("Woodland Soil"), sediment = sediment_list.silt}),
-    soil.new({name = "upland_forest_soil", description = S("Upland Forest Soil"), sediment = sediment_list.clay}),
-    soil.new({name = "upland_woodland_soil", description = S("Upland Woodland Soil"), sediment = sediment_list.clay}),
+   soil.new({name = "rich_forest_soil",
+	     description = S("Rich Forest Soil"),
+	     sediment = sediment_list.loam}),
+   soil.new({name = "rich_woodland_soil",
+	     description = S("Rich Woodland Soil"),
+	     sediment = sediment_list.loam}),
+   soil.new({name = "forest_soil",
+	     description = S("Forest Soil"),
+	     sediment = sediment_list.silt}),
+   soil.new({name = "woodland_soil",
+	     description = S("Woodland Soil"),
+	     sediment = sediment_list.silt}),
+   soil.new({name = "upland_forest_soil",
+	     description = S("Upland Forest Soil"),
+	     sediment = sediment_list.clay}),
+   soil.new({name = "upland_woodland_soil",
+	     description = S("Upland Woodland Soil"),
+	     sediment = sediment_list.clay}),
 
     --Wetlands
-    soil.new({name = "marshland_soil", description = S("Marshland Soil"), sediment = sediment_list.silt}),
-    soil.new({name = "swamp_forest_soil", description = S("Swamp Forest Soil"), sediment = sediment_list.silt}),
+   soil.new({name = "marshland_soil",
+	     description = S("Marshland Soil"),
+	     sediment = sediment_list.silt}),
+   soil.new({name = "swamp_forest_soil",
+	     description = S("Swamp Forest Soil"),
+	     sediment = sediment_list.silt}),
 
     --Shrubland & Grassland
-    soil.new({name = "coastal_shrubland_soil", description = S("Coastal Shrubland Soil"), sediment = sediment_list.silt}),
-    soil.new({name = "coastal_grassland_soil", description = S("Coastal Grassland Soil"), sediment = sediment_list.clay}),
-    soil.new({name = "grassland_soil", description = S("Grassland Soil"), sediment = sediment_list.clay}),
-    soil.new({name = "shrubland_soil", description = S("Shrubland Soil"), sediment = sediment_list.clay}),
+    soil.new({name = "coastal_shrubland_soil",
+	      description = S("Coastal Shrubland Soil"),
+	      sediment = sediment_list.silt}),
+    soil.new({name = "coastal_grassland_soil",
+	      description = S("Coastal Grassland Soil"),
+	      sediment = sediment_list.clay}),
+    soil.new({name = "grassland_soil", description = S("Grassland Soil"),
+	      sediment = sediment_list.clay}),
+    soil.new({name = "shrubland_soil", description = S("Shrubland Soil"),
+	      sediment = sediment_list.clay}),
 
     --Barrenland & Duneland
-    soil.new({name = "barrenland_soil", description = S("Barren Grassland Soil"), sediment = sediment_list.gravel}),
-    soil.new({name = "duneland_soil", description = S("Duneland Soil"), sediment = sediment_list.sand}),
+    soil.new({name = "barrenland_soil",
+	      description = S("Barren Grassland Soil"),
+	      sediment = sediment_list.gravel}),
+    soil.new({name = "duneland_soil",
+	      description = S("Duneland Soil"),
+	      sediment = sediment_list.sand}),
 
     -- Highland
-    soil.new({name = "highland_soil", description = S("Highland Soil"), sediment = sediment_list.gravel}),
+    soil.new({name = "highland_soil",
+	      description = S("Highland Soil"),
+	      sediment = sediment_list.gravel}),
 
     --Legacy
-    soil.new({name = "grassland_barren_soil", description = S("Barren Grassland Soil"), sediment = sediment_list.gravel}),
-    soil.new({name = "woodland_dry_soil", description = S("Dry Woodland Soil"), sediment = sediment_list.silt}),
+    soil.new({name = "grassland_barren_soil",
+	      description = S("Barren Grassland Soil"),
+	      sediment = sediment_list.gravel}),
+    soil.new({name = "woodland_dry_soil",
+	      description = S("Dry Woodland Soil"),
+	      sediment = sediment_list.silt}),
 }
 
 -- Recipes for loam
