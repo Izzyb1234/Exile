@@ -279,3 +279,49 @@ function crafting.make_on_rightclick(type, level, inv_size)
 		show(player, context)
 	end
 end
+
+function crafting.make_on_place(type, level, inv_size)
+	node_serial = node_serial + 1
+	local formname = "crafting:node_" .. node_serial
+
+	local function show(player, context)
+		local formspec = crafting.make_result_selector(player, type, level, inv_size, context)
+		formspec = "size[" .. inv_size.x  .. "," .. (inv_size.y + 5.6) ..
+				"]list[current_player;main;0," .. (inv_size.y + 1.7) ..";8,1;]" ..
+				"list[current_player;main;0," .. (inv_size.y + 2.85) ..";8,3;8]" .. formspec
+		minetest.show_formspec(player:get_player_name(), formname, formspec)
+	end
+
+	minetest.register_on_player_receive_fields(function(player, _formname, fields)
+		if formname ~= _formname then
+			return
+		end
+
+		local context = node_fs_context[player:get_player_name()]
+		if not context then
+			return false
+		end
+
+		if crafting.result_select_on_receive_results(player, type, level, context, fields) then
+			show(player, context)
+		end
+		return true
+	end)
+
+	return function(itemstack, placer, pointed_thing)
+		local pt_pos=minetest.get_pointed_thing_position(pointed_thing,false)
+		local pt_node=minetest.get_node(pt_pos)
+		if pt_node and  minetest.registered_nodes[pt_node.name].on_rightclick then
+			minetest.registered_nodes[pt_node.name].on_rightclick(pt_pos,pt_node,placer,pointed_thing)
+		end
+		local meta = itemstack:get_meta()
+		local name = placer:get_player_name()
+		local context = node_fs_context[name] or {}
+		node_fs_context[name] = context
+--		context.pos   = vector.new(pos)
+		context.type  = type
+		context.level = level
+		context.creator = meta:get_string('creator')
+		show(placer, context)
+	end
+end
