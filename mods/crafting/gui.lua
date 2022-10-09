@@ -314,7 +314,7 @@ function crafting.make_on_place(type, level, inv_size)
 		local pt_pos=minetest.get_pointed_thing_position(pointed_thing,false)
 		local pt_node=minetest.get_node(pt_pos)
 		if pt_node and  minetest.registered_nodes[pt_node.name].on_rightclick then
-			return minetest.registered_nodes[pt_node.name].on_rightclick(pt_pos,pt_node,placer,pointed_thing)
+			return minetest.registered_nodes[pt_node.name].on_rightclick(pt_pos,pt_node,placer,itemstack,pointed_thing)
 		end
 		local meta = itemstack:get_meta()
 		local name = placer:get_player_name()
