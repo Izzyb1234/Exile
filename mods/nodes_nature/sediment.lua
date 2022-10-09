@@ -7,13 +7,13 @@
 local S = nodes_nature.S
 
 -- Useful objects for node definitions
-hardness = {
-    soft = 3,
-    medium = 2,
-    hard = 1,
+local hardness = {
+   soft = 3,
+   medium = 2,
+   hard = 1,
 }
 
-textures = {
+local textures = {
     wet = "nodes_nature_mud.png",
     salty = "nodes_nature_mud_salt.png",
     agri_top = "nodes_nature_ag_top.png",
@@ -22,7 +22,7 @@ textures = {
     agri_side_depleted = "nodes_nature_ag_dep_side.png",
 }
 
-sounds = {
+local sounds = {
     dirt = nodes_nature.node_sound_dirt_defaults(),
     dirt_wet = nodes_nature.node_sound_dirt_defaults({
             footstep = {name = "nodes_nature_mud", gain = 0.4},
@@ -42,7 +42,7 @@ sounds = {
 -- Utility functions
 -----------------------------------
 
-function merge_tables (t1, t2)
+local function merge_tables (t1, t2)
     local new_table = {}
     --copy table
     for key, value in pairs(t1) do
@@ -143,7 +143,7 @@ function sediment.new(args)
     return sed
 end
 
-function sediment.get_dry_node_props(sed)
+local function sediment.get_dry_node_props(sed)
     local props = {
         description = sed.description,
         tiles = {sed.texture_name},
@@ -162,7 +162,7 @@ function sediment.register_dry(sed)
     minetest.register_node(sed.dry_node_name, props)
 end
 
-function sediment.get_wet_node_props(sed)
+local function sediment.get_wet_node_props(sed)
     local props = {
         description = S("Wet @1", sed.description),
         tiles = {sed.texture_name.."^"..textures.wet},
@@ -180,7 +180,7 @@ function sediment.register_wet(sed)
     minetest.register_node(sed.wet_node_name, props)
 end
 
-function sediment.get_wet_salty_node_props(sed)
+local function sediment.get_wet_salty_node_props(sed)
     local props = {
         description = S("Salty Wet @1", sed.description),
         tiles = {sed.texture_name.."^"..textures.wet.."^"..textures.salty},
