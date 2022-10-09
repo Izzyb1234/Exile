@@ -165,9 +165,8 @@ minetest.register_node("animals:sneachan_eggs", {
 		type = "fixed",
 		fixed = {-0.08, -0.5, -0.08,  0.08, -0.4375, 0.08},
 	},
-	groups = {snappy = 3, falling_node = 1, dig_immediate = 3, flammable = 1,  temp_pass = 1},
+	groups = {snappy = 3, falling_node = 1, dig_immediate = 3, flammable = 1, temp_pass = 1, edible = 1},
 	sounds = nodes_nature.node_sound_defaults(),
-	on_use = exile_eatdrink,
 	on_construct = function(pos)
 		minetest.get_node_timer(pos):start(math.random(egg_timer,egg_timer*2))
 	end,
