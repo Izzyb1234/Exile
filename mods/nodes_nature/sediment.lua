@@ -7,11 +7,13 @@
 local S = nodes_nature.S
 
 -- Useful objects for node definitions
-local hardness = {
+sediment = {}
+sediment.hardness = {
    soft = 3,
    medium = 2,
    hard = 1,
 }
+local hardness = sediment.hardness
 
 local textures = {
     wet = "nodes_nature_mud.png",
@@ -22,7 +24,7 @@ local textures = {
     agri_side_depleted = "nodes_nature_ag_dep_side.png",
 }
 
-local sounds = {
+sediment.sounds = {
     dirt = nodes_nature.node_sound_dirt_defaults(),
     dirt_wet = nodes_nature.node_sound_dirt_defaults({
             footstep = {name = "nodes_nature_mud", gain = 0.4},
@@ -38,6 +40,7 @@ local sounds = {
             footstep = {name = "nodes_nature_mud", gain = 0.4},
             dug = {name = "nodes_nature_mud", gain = 0.4}}),
 }
+local sounds = sediment.sounds
 
 -- Utility functions
 -----------------------------------
@@ -111,7 +114,6 @@ end
 
 -- Sediments
 -----------------------------------
-sediment = {}
 
 function sediment.new(args)
    local groups =
@@ -432,7 +434,7 @@ end
 ---------------------------------------------------
 
 -- Registers sediments, their slabs, wet, salty, slopes etc. and crafting recipes
-function register_sed_variants(sed)
+function sediment.register_sed_variants(sed)
     sediment.register_dry(sed)
     sediment.register_wet(sed)
     sediment.register_wet_salty(sed)
@@ -442,7 +444,7 @@ end
 
 -- Registers agricultural soils and their variants
 -- (dry, wet, depleted) and recipes to craft them
-function register_agri_soil_variants(sed)
+function sediment.register_agri_soil_variants(sed)
     local agri =
         agricultural_soil.new({name = sed.name.."_agricultural_soil",
                                description = S("@1 Agricultural Soil", sed.description),
@@ -456,7 +458,7 @@ function register_agri_soil_variants(sed)
 end
 
 -- Registers soils with "grasses" and their variants including slopes
-function register_soil_variants(soil_list)
+function sediment.register_soil_variants(soil_list)
     for _, s in ipairs(soil_list) do
         soil.register_dry(s)
         soil.register_wet(s)
@@ -466,10 +468,10 @@ end
 
 -- Registers sediments, their variants (slabs, wet, salty, etc.) and agricultural soils
 -- including crafting recipes
-function register_all_sed_and_agri_variants(sed_list)
+function sediment.register_all_sed_and_agri_variants(sed_list)
     for _, sed in pairs(sed_list) do
-        register_sed_variants(sed)
-        register_agri_soil_variants(sed)
+        sediment.register_sed_variants(sed)
+        sediment.register_agri_soil_variants(sed)
     end
 end
 
@@ -601,5 +603,5 @@ crafting.register_recipe({
 
 -- Actually registers (almost) all soils in the game
 -- see red_ochre above
-register_all_sed_and_agri_variants(sediment_list)
-register_soil_variants(soil_list)
+sediment.register_all_sed_and_agri_variants(sediment_list)
+sediment.register_soil_variants(soil_list)

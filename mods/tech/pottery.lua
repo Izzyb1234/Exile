@@ -10,7 +10,7 @@ local S = tech.S
 --firing difficulty
 local base_firing = ncrafting.base_firing
 local firing_int = ncrafting.firing_int
-
+sediment = sediment
 
 ---
 --Broken Pottery
@@ -35,13 +35,16 @@ minetest.register_node("tech:broken_pottery", {
 
 -- Broken pottery full blocks and soil
 local broken_pottery =
-    sediment.new({name = "broken_pottery_block", description = S("Broken Pottery"), hardness = hardness.soft,
-                  fertility = 5, sound = sounds.gravel, sound_wet = sounds.gravel_wet,
-                  texture_name = "tech_broken_pottery.png", mod_name = "tech"})
+   sediment.new({name = "broken_pottery_block",
+		 description = S("Broken Pottery"),
+		 hardness = sediment.hardness.soft,
+		 fertility = 5, sound = sediment.sounds.gravel,
+		 sound_wet = sediment.sounds.gravel_wet,
+		 texture_name = "tech_broken_pottery.png", mod_name = "tech"})
 sediment.register_dry(broken_pottery)
 sediment.register_wet(broken_pottery)
 sediment.register_wet_salty(broken_pottery)
-register_agri_soil_variants(broken_pottery)
+sediment.register_agri_soil_variants(broken_pottery)
 
 -------------------------------------------------------------------
 --THIS SHOULD BE MOVED somewhere GENERALIZED to handle non-pottery pots
