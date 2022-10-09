@@ -362,6 +362,27 @@ minetest.register_node("tech:slag", {
 	sounds = nodes_nature.node_sound_stone_defaults(),
 })
 
+stairs.register_stair_and_slab(
+        "slag",
+        "tech:slag",
+        "mixing_spot",
+        "true",
+        {cracky = 3, fall_node = 1, crumbly = 1},
+        {"tech_iron_and_slag.png"},
+        "Slag Stair",
+        "Slag Slab",
+        minimal.stack_max_bulky * 8,
+        nodes_nature.node_sound_stone_defaults()
+)
+
+minetest.override_item("stairs:slab_slag",
+                { on_rightclick = function(pos, node, clicker,
+                                           itemstack, pointed_thing)
+                     return minimal.slabs_combine(pos, node, itemstack, "tech:slag")
+                end,
+})
+
+
 --molten slag
 local lava_light = 6
 local lava_temp_effect = 6
