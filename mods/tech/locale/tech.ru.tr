@@ -1,0 +1,242 @@
+# textdomain: tech
+
+# backpacks.lua
+Woven Bag=Мешок вязаный
+Fabric Bag=Мешок тканевый
+Wicker Bag=Мешок плетеный
+
+# beds.lua
+Sleeping Spot=Спальное место
+Sleeping Mat=Спальный коврик
+Primitive Bed=Примитивная кровать
+Mattress=Матрас
+Bed=Кровать
+
+# bricks_and_mortar.lua
+Limestone=Известняк
+Ironstone=Железный камень
+Granite=Гранит
+Basalt=Базальт
+Gneiss=Гнейс
+Jade=Нефрит
+Crushed Lime=Дробленая известь
+Quicklime=Негашеная известь
+Slaked Lime=Гашеная известь
+Slaked Lime (ruined)=Гашеная известь (разрушенная)
+Lime Mortar=Известковый раствор
+Loose Bricks (unfired)=Кирпичи (необожженные)
+Loose Bricks=Обожженные кирпичи
+Brick and Mortar=Кирпич и раствор
+Loose Roof Tile (unfired)=Кровельная черепица(необожженная)
+Loose Roof Tile=Кровельная черепица
+Roof Tile=Кровельная плитка
+Roof Tile (outer corner)=Кровельная плитка (внешний угол)
+Roof Tile (inner corner)=Кровельная плитка (внутренний угол)
+@1 Brick with Mortar=@1 кирпич с раствором
+@1 Block with Mortar=@1 блок с раствором
+
+# clothing.lua
+Woven Hat=Вязаная шляпа
+Woven Cape=Вязаный плащ
+Woven Poncho=Вязаное пончо
+Woven Leggings=Вязаные леггинсы
+Woven Blanket=Вязаное одеяло
+Light Fabric Hat=Шляпа из легкой ткани
+Thick Fabric Hat=Шляпа из плотной ткани
+Light Fabric Cape=Плащ из легкой ткани
+Thick Fabric Cape=Плащ из плотной ткани
+Light Fabric Trousers=Брюки из легкой ткани
+Thick Fabric Trousers=Брюки из плотной ткани
+Light Fabric Tunic=Туника из легкой ткани
+Thick Fabric Tunic=Туника из плотной ткани
+
+# cooking-pot.lua
+Soup=Суп
+Cooking Pot=Горшок для приготовления пищи
+Cooking Pot (unfired)=Горшок для приготовления пищи (без огня)
+@1 soup=@1 суп
+
+# doors.lua
+Wattle Door=Плетеная дверь
+Wattle Trapdoor=Плетеной люк
+Wooden Door=Деревянная дверь
+Wooden Trapdoor=Деревянный люк
+Iron Door=Железная дверь
+Iron Trapdoor=Железный люк
+
+# drugs.lua
+Herbal Medicine=Травы
+Tang=Танг
+Tang (unfermented)=Танг (неферментированный)
+Tiku (stimulant)=Тику (стимулятор)
+Tiku High=Тику
+
+# fibreworking.lua
+Unretted Cana Bundle=Нерафинированный тростник
+Retted Cana Bundle=Рафинированный тростник
+Coarse Fibre=Грубое волокно
+Fine Fibre=Тонкое волокно
+Coarse Fabric=Грубая ткань
+Fine Fabric=Тонкая ткань
+
+# fires.lua
+Wood Ash Block=Блок древесной золы
+Wood Ash=Древесная зола
+Charcoal Block=Блок древесного угля
+Charcoal=Древесный уголь
+Small Wood Fire (unlit)=Малый дровяной костер (не горит)
+Large Wood Fire (unlit)=Большой дровяной костер (не горит)
+Small Wood Fire=Малый дровяной костер
+Large Wood Fire=Большой дровяной костер
+Small Wood Fire (smoldering)=Малый дровяной костер (тлеющий)
+Large Wood Fire (smoldering)=Большой дровяной костер (тлеющий)
+Small Charcoal Fire=Малый костер из древесного угля
+Large Charcoal Fire=Большой костер из древесного угля
+Small Charcoal Fire (smoldering)=Малый костер из древесного угля (тлеющий)
+Large Charcoal Fire (smoldering)=Большой костер из древесного угля (тлеющий)
+Small Wood Fire (extinguished)=Малый дровяной костер (потушен)
+Large Wood Fire (extinguished)=Большой дровяной костер (потушен)
+Small Charcoal Fire (extinguished)=Малый костер из древесного угля (потушен)
+Large Charcoal Fire (extinguished)=Большой костер из древесного угля (потушен)
+
+# glassworking.lua
+Green Glass Sand Mix=Песчаная смесь зеленого стекла
+Green Glass Ingot=Слиток зеленого стекла
+Potash Block=Блок калия
+Potash=Калий
+Clay Water Pot with Potash Solution=Глиняный горшок для воды с раствором калия
+Potash Solution Source=Источник раствора калия
+Flowing Potash Solution=Текучий раствор калия 
+Clear Glass Sand Mix=Песчаная смесь прозрачного стекла
+Clear Glass Ingot=Слиток прозрачного стекла
+Pane Casting Tray=Лоток для литья стекла
+Pane Casting Tray With Green Glass Pane=Лоток для литья стекла с зеленым стеклом
+Pane Casting Tray With Clear Glass Pane=Лоток для литья стекла с прозрачным стеклом
+Green Glass Pane=Зеленое стекло
+Clear Glass Pane=Прозрачное стекло
+Green Glass Window=Зеленое стеклянное окно 
+Clear Glass Window=Прозрачное стеклянное окно 
+Green Glass Bottle=Зеленая стеклянная бутылка
+Clear Glass Bottle=Прозрачная стеклянная бутылка
+Green Glass Bottle With Fresh Water=Зеленая стеклянная бутылка с пресной водой
+Clear Glass Bottle With Fresh Water=Прозрачная стеклянная бутылка с пресной водой
+Green Glass Bottle With Salt Water=Зеленая стеклянная бутылка с соленой водой
+Clear Glass Bottle With Salt Water=Прозрачная стеклянная бутылка с соленой водой
+
+
+# graffiti.lua
+Painting Kit (lime white)=Набор для рисования (белая известь)
+Painting Kit (glow paint)=Набор для рисования (светящаяся краска)
+
+# hearthen_building.lua
+Drystack=Сухой штабель
+Mudbrick=Глинобитный кирпич
+Rammed Earth=Утрамбованная земля
+Wattle=Плетень
+Loose Wattle=Свободный плетень
+Wattle Door Frame=Дверная рама из плетня
+Thatch=Солома
+
+# ironworking.lua
+Crushed Iron Ore=Дробленая железная руда
+Roasted Iron Ore=Обожженная железная руда
+Roasted Iron Ore Powder=Порошок из обожженной железной руды
+Iron Smelting Mix=Смесь для плавки железа
+Iron and Slag=Железо и шлак
+Iron Bloom=Железная мелочь
+Iron Ingot=Железный слиток
+Slag=Шлак
+Molten Slag=Расплавленный шлак
+Flowing Molten Slag=Текущий расплавленный шлак
+Iron Fittings=Железная арматура
+
+# plant_crafts.lua
+Stick=Палка
+Bitter Maraka Flour=Мука из горького марака
+Maraka Flour=Мука из марака
+Unbaked Maraka Cake=Невыпеченный торт из марака
+Maraka Cake=Торт из марака
+Maraka Cake Burned=Сгоревший торт из марака
+Peeled Anperla Tuber=Очищенный клубень анперлы
+Burned Anperla Tuber=Сгоревший клубень анперлы
+Cooked Anperla Tuber=Приготовленный клубень анперлы
+Mashed Anperla (uncooked)=Пюре из анперлы (не приготовленно)
+Mashed Anperla=Пюре из анперлы
+Burned Anperla=Сгоревшая анперла
+Vegetable Oil=Растительное масло
+
+# pottery.lua
+Broken Pottery=Разбитая керамика
+Clay Water Pot=Глиняный горшок для воды
+Clay Water Pot (unfired)=Глиняный горшок для воды (необожженный)
+Clay Storage Pot (unfired)=Глиняный горшок для хранения (необожженный)
+Clay Oil Lamp (unfired)=Глиняная масляная лампа (не горит)
+Clay Oil Lamp=Глиняная масляная лампа
+Clay Oil Lamp (lit)=Глиняная масляная лампа (горит)
+Oil lamp (empty)=Масляная лампа (пустая)
+Oil lamp (full)=Масляная лампа (полная)
+Oil lamp (almost empty)=Масляная лампа (почти пустая)
+Oil lamp (1/4 full)=Масляная лампа (на 1/4 полная)
+Oil lamp (1/2 full)=Масляная лампа (на 1/2 полная)
+Oil lamp (3/4 full)=Масляная лампа (на 3/4 полная)
+Oil lamp=Масляная лампа
+Clay Water Pot with Freshwater=Глиняный горшок с пресной водой
+Clay Water Pot with Salt Water=Глиняный горшок с соленой водой
+
+# storage.lua
+Clay Storage Pot=Глиняный горшок для хранения
+Primitive Wooden Chest=Примитивный деревянный сундук
+Wooden Chest=Древянный сундук
+Wicker Storage Basket=Плетеная корзина для хранения
+Woven Storage Basket=Вязаная корзина для хранения
+Iron Chest=Железный сундук
+Owned by @1=Принадлежит @1
+
+# tools.lua
+Stone Knife=Каменный нож
+Digging Stick=Палка для копания
+Granite Adze=Гранитная лопатка
+Basalt Adze=Базальтовая лопатка
+Jade Adze=Нефритовый нож
+Stone Club=Каменная дубина
+Iron Axe=Железный топор
+Iron Shovel=Железная лопата
+Iron Mace=Железная булава
+Iron Pickaxe=Железная кирка
+
+# torch.lua
+Torch=Факел
+
+# lever.lua
+lever=Рычаг
+(left-click rotates face, right-click rotates axis)=(щелчок левой кнопкой мыши вращает грань, щелчок правой кнопкой мыши вращает ось)
+
+# craft-stations.lua
+Crafting Spot=Место создания
+Mixing Spot=Место смешивания
+Threshing Spot=Молотильное место
+Weaving Spot=Ткацкое место
+Grinding Spot=Точильное место
+Hammering Spot=Ударное место
+Weaving Frame=Ткацкая рама
+Grinding stone=Точильный камень
+Basalt Mortar and Pestle=Базальтовая ступка и пестик
+Granite Mortar and Pestle=Гранитная ступка и пестик
+Limestone Mortar and Pestle=Известняковая ступка и пестик
+Chopping Block=Разделочный блок
+Hammering Block=Ударный блок
+Anvil=Наковальня
+Carpentry Bench=Верстак столяра
+Masonry Bench=Верстак каменщика
+Brick Maker's Bench=Верстак кирпичника
+Spinning Wheel=Прядильное колесо
+Loom=Ткацкий станок
+Glass furnace=Стеклянная печь
+
+# woodworking.lua
+Wooden Ladder=Деревянная лестница
+Wooden Floor Boards=Деревянные доски пола
+Wooden Stairs=Деревянная лестница
+Wooden Water Pot=Деревянный горшок для воды
+Wooden Water Pot with Freshwater=Деревянный горшок с пресной водой
+Wooden Water Pot with Salt Water=Деревянный горшок с соленой водой

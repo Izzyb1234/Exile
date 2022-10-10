@@ -1,0 +1,6 @@
+# textdomain: clothing
+
+# init.lua
+Clothing=Одежда
+Min Temperature Tolerance: @1=Мин. допустимая температура: @1
+Max Temperature Tolerance: @1=Макс. допустимая температура: @1
