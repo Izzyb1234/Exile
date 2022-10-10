@@ -1,4 +1,6 @@
 backpacks = {}
+--#TODO: inventory in backpacks kills metadata; creator wont be reserved
+--XXX this is a bug that needs to be fixed.
 
 -- Internationalization
 local S = minetest.get_translator("backpacks")
@@ -50,9 +52,19 @@ local after_place_node = function(pos, placer, itemstack, pointed_thing)
 	local node = minetest.get_node(pos)
 	local meta = minetest.get_meta(pos)
 	local imeta = itemstack:get_meta()
+
 	-- Load inventory
-	local inv_main=imeta:get_string('inv_main')
-		local inv=meta:get_inventory()
+	local inv_main = imeta:get_string('inv_main')
+	local inv=meta:get_inventory()
+	-- compatability for worlds created earlier then v0.3.9
+	-- minetest.get_metadata() deprecated but old maps used it
+	-- causes contents of backpacks stored in inventory to be forgotton
+	local stuff = minetest.deserialize(itemstack:get_metadata())
+	if stuff then
+		local deprecated_inventory = stuff.inventory.main 
+		-- inv_main will be empty if stuff exists so safe to overwrite
+		inv_main = minetest.serialize(deprecated_inventory)
+	end
 	if inv_main then
 		inv:set_list('main',minetest.deserialize(inv_main))
 	end
