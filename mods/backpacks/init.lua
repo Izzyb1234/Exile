@@ -1,4 +1,6 @@
 backpacks = {}
+--XXX inventory in backpacks kills metadata; creator wont be reserved
+--XXX this is a bug that needs to be fixed.
 
 -- Internationalization
 local S = minetest.get_translator("backpacks")
@@ -60,14 +62,9 @@ local after_place_node = function(pos, placer, itemstack, pointed_thing)
 	local stuff = minetest.deserialize(itemstack:get_metadata())
 	if stuff then
 		local depricated_inventory = stuff.inventory.main 
-		-- old data in get_metadata(), recover inventory
-
-print('STUFF: '..dump(depricated_inventory))
-	-- inv_main shouldn't contain anything
-	inv_main = minetest.serialize(depricated_inventory)
+		-- inv_main will be empty if stuff exists so safe to overwrite
+		inv_main = minetest.serialize(depricated_inventory)
 	end
-
-print ('INV_MAIN: '..inv_main)
 	if inv_main then
 		inv:set_list('main',minetest.deserialize(inv_main))
 	end
