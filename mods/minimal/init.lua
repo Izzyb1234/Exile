@@ -114,12 +114,15 @@ minetest.register_item(":", {
 			crumbly = {times={[3]=minimal.hand_crum}, uses=0, maxlevel=minimal.hand_max_lvl},
 			snappy = {times={[3]=minimal.hand_snap}, uses=0, maxlevel=minimal.hand_max_lvl},
 			oddly_breakable_by_hand = {
-			   times={[1]=minimal.hand_crum*minimal.t_scale1,
-			      [2]=minimal.hand_crum*minimal.t_scale2,
-			      [3]=minimal.hand_crum}, uses=0},
-		},
+				times={
+					[1]=minimal.hand_crum*minimal.t_scale1,
+					[2]=minimal.hand_crum*minimal.t_scale2,
+					[3]=minimal.hand_crum}, uses=0
+				},
+			},
 		damage_groups = {fleshy=minimal.hand_dmg},
-	}
+	},
+	on_place = crafting.make_on_place("crafting_spot", 2, { x = 8, y = 3 }),
 })
 
 
