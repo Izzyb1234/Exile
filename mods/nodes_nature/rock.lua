@@ -197,7 +197,7 @@ for i in ipairs(rock_list) do
 
                 crafting.register_recipe({
                       type = "hammering_block",
-                      output = "nodes_nature:"..name.."_cobble2 8",
+                      output = "nodes_nature:"..name.."_cobble1 8",
                       items = {"nodes_nature:"..name.."_boulder"},
                       level = 1,
                       always_known = true,
@@ -278,7 +278,8 @@ for i in ipairs(rock_list) do
 			 drop = "nodes_nature:"..name.."_cobble1",
 			 on_place = function(itemstack, placer, pointed_thing)
 				 return cobble_on_place(itemstack, placer, pointed_thing, name)
-			end,
+			 end,
+			 on_rightclick = crafting.make_on_rightclick("grinding_stone", 2, { x = 8, y = 3 }),
                          selection_box = {
                             type = "fixed",
                             fixed = {-5/16, -8/16, -5/16, 5/16, -4/16, 5/16},
