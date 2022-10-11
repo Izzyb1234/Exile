@@ -206,7 +206,7 @@ function sediment.register_stair_and_slab(sed)
         sed.dry_node_name,
         "mixing_spot",
         "true",
-        sed.groups,
+        {falling_node = 1, crumbly = sed.hardness},
         {sed.texture_name},
         sed.description.." Stair",
         sed.description.." Slab",
