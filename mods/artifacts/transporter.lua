@@ -684,7 +684,7 @@ local function charge_power(pos, selfname, name, length)
 	if charging <= 0 then
 		--finished
 		minimal.switch_node(pos, {name=name})
-		minimal.infotext_set(pos,nil,meta) -- Set Description and Owner
+		minimal.infotext_set(pos,meta) -- Set Description and Owner
 		meta:set_float("temp", 14)
 		return false
 	elseif temp < charge_temp then
