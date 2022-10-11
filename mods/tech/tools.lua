@@ -136,6 +136,7 @@ minetest.register_tool("tech:stone_chopper", {
 --
 
 -- digging stick... specialist for digging. Can also till
+local digging_stick_crafting = crafting.make_on_place("threshing_spot", 2, { x = 8, y = 3 })
 minetest.register_tool("tech:digging_stick", {
 	description = S("Digging Stick"),
 	inventory_image = "tech_tool_digging_stick.png^[transformR90",
@@ -149,7 +150,9 @@ minetest.register_tool("tech:digging_stick", {
 	groups = {shovel = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 	on_place = function(itemstack, placer, pointed_thing)
-		return till_soil(itemstack, placer, pointed_thing, base_use)
+		if not till_soil(itemstack, placer, pointed_thing, base_use) then
+			digging_stick_crafting(itemstack, placer, pointed_thing) 
+		end
 	end
 })
 
