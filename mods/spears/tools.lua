@@ -80,6 +80,7 @@ if minetest.get_modpath("default") then
       spears_register_spear('gold', 'Golden', 5, 40, 'default:gold_ingot')
    end
 elseif minetest.get_modpath("minimal") then
+--TODO Make spears_register_spear() allow registering multiple crafting stations
    spears_register_spear('stone', 'Stone', 8, 20, 'tech:stone_chopper',
 			 "crafting_spot")
    spears_register_spear('steel', 'Iron', 14, 30, 'tech:iron_ingot', "anvil")
