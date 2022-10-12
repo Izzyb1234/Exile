@@ -288,6 +288,13 @@ crafting.register_recipe({
 	always_known = true,
 })
 crafting.register_recipe({
+	type = "hand",
+	output = "tech:stick 2",
+	items = {"group:woody_plant"},
+	level = 1,
+	always_known = true,
+})
+crafting.register_recipe({
 	type = "knife",
 	output = "tech:stick 2",
 	items = {"group:woody_plant"},
