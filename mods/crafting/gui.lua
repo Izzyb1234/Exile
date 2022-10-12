@@ -238,7 +238,7 @@ end
 local node_fs_context = {}
 local node_serial = 0
 
-function crafting.make_on_rightclick(type, level, inv_size)
+local function make_on_show_function(type, level, inv_size)
 	node_serial = node_serial + 1
 	local formname = "crafting:node_" .. node_serial
 
@@ -265,7 +265,12 @@ function crafting.make_on_rightclick(type, level, inv_size)
 		end
 		return true
 	end)
+	return show
+end
 
+
+function crafting.make_on_rightclick(type, level, inv_size)
+	local show = make_on_show_function(type, level, inv_size)
 	return function(pos, node, player)
 		local meta = minetest.get_meta(pos)
 		local name = player:get_player_name()
@@ -275,39 +280,12 @@ function crafting.make_on_rightclick(type, level, inv_size)
 		context.type  = type
 		context.level = level
 		context.creator = meta:get_string('creator')
-
 		show(player, context)
 	end
 end
 
 function crafting.make_on_place(type, level, inv_size)
-	node_serial = node_serial + 1
-	local formname = "crafting:node_" .. node_serial
-
-	local function show(player, context)
-		local formspec = crafting.make_result_selector(player, type, level, inv_size, context)
-		formspec = "size[" .. inv_size.x  .. "," .. (inv_size.y + 5.6) ..
-				"]list[current_player;main;0," .. (inv_size.y + 1.7) ..";8,1;]" ..
-				"list[current_player;main;0," .. (inv_size.y + 2.85) ..";8,3;8]" .. formspec
-		minetest.show_formspec(player:get_player_name(), formname, formspec)
-	end
-
-	minetest.register_on_player_receive_fields(function(player, _formname, fields)
-		if formname ~= _formname then
-			return
-		end
-
-		local context = node_fs_context[player:get_player_name()]
-		if not context then
-			return false
-		end
-
-		if crafting.result_select_on_receive_results(player, type, level, context, fields) then
-			show(player, context)
-		end
-		return true
-	end)
-
+	local show = make_on_show_function(type, level, inv_size)
 	return function(itemstack, placer, pointed_thing)
 		local pt_pos=minetest.get_pointed_thing_position(pointed_thing,false)
 		local pt_node=minetest.get_node(pt_pos)
