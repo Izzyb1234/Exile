@@ -95,10 +95,25 @@ crafting.register_recipe({
 	level = 1,
 	always_known = true,
 })
+crafting.register_recipe({
+	type = "knife",
+	output = "doors:door_wattle",
+	items = {"tech:wattle 2", "group:fibrous_plant 2", "tech:stick 2"},
+	level = 1,
+	always_known = true,
+})
+
 
 --wattle panels plus something to tie them on
 crafting.register_recipe({
 	type = "crafting_spot",
+	output = "tech:trapdoor_wattle",
+	items = {"tech:wattle", "group:fibrous_plant", "tech:stick"},
+	level = 1,
+	always_known = true,
+})
+crafting.register_recipe({
+	type = "knife",
 	output = "tech:trapdoor_wattle",
 	items = {"tech:wattle", "group:fibrous_plant", "tech:stick"},
 	level = 1,
