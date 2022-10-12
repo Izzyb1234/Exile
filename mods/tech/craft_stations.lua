@@ -24,18 +24,29 @@ crafting.register_type("mortar_and_pestle")
 crafting.register_type("anvil")
 crafting.register_type("carpentry_bench")
 --crafting.register_type("masonry_bench")...has to be done in nodes_nature
+--crafting.register_type("masonry_mixing")...has to be done in nodes_nature
 crafting.register_type("brick_makers_bench")
 crafting.register_type("spinning_wheel")
 crafting.register_type("loom")
 crafting.register_type("glass_furnace")
 
 -- Tool based crafting stations
-crafting.register_type("knife")
-crafting.register_type("hammer")
-crafting.register_type('farming_tool')
-crafting.register_type('shovel')
-crafting.register_type('Axe')
-crafting.register_type('pickaxe')
+crafting.register_type("hand")   -- Empty hand tool; Replace crafting spot
+crafting.register_type("knife")  -- Replace some of the crafting spot
+crafting.register_type("hammer") -- Hammering spot replacement
+crafting.register_type('shovel') -- farming tools - including digging stick; replace threshing spot
+crafting.register_type('Axe')    -- includes adze - replace chopping bock
+crafting.register_type('pickaxe') -- nothing yet
+
+-- Mixing tabs - Mixing station being replaced by a mixing tab in each crafting station.
+crafting.register_type("hand_mixing")
+crafting.register_type("brick_mixing")
+crafting.register_type("knife_mixing")
+crafting.register_type("hammer_mixing")
+crafting.register_type('shovel_mixing')
+crafting.register_type('Axe_mixing')
+crafting.register_type('pickaxe_mixing')
+
 
 -- location limit craft spots --------------------
 -- grouplist/banlistg {{group1, group_number}, {'stone', 1}}
