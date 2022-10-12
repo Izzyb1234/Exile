@@ -31,15 +31,20 @@ crafting.register_type("loom")
 crafting.register_type("glass_furnace")
 
 -- Tool based crafting stations
-crafting.register_type("hand")   -- Empty hand tool; Replace crafting spot
-crafting.register_type("knife")  -- Replace some of the crafting spot
-crafting.register_type("hammer") -- Hammering spot replacement
-crafting.register_type('shovel') -- farming tools - including digging stick; replace threshing spot
-crafting.register_type('Axe')    -- includes adze - replace chopping bock
-crafting.register_type('pickaxe') -- nothing yet
+crafting.register_type("hand")   	-- Empty hand tool; Replace crafting spot
+crafting.register_type("hand_pottery")	-- Pottery tab
+crafting.register_type("hand_wattle")	-- Wattle Tab
+crafting.register_type("hand_tools")	-- Tools Tab
+crafting.register_type("hand_mixing")	-- Mixing Tab
+
+crafting.register_type("knife")  	-- Replace some of the crafting spot
+crafting.register_type("hammer") 	-- Hammering spot replacement
+crafting.register_type('shovel') 	-- farming tools - including digging stick; replace threshing spot
+crafting.register_type('Axe')    	-- includes adze - replace chopping bock
+crafting.register_type('cobble') 	-- Replacing grinding stone
+crafting.register_type('pickaxe') 	-- nothing yet
 
 -- Mixing tabs - Mixing station being replaced by a mixing tab in each crafting station.
-crafting.register_type("hand_mixing")
 crafting.register_type("brick_mixing")
 crafting.register_type("knife_mixing")
 crafting.register_type("hammer_mixing")
