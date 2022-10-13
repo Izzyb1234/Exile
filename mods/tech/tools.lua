@@ -391,7 +391,6 @@ crafting.register_recipe({
 	always_known = true,
 })
 
-
 ----digging stick from sticks
 crafting.register_recipe({
 	type = "crafting_spot",
@@ -440,6 +439,8 @@ crafting.register_recipe({
 	level = 1,
 	always_known = true,
 })
+
+
 
 
 --
@@ -637,3 +638,100 @@ crafting.register_recipe({
 	always_known = true,
 })
 ]]
+
+-- Register knife craft recipies after all modules loaded
+minetest.register_on_mods_loaded(function()
+	crafting.register_recipe({
+		type = "knife",
+		output = "tech:stick 2",
+		items = {"group:woody_plant"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "knife",
+		output = "tech:torch 1",
+		items = {"tech:stick 1", "group:fibrous_plant 4"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "knife",
+		output = "tech:peeled_anperla",
+		items = {"nodes_nature:anperla_seed"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "knife",
+		output = "tech:small_wood_fire_unlit",
+		items = {"tech:stick 6", "group:fibrous_plant 1"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "knife",
+		output = "tech:large_wood_fire_unlit",
+		items = {"tech:stick 12", "group:fibrous_plant 2"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "knife",
+		output = "tech:wattle_loose",
+		items = {"tech:stick 3"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "knife",
+		output = "tech:wattle",
+		items = {"tech:stick 6"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "knife",
+		output = "tech:wattle_door_frame",
+		items = {"tech:stick 6"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "knife",
+		output = "doors:door_wattle",
+		items = {"tech:wattle 2", "group:fibrous_plant 2", "tech:stick 2"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "knife",
+		output = "tech:trapdoor_wattle",
+		items = {"tech:wattle", "group:fibrous_plant", "tech:stick"},
+		level = 1,
+		always_known = true,
+	})
+
+	crafting.register_recipe({
+		type   = "axe",
+		output = "tech:chopping_block",
+		items  = {'group:log'},
+		level  = 1,
+		always_known = true,
+		})
+	crafting.register_recipe({
+		type   = "axe",
+		output = "tech:brick_makers_bench",
+		items  = {'tech:stick 24'},
+		level  = 1,
+		always_known = true,
+		})
+	crafting.register_recipe({
+		type   = "axe",
+		output = "tech:carpentry_bench",
+		items  = {'tech:iron_ingot 4', 'nodes_nature:maraka_log 2'},
+		level  = 1,
+		always_known = true,
+		})
+end)
+

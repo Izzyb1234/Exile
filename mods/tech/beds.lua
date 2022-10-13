@@ -224,7 +224,6 @@ crafting.register_recipe({
 	always_known = true,
 })
 
-
 --sleeping_mat from cheap thatch
 crafting.register_recipe({
 	type = "weaving_frame",
