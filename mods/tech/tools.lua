@@ -205,6 +205,7 @@ minetest.register_tool("tech:adze_granite", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
+	on_place = crafting.make_on_place("axe", 2, { x = 8, y = 3 }),
 	groups = {axe = 1,craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
@@ -222,6 +223,7 @@ minetest.register_tool("tech:adze_basalt", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
+	on_place = crafting.make_on_place("axe", 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
@@ -240,6 +242,7 @@ minetest.register_tool("tech:adze_jade", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
+	on_place = crafting.make_on_place("axe", 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
@@ -311,6 +314,7 @@ minetest.register_tool("tech:axe_iron", {
 		},
 		damage_groups = {fleshy = iron_dmg},
 	},
+	on_place = crafting.make_on_place("axe", 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
@@ -331,7 +335,9 @@ minetest.register_tool("tech:shovel_iron", {
 	groups = {shovel = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 	on_place = function(itemstack, placer, pointed_thing)
-		return till_soil(itemstack, placer, pointed_thing, iron_use)
+		if not till_soil(itemstack, placer, pointed_thing, iron_use) then
+			digging_stick_crafting(itemstack, placer, pointed_thing) 
+		end
 	end
 })
 
@@ -648,6 +654,14 @@ minetest.register_on_mods_loaded(function()
 		level = 1,
 		always_known = true,
 	})
+	--Bulk sticks from woody plants
+	crafting.register_recipe({
+		type = "knife",
+		output = "tech:stick 24",
+		items = {"group:woody_plant 12"},
+		level = 1,
+		always_known = true,
+	})
 	crafting.register_recipe({
 		type = "knife",
 		output = "tech:torch 1",
@@ -711,7 +725,7 @@ minetest.register_on_mods_loaded(function()
 		level = 1,
 		always_known = true,
 	})
-
+	-- Axe Crafting
 	crafting.register_recipe({
 		type   = "axe",
 		output = "tech:chopping_block",
@@ -733,5 +747,75 @@ minetest.register_on_mods_loaded(function()
 		level  = 1,
 		always_known = true,
 		})
+	crafting.register_recipe({
+		type = "axe",
+		output = "canoe:canoe",
+		items = {"group:log 6"},
+		level = 1,
+		always_known = true,
+	})
+	--Sticks from woody plants
+	crafting.register_recipe({
+		type = "axe",
+		output = "tech:stick 2",
+		items = {"group:woody_plant"},
+		level = 1,
+		always_known = true,
+	})
+	--Bulk sticks from woody plants
+	crafting.register_recipe({
+		type = "axe",
+		output = "tech:stick 24",
+		items = {"group:woody_plant 12"},
+		level = 1,
+		always_known = true,
+	})
+	--sticks from tree
+	crafting.register_recipe({
+		type = "axe",
+		output = "tech:stick 24",
+		items = {"group:log"},
+		level = 1,
+		always_known = true,
+	})
+
+	--sticks from log slabs
+	crafting.register_recipe({
+		type = "axe",
+		output = "tech:stick 12",
+		items = {"group:woodslab"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "axe",
+		output = "tech:large_wood_fire_unlit",
+		items = {"tech:stick 12", "group:fibrous_plant 2"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "axe",
+		output = "tech:large_wood_fire_unlit 2",
+		items = {"group:log", "group:fibrous_plant 4"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "axe",
+		output = "tech:primitive_wooden_chest",
+		items = {'group:log 4'},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "axe",
+		output = "tech:wooden_water_pot",
+		items = {'group:log 2'},
+		level = 1,
+		always_known = true,
+	})
 end)
+
+
 
