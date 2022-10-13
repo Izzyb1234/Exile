@@ -287,20 +287,6 @@ crafting.register_recipe({
 	level = 1,
 	always_known = true,
 })
-crafting.register_recipe({
-	type = "hand",
-	output = "tech:stick 2",
-	items = {"group:woody_plant"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "knife",
-	output = "tech:stick 2",
-	items = {"group:woody_plant"},
-	level = 1,
-	always_known = true,
-})
 
 --peel tubers
 crafting.register_recipe({
@@ -310,14 +296,6 @@ crafting.register_recipe({
 	level = 1,
 	always_known = true,
 })
-crafting.register_recipe({
-	type = "crafting_spot",
-	output = "tech:peeled_anperla",
-	items = {"nodes_nature:anperla_seed"},
-	level = 1,
-	always_known = true,
-})
-
 
 --
 --mortar and pestle
