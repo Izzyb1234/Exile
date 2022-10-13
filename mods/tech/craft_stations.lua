@@ -40,7 +40,7 @@ crafting.register_type("hand_mixing")	-- Mixing Tab
 crafting.register_type("knife")  	-- Replace some of the crafting spot
 crafting.register_type("hammer") 	-- Hammering spot replacement
 crafting.register_type('shovel') 	-- farming tools - including digging stick; replace threshing spot
-crafting.register_type('Axe')    	-- includes adze - replace chopping bock
+crafting.register_type('axe')    	-- includes adze - replace chopping bock
 crafting.register_type('cobble') 	-- Replacing grinding stone
 crafting.register_type('pickaxe') 	-- nothing yet
 
@@ -653,13 +653,16 @@ crafting.register_recipe({ ----craft threshing spot for free
 	level  = 1,
 	always_known = true,
 	})
-crafting.register_recipe({ --weaving_frame for free (location limited)
+
+--weaving_frame for free (location limited)
+crafting.register_recipe({ 
 	type   = "inv",
 	output = "tech:weaving_spot",
 	items  = {},
 	level  = 1,
 	always_known = true,
 	})
+
 crafting.register_recipe({ ----grinding_stone for free (location limited)
 	type   = "inv",
 	output = "tech:grinding_spot",
@@ -698,7 +701,8 @@ crafting.register_recipe({
 	always_known = true,
 	})
 ----Wood--
-crafting.register_recipe({ --chopping_block
+--chopping_block
+crafting.register_recipe({
 	type   = "crafting_spot",
 	output = "tech:chopping_block",
 	items  = {'group:log'},
@@ -712,14 +716,18 @@ crafting.register_recipe({
 	level  = 1,
 	always_known = true,
 	})
-crafting.register_recipe({ --brick_makers_bench
+
+--brick_makers_bench
+crafting.register_recipe({
 	type   = "crafting_spot",
 	output = "tech:brick_makers_bench",
 	items  = {'tech:stick 24'},
 	level  = 1,
 	always_known = true,
 	})
+
 ---- Iron ----
+-- Anvil
 crafting.register_recipe({ --hammer ingots into anvil
 	type   = "hammering_block",
 	output = "tech:anvil",
@@ -734,7 +742,16 @@ crafting.register_recipe({
 	level  = 1,
 	always_known = true,
 	})
-crafting.register_recipe({ --carpentary from logs for bench and iron for tools
+crafting.register_recipe({ 
+	type   = "hammer",
+	output = "tech:anvil",
+	items  = {'tech:iron_ingot 4'},
+	level  = 1,
+	always_known = true,
+	})
+
+--carpentary from logs for bench and iron for tools
+crafting.register_recipe({
 	type   = "chopping_block",
 	output = "tech:carpentry_bench",
 	items  = {'tech:iron_ingot 4', 'group:hard_wood 2'},
@@ -748,13 +765,16 @@ crafting.register_recipe({
 	level  = 1,
 	always_known = true,
 	})
-crafting.register_recipe({ --masonry_bench from logs for bench and iron for tools
+
+--masonry_bench from logs for bench and iron for tools
+crafting.register_recipe({
 	type   = "carpentry_bench",
 	output = "tech:masonry_bench",
 	items  = {'tech:iron_ingot 4', 'group:hard_wood 2'},
 	level  = 1,
 	always_known = true,
 	})
+	
 crafting.register_recipe({ --spinning wheel. wood,
 	type   = "carpentry_bench",
 	output = "tech:spinning_wheel",
@@ -894,7 +914,8 @@ if legacy_station_recipes == true then
    crafting.register_recipe({ --weaving_frame
 	 type   = "crafting_spot",
 	 output = "tech:weaving_frame",
-	 items  = {'tech:stick 12', 'group:fibrous_plant 8'},
+--	 items  = {'tech:stick 12', 'group:fibrous_plant 8'},
+	 items  = {'tech:stick 6', 'group:fibrous_plant 4'},
 	 level  = 1,
 	 always_known = true,
    })
