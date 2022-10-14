@@ -31,11 +31,11 @@ crafting.register_type("loom")
 crafting.register_type("glass_furnace")
 
 -- Tool based crafting stations
-crafting.register_type("hand")   	-- Empty hand tool; Replace crafting spot
-crafting.register_type("hand_pottery")	-- Pottery tab
-crafting.register_type("hand_wattle")	-- Wattle Tab
-crafting.register_type("hand_tools")	-- Tools Tab
-crafting.register_type("hand_mixing")	-- Mixing Tab
+crafting.register_type("hand", "General")   	-- Empty hand tool; Replace crafting spot
+crafting.register_type("hand_pottery", "Pottery")	-- Pottery tab
+crafting.register_type("hand_wattle", "Wattle")	-- Wattle Tab
+crafting.register_type("hand_tools", "Tools")	-- Tools Tab
+crafting.register_type("hand_mixing", "Mixing")	-- Mixing Tab
 
 crafting.register_type("knife")  	-- Replace some of the crafting spot
 crafting.register_type("hammer") 	-- Hammering spot replacement
