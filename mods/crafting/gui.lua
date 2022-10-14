@@ -185,7 +185,6 @@ function crafting.result_select_on_receive_results(player, type, level, context,
 	-- Was a tab selected?
 	if fields.crafting_nav_tabs then
 		local tid = tonumber(fields.crafting_nav_tabs)
-print ("tid: "..tid)
 		if tid and tid > 0 then
 			context.selected_tab = tid
 			--Tab selelected change formspec
@@ -262,7 +261,6 @@ local function make_on_show_function(ctype, level, inv_size, context)
 	node_serial = node_serial + 1
 	local formname = "crafting:node_" .. node_serial
 
-print(formname)
 	-- type can be a list of crafting types to appear as tabs
 	if type(ctype) == 'table' then
 		formname_tabs[formname] = {}
@@ -270,13 +268,11 @@ print(formname)
 	end
 
 	local function show(player, context)
---		local formname=formname
-print("in show formname: "..formname)
 		local types=ctype
 		local craft_type = ctype
 		local tab_labels = nil
 		local formspec_tabs = ""
-		local selected_tab = context.selected_tab or 2
+		local selected_tab = context.selected_tab or 1
 
 		if formname_tabs[formname] then
 			types = formname_tabs[formname].types
@@ -298,20 +294,15 @@ print("in show formname: "..formname)
 				craft_type = formname_tabs[formname].types[selected_tab]
 			end
 		end
-print (dump(formname_tabs))
 		if tab_labels and tab_labels ~= "" then
-print ("tab_labels:"..tab_labels)
 			formspec_tabs = "tabheader[0,0;crafting_nav_tabs;" .. tab_labels ..
 				";" .. selected_tab .. ";true;false]"
 		end
-print (dump(ctype).."<-->"..dump(craft_type))
-print(formspec_tabs)
 		local formspec = "size[" .. inv_size.x  .. "," .. (inv_size.y + 5.6) .."]"
 				.. formspec_tabs
 				.. "list[current_player;main;0," .. (inv_size.y + 1.7) ..";8,1;]"
 				.. "list[current_player;main;0," .. (inv_size.y + 2.85) ..";8,3;8]"
 				.. crafting.make_result_selector(player, craft_type, level, inv_size, context)
---print (formspec)
 		minetest.show_formspec(player:get_player_name(), formname, formspec)
 	end
 	minetest.register_on_player_receive_fields(function(player, _formname, fields)
@@ -320,8 +311,6 @@ print(formspec_tabs)
 		end
 
 		local context = node_fs_context[player:get_player_name()]
-print("-------------------Recieve Fields-------------")
-print(dump(context))
 		if not context then
 			return false
 		end

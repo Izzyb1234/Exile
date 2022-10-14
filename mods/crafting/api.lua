@@ -27,7 +27,6 @@ function crafting.register_type(name, label)
 	crafting.recipes[name] = {}
 	-- add a label for tabs - default to the name
 	crafting.tab_labels[name] = (label or name)
-print("Registered: "..name.."  '"..(label or "").."'")
 end
 
 local recipe_counter = 0
@@ -129,7 +128,6 @@ function crafting.get_recipe(id)
 end
 
 function crafting.get_all(type, level, item_hash, unlocked)
-print('getall: '..type);
 	assert(crafting.recipes[type], "No such craft type!")
 
 	local results = {}
