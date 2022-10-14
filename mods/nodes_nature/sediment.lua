@@ -253,6 +253,7 @@ function soil.register_dry(soil)
         tiles = {soil.texture_name, sed.texture_name,
                  {name = sed.texture_name.."^"..soil.texture_side_name}},
         _ag_soil = sed.ag_soil,
+        _wet_name = soil.wet_node_name,
     }
     local sed_props = get_dry_node_props(sed)
     local soil_props = merge_tables(sed_props, additional_properties)
@@ -267,6 +268,7 @@ function soil.register_wet(soil)
         tiles = {soil.texture_name.."^"..textures.wet, sed.texture_name.."^"..textures.wet,
                  {name = sed.texture_name.."^"..soil.texture_side_name.."^"..textures.wet}},
         _ag_soil = sed.ag_soil_wet,
+        _dry_name = dry_node_name,
     }
     local sed_props = get_wet_node_props(sed)
     local soil_props = merge_tables(sed_props, additional_properties)
