@@ -73,7 +73,64 @@ local function till_soil(itemstack, placer, pointed_thing, uses)
 
 end
 
+--Hammers
 
+--Places hammer
+local function place_tool(itemstack, placer, pointed_thing, placed_name)
+    local place_item = ItemStack(placed_name)
+    local above = minetest.get_node(pointed_thing.above)
+    if not minetest.registered_nodes[above.name].walkable then
+        itemstack:take_item(1)
+        minetest.item_place_node(place_item, placer, pointed_thing)
+    end
+    return itemstack
+end
+
+-- opens the hammering spot GUI
+local open_hammering_spot = crafting.make_on_rightclick("hammering_block", 2, { x = 8, y = 3 })
+
+-- opens the chopping spot GUI
+local open_chopping_spot = crafting.make_on_rightclick("chopping_block", 2, { x = 8, y = 3 })
+
+-- checks if the node has one of the groups from good_on
+local function is_spot_valid(node, good_on)
+    for i in ipairs(good_on) do
+        local group = good_on[i][1]
+        local num = good_on[i][2]
+        if minetest.get_item_group(node.name, group) == num then
+            return true
+        end
+    end
+    return false
+end
+
+-- opens the hammering spot GUI if the hammer is placed on a solid node
+local function open_hammering_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+    local good_on = {{"stone", 1}, {"masonry", 1}, {"boulder", 1}, {"soft_stone", 1}, {"tree", 1}, {"log", 1}}
+    local pos_under = {x = pos.x, y = pos.y - 1, z = pos.z}
+    local ground = minetest.get_node(pos_under)
+    if is_spot_valid(ground, good_on) then
+        open_hammering_spot(pos, node, clicker, itemstack, pointed_thing)
+    else
+        minetest.chat_send_player(
+            clicker:get_player_name(),
+            "Can't do hammering here! Needs: stone, masonry, tree, or a log.")
+    end
+end
+
+-- opens the chopping spot GUI if the hammer is placed on a solid node
+local function open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+    local good_on = {{"stone", 1}, {"masonry", 1}, {"soft_stone", 1}, {"tree", 1}, {"log", 1}}
+    local pos_under = {x = pos.x, y = pos.y - 1, z = pos.z}
+    local ground = minetest.get_node(pos_under)
+    if is_spot_valid(ground, good_on) then
+        open_chopping_spot(pos, node, clicker, itemstack, pointed_thing)
+    else
+        minetest.chat_send_player(
+            clicker:get_player_name(),
+            "Can't chop here! Needs: stone, masonry, tree, or a log.")
+    end
+end
 
 ---------------------------------------
 --Tools
@@ -208,6 +265,34 @@ minetest.register_tool("tech:adze_granite", {
 	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1,craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
+        on_place = function(itemstack, placer, pointed_thing)
+            return place_tool(itemstack, placer, pointed_thing, "tech:adze_granite_placed")
+        end,
+})
+
+-- Placed granite adze
+minetest.register_node(
+    "tech:adze_granite_placed", {
+        description = S("Placed Granite Adze"),
+        drawtype = "mesh",
+        mesh = "adze_placed.obj",
+        tiles = {name = "tech_adze_granite_placed.png"},
+        paramtype = "light",
+        paramtype2 = "facedir",
+        drop = "tech:adze_granite",
+        sounds = nodes_nature.node_sound_stone_defaults(),
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1},
+        node_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
+        },
+	selection_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
+        },
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+        end,
 })
 
 --less uses than granite bc softer stone
@@ -226,8 +311,35 @@ minetest.register_tool("tech:adze_basalt", {
 	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
+        on_place = function(itemstack, placer, pointed_thing)
+            return place_tool(itemstack, placer, pointed_thing, "tech:adze_basalt_placed")
+        end,
 })
 
+-- Placed basalt adze
+minetest.register_node(
+    "tech:adze_basalt_placed", {
+        description = S("Placed Basalt Adze"),
+        drawtype = "mesh",
+        mesh = "adze_placed.obj",
+        tiles = {name = "tech_adze_basalt_placed.png"},
+        paramtype = "light",
+        paramtype2 = "facedir",
+        drop = "tech:adze_basalt",
+        sounds = nodes_nature.node_sound_stone_defaults(),
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1},
+        node_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
+        },
+	selection_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
+        },
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+        end,
+})
 
 --many more uses than granite.
 minetest.register_tool("tech:adze_jade", {
@@ -245,8 +357,35 @@ minetest.register_tool("tech:adze_jade", {
 	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
+        on_place = function(itemstack, placer, pointed_thing)
+            return place_tool(itemstack, placer, pointed_thing, "tech:adze_jade_placed")
+        end,
 })
 
+-- Placed jade adze
+minetest.register_node(
+    "tech:adze_jade_placed", {
+        description = S("Placed Jade Adze"),
+        drawtype = "mesh",
+        mesh = "adze_placed.obj",
+        tiles = {name = "tech_adze_jade_placed.png"},
+        paramtype = "light",
+        paramtype2 = "facedir",
+        drop = "tech:adze_jade",
+        sounds = nodes_nature.node_sound_stone_defaults(),
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1},
+        node_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
+        },
+	selection_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
+        },
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+        end,
+})
 
 --stone club. A weapon. Not very good for anything else
 --can stun catch animals
@@ -541,7 +680,7 @@ minetest.register_tool(
             damage_groups = {fleshy=iron_dmg},
         },
         on_place = function(itemstack, placer, pointed_thing)
-            return place_hammer(itemstack, placer, pointed_thing, "tech:hammer_granite_placed")
+            return place_tool(itemstack, placer, pointed_thing, "tech:hammer_granite_placed")
         end,
         groups = {club = 1, craftedby = 1},
         sound = {breaks = "tech_tool_breaks"},
@@ -594,7 +733,7 @@ minetest.register_tool(
             damage_groups = {fleshy=iron_dmg},
         },
         on_place = function(itemstack, placer, pointed_thing)
-            return place_hammer(itemstack, placer, pointed_thing, "tech:hammer_basalt_placed")
+            return place_tool(itemstack, placer, pointed_thing, "tech:hammer_basalt_placed")
         end,
         groups = {club = 1, craftedby = 1},
         sound = {breaks = "tech_tool_breaks"},
