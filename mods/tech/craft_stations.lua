@@ -16,7 +16,8 @@ local legacy_station_recipes = false
 crafting.register_type("crafting_spot")
 --crafting.register_type("mixing_spot")...has to be done in nodes_nature
 --crafting.register_type("threshing_spot")...has to be done in nodes_nature
-crafting.register_type("weaving_frame")
+crafting.register_type("weaving_frame", 'Crafting')
+crafting.register_type("weaving_frame_mixing", 'mixing')
 crafting.register_type("grinding_stone")
 crafting.register_type("mortar_and_pestle")
 --crafting.register_type("chopping_block")...has to be done in nodes_nature
@@ -825,7 +826,7 @@ if legacy_stations == true then
 	   }
                 },
         sounds        = nodes_nature.node_sound_wood_defaults(),
-        on_rightclick = crafting.make_on_rightclick("weaving_frame", 2, { x = 8, y = 3 }),
+        on_rightclick = crafting.make_on_rightclick({"weaving_frame","weaving_frame_mixing"}, 2, { x = 8, y = 3 }),
    })
    --grinding stone
    --for grinding stone tools

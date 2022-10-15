@@ -214,8 +214,9 @@ for i in ipairs(tree_list) do
 	stairs.register_stair_and_slab(
 		treename.."_log",
 		"nodes_nature:"..treename.."_log",
-		"chopping_block",
+		{"chopping_block","axe_mixing"},
 		"false",
+		{"chopping_block","axe_mixing"},
 		{choppy = hardness, flammable = 8 - flamesusceptibility,
 		 woodslab = 1},
 		{

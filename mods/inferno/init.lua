@@ -376,4 +376,12 @@ minetest.register_on_mods_loaded(function()
 	    level = 1,
 	    always_known = true,
       })
+      crafting.register_recipe({
+	    type = "hand",
+	    output = "inferno:fire_sticks",
+	    items = {"tech:stick 2", "group:fibrous_plant 1"},
+	    level = 1,
+	    always_known = true,
+      })
+
 end)

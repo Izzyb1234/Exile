@@ -108,7 +108,7 @@ crafting.register_recipe({
 
 --recycle with some loss
 crafting.register_recipe({
-	type = "hand_wattle",
+	type = "mixing_spot",
 	output = "tech:wattle 2",
 	items = {"doors:door_wattle"},
 	level = 1,
@@ -116,7 +116,7 @@ crafting.register_recipe({
 })
 
 crafting.register_recipe({
-	type = "hand_wattle",
+	type = "mixing_spot",
 	output = "tech:wattle",
 	items = {"tech:trapdoor_wattle"},
 	level = 1,

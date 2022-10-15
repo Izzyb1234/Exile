@@ -451,8 +451,9 @@ minetest.register_node("tech:bricks_and_mortar", {
 stairs.register_stair_and_slab(
 	"bricks_and_mortar",
 	"tech:bricks_and_mortar",
-	"brick_makers_bench",
+	"brick_makers_bench_mixing",
 	"true",
+	"brick_makers_bench_mixing",
 	{cracky = 2},
 	{"tech_bricks_and_mortar.png"},
 	"Brick and Mortar Stair",
@@ -785,7 +786,7 @@ crafting.register_recipe({
 
 --------------------------------------------------------------------
 --MASONARY WITH MORTAR
---made at masonary bench,
+--made at masonry bench,
 --(except mortared blocks can also be done by brick maker)
 --added mortar binds them so not diggable by hand or falling.
 --drop unmortared stone.
@@ -865,8 +866,9 @@ for i in ipairs(list) do
 	stairs.register_stair_and_slab(
 		name.."_brick_mortar",
 		"tech:"..name.."_brick_mortar",
-		"masonry_bench",
+		"masonry_bench_mixing",
 		"true",
+		"masonry_bench_mixing",
 		{cracky = hardness},
 		{"nodes_nature_"..name.."_brick.png^tech_mortar_brick.png" },
 		desc.." Brick with Mortar Stair",
@@ -882,8 +884,9 @@ for i in ipairs(list) do
 	   stairs.register_stair_and_slab(
 		name.."_block_mortar",
 		"tech:"..name.."_block_mortar",
-		"masonry_bench",
+		"masonry_bench_mixing",
 		"false",
+		"masonry_bench_mixing",
 		{cracky = hardness},
 		{"nodes_nature_"..name.."_block.png^tech_mortar_block.png" },
 		desc.." Block with Mortar Stair",
