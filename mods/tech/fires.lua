@@ -874,22 +874,6 @@ crafting.register_recipe({
 	level = 1,
 	always_known = true,
 })
---XXX This just here so something is in mixing_spot to prevent a bug for testing
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "tech:wood_ash 2",
-	items = {"tech:wood_ash_block"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "axe_mixing",
-	output = "tech:wood_ash 2",
-	items = {"tech:wood_ash_block"},
-	level = 1,
-	always_known = true,
-})
-
 crafting.register_recipe({
 	type = "knife_mixing",
 	output = "tech:wood_ash_block",
