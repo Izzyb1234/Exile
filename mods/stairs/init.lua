@@ -39,11 +39,50 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 end
 
 
+
+function stairs.register_recipies(recipeitem,craft_station, recycle, recycle_station, subname, prefix)
+	if recipeitem then
+		if type(craft_station) == 'string' then
+			craft_station={craft_station}
+		end
+		for _, station in ipairs(craft_station) do
+			-- Recipes
+			minetest.register_on_mods_loaded(function()
+				crafting.register_recipe({
+					type = station,
+					output = prefix .. subname.. " 2",
+					items = {recipeitem},
+					level = 1,
+					always_known = true,
+				})
+			end)
+		end
+		-- Recycle recipe
+		if recycle == "true" then
+			if type(recycle_station) == 'string' then
+				recycle_station={recycle_station}
+			end
+			for _, station in ipairs(recycle_station) do
+				minetest.register_on_mods_loaded(function()
+					crafting.register_recipe({
+						type = station,
+						output = recipeitem,
+						items = {prefix .. subname.. " 2"},
+						level = 1,
+						always_known = true,
+					})
+				end)
+			end
+		end
+
+	end
+end
+
 -- Register stair
 -- Node will be called stairs:stair_<subname>
 
-function stairs.register_stair(subname, recipeitem, craft_station, recycle, groups, images, description,
-		stack_size, sounds, worldaligntex, droptype)
+function stairs.register_stair(subname, recipeitem, craft_station, recycle, recycle_station,
+		groups, images, description, stack_size, sounds, worldaligntex, droptype)
 	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
@@ -101,40 +140,40 @@ function stairs.register_stair(subname, recipeitem, craft_station, recycle, grou
 			groups = {slabs_replace = 1},
 		})
 	end
-
-	if recipeitem then
-		-- Recipes
-		minetest.register_on_mods_loaded(function()
-			crafting.register_recipe({
-				type = craft_station,
-				output = "stairs:stair_" .. subname.. " 2",
-				items = {recipeitem},
-				level = 1,
-				always_known = true,
-			})
-		end)
-		-- Recycle recipe
-		if recycle == "true" then
-			minetest.register_on_mods_loaded(function()
-				crafting.register_recipe({
-					type = "soil_mixing",
-					output = recipeitem,
-					items = {"stairs:stair_" .. subname.. " 2"},
-					level = 1,
-					always_known = true,
-				})
-			end)
-		end
-
-	end
+	stairs.register_recipies(recipeitem,craft_station, recycle, recycle_station, subname, "stairs:stair_")
+--if recipeitem then
+--		-- Recipes
+--		minetest.register_on_mods_loaded(function()
+--			crafting.register_recipe({
+--				type = craft_station,
+--				output = "stairs:stair_" .. subname.. " 2",
+--				items = {recipeitem},
+--				level = 1,
+--				always_known = true,
+--			})
+--		end)
+--		-- Recycle recipe
+--		if recycle == "true" then
+--			minetest.register_on_mods_loaded(function()
+--				crafting.register_recipe({
+--					type = recycle_station or craft_station,
+--					output = recipeitem,
+--					items = {"stairs:stair_" .. subname.. " 2"},
+--					level = 1,
+--					always_known = true,
+--				})
+--			end)
+--		end
+--
+--	end
 end
 
 
 -- Register slab
 -- Node will be called stairs:slab_<subname>
 
-function stairs.register_slab(subname, recipeitem, craft_station, recycle, groups, images, description,
-		stack_size, sounds, worldaligntex, droptype)
+function stairs.register_slab(subname, recipeitem, craft_station, recycle, recycle_station,
+		groups, images, description, stack_size, sounds, worldaligntex, droptype)
 	-- Set world-aligned textures
 	local slab_images = {}
 	for i, image in ipairs(images) do
@@ -216,32 +255,33 @@ function stairs.register_slab(subname, recipeitem, craft_station, recycle, group
 		})
 	end
 
-	if recipeitem then
-		-- Recipes
-		minetest.register_on_mods_loaded(function()
-			crafting.register_recipe({
-				type = craft_station,
-				output = "stairs:slab_" .. subname.. " 2",
-				items = {recipeitem},
-				level = 1,
-				always_known = true,
-			})
-		end)
-
-		-- Recycle recipe
-		if recycle == "true" then
-			minetest.register_on_mods_loaded(function()
-				crafting.register_recipe({
-					type = "soil_mixing",
-					output = recipeitem,
-					items = {"stairs:slab_" .. subname.. " 2"},
-					level = 1,
-					always_known = true,
-				})
-			end)
-		end
-
-	end
+	stairs.register_recipies(recipeitem,craft_station, recycle, recycle_station, subname, "stairs:slab_")
+--if recipeitem then
+--		-- Recipes
+--		minetest.register_on_mods_loaded(function()
+--			crafting.register_recipe({
+--				type = craft_station,
+--				output = "stairs:slab_" .. subname.. " 2",
+--				items = {recipeitem},
+--				level = 1,
+--				always_known = true,
+--			})
+--		end)
+--
+--		-- Recycle recipe
+--		if recycle == "true" then
+--			minetest.register_on_mods_loaded(function()
+--				crafting.register_recipe({
+--					type = recycle_station or craft_station,
+--					output = recipeitem,
+--					items = {"stairs:slab_" .. subname.. " 2"},
+--					level = 1,
+--					always_known = true,
+--				})
+--			end)
+--		end
+--
+--	end
 end
 
 
@@ -271,8 +311,8 @@ end
 -- Register inner stair
 -- Node will be called stairs:stair_inner_<subname>
 
-function stairs.register_stair_inner(subname, recipeitem, craft_station, recycle, groups, images,
-		description, stack_size, sounds, worldaligntex, droptype)
+function stairs.register_stair_inner(subname, recipeitem, craft_station, recycle, recycle_station,
+		groups, images, description, stack_size, sounds, worldaligntex, droptype)
 	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
@@ -323,44 +363,41 @@ function stairs.register_stair_inner(subname, recipeitem, craft_station, recycle
 			return rotate_and_place(itemstack, placer, pointed_thing)
 		end,
 	})
-
-	if recipeitem then
-		-- Recipes
-print (subname)
-print(recipeitem)
-
-		minetest.register_on_mods_loaded(function()
-			crafting.register_recipe({
-				type = craft_station,
-				output = "stairs:stair_inner_" .. subname.. " 2",
-				items = {recipeitem},
-				level = 1,
-				always_known = true,
-			})
-		end)
-
-		-- Recycle recipe
-		if recycle == "true" then
-			minetest.register_on_mods_loaded(function()
-				crafting.register_recipe({
-					type = "soil_mixing",
-					output = recipeitem,
-					items = {"stairs:stair_inner_" .. subname.. " 2"},
-					level = 1,
-					always_known = true,
-				})
-			end)
-		end
-
-	end
+	stairs.register_recipies(recipeitem,craft_station, recycle, recycle_station, subname, "stairs:stair_inner_")
+--if recipeitem then
+--		-- Recipes
+--		minetest.register_on_mods_loaded(function()
+--			crafting.register_recipe({
+--				type = craft_station,
+--				output = "stairs:stair_inner_" .. subname.. " 2",
+--				items = {recipeitem},
+--				level = 1,
+--				always_known = true,
+--			})
+--		end)
+--
+--		-- Recycle recipe
+--		if recycle == "true" then
+--			minetest.register_on_mods_loaded(function()
+--				crafting.register_recipe({
+--					type = recycle_station or craft_station,
+--					output = recipeitem,
+--					items = {"stairs:stair_inner_" .. subname.. " 2"},
+--					level = 1,
+--					always_known = true,
+--				})
+--			end)
+--		end
+--
+--	end
 end
 
 
 -- Register outer stair
 -- Node will be called stairs:stair_outer_<subname>
 
-function stairs.register_stair_outer(subname, recipeitem, craft_station, recycle, groups, images,
-		description, stack_size, sounds, worldaligntex, droptype)
+function stairs.register_stair_outer(subname, recipeitem, craft_station, recycle, recycle_station, 
+		groups, images, description, stack_size, sounds, worldaligntex, droptype)
 	-- Set backface culling and world-aligned textures
 	local stair_images = {}
 	for i, image in ipairs(images) do
@@ -411,42 +448,42 @@ function stairs.register_stair_outer(subname, recipeitem, craft_station, recycle
 		end,
 	})
 
-	if recipeitem then
-		-- Recipes
-		
-		minetest.register_on_mods_loaded(function()
-			crafting.register_recipe({
-				type = craft_station,
-				output = "stairs:stair_outer_" .. subname.. " 2",
-				items = {recipeitem},
-				level = 1,
-				always_known = true,
-			})
-		end)
-
-		-- Recycle recipe
-		if recycle == "true" then
-			minetest.register_on_mods_loaded(function()
-				crafting.register_recipe({
-					type = "soil_mixing",
-					output = recipeitem,
-					items = {"stairs:stair_outer_" .. subname.. " 2"},
-					level = 1,
-					always_known = true,
-				})
-			end)
-		end
-
-	end
+	stairs.register_recipies(recipeitem,craft_station, recycle, recycle_station, subname, "stairs:stair_outer_")
+--	if recipeitem then
+--		-- Recipes
+--		
+--		minetest.register_on_mods_loaded(function()
+--			crafting.register_recipe({
+--				type = craft_station,
+--				output = "stairs:stair_outer_" .. subname.. " 2",
+--				items = {recipeitem},
+--				level = 1,
+--				always_known = true,
+--			})
+--		end)
+--
+--		-- Recycle recipe
+--		if recycle == "true" then
+--			minetest.register_on_mods_loaded(function()
+--				crafting.register_recipe({
+--					type = recycle_station or craft_station,
+--					output = recipeitem,
+--					items = {"stairs:stair_outer_" .. subname.. " 2"},
+--					level = 1,
+--					always_known = true,
+--				})
+--			end)
+--		end
+--
+--	end
 end
 
 
 -- Stair/slab registration function.
 -- Nodes will be called stairs:{stair,slab}_<subname>
 
-function stairs.register_stair_and_slab(subname, recipeitem, craft_station,
-		recycle, groups, images, desc_stair, desc_slab, stack_size,
-		sounds, worldaligntex, droptypemain)
+function stairs.register_stair_and_slab(subname, recipeitem, craft_station, recycle, recycle_station, 
+		groups, images, desc_stair, desc_slab, stack_size, sounds, worldaligntex, droptypemain)
         local droptype = nil
         local droptypesub = ""
         if droptypemain ~= nil then
@@ -459,15 +496,15 @@ function stairs.register_stair_and_slab(subname, recipeitem, craft_station,
 	end
         local stexist = minetest.registered_nodes["stairs:stair_"..droptypesub]
         if stexist then droptype = "stairs:stair_"..droptypesub end
-	stairs.register_stair(subname, recipeitem, craft_station, recycle, groups, images, desc_stair, stack_size,
-		sounds, worldaligntex, droptype)
+	stairs.register_stair(subname, recipeitem, craft_station, recycle, recycle_station, groups, images, 
+		desc_stair, stack_size, sounds, worldaligntex, droptype)
         if stexist then droptype = "stairs:stair_inner_"..droptypesub end
-	stairs.register_stair_inner(subname, recipeitem, craft_station, recycle, groups, images, desc_stair, stack_size,
-		sounds, worldaligntex, droptype)
+	stairs.register_stair_inner(subname, recipeitem, craft_station, recycle, recycle_station, groups, images,
+		desc_stair, stack_size, sounds, worldaligntex, droptype)
         if stexist then droptype = "stairs:stair_outer_"..droptypesub end
-	stairs.register_stair_outer(subname, recipeitem, craft_station, recycle, groups, images, desc_stair, stack_size,
-		sounds, worldaligntex, droptype)
+	stairs.register_stair_outer(subname, recipeitem, craft_station, recycle, recycle_station, groups, images, 
+		desc_stair, stack_size, sounds, worldaligntex, droptype)
         if stexist then droptype = "stairs:slab_"..droptypesub end
-	stairs.register_slab(subname, recipeitem, craft_station, recycle, groups, images, desc_slab, stack_size,
-		sounds, worldaligntex, droptype)
+	stairs.register_slab(subname, recipeitem, craft_station, recycle, recycle_station, groups, images, 
+		desc_slab, stack_size, sounds, worldaligntex, droptype)
 end

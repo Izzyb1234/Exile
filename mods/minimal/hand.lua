@@ -57,6 +57,14 @@ minetest.register_on_mods_loaded(function()
 		level = 1,
 		always_known = true,
 	})
+	----craft drystack from gravel
+	crafting.register_recipe({
+		type = "hand",
+		output = "tech:drystack 2",
+		items = {"nodes_nature:gravel 3"},
+		level = 1,
+		always_known = true,
+	})
 	crafting.register_recipe({ 
 		type   = "hand",
 		output = "tech:weaving_frame",
@@ -128,6 +136,48 @@ minetest.register_on_mods_loaded(function()
 		level = 1,
 		always_known = true,
 	})
+	crafting.register_recipe({
+		type = "hand_pottery",
+		output = "nodes_nature:clay 4",
+		items = {"tech:clay_water_pot_unfired 1"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "hand_pottery",
+		output = "nodes_nature:clay 6",
+		items = {"tech:clay_storage_pot_unfired 1"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "hand_pottery",
+		output = "nodes_nature:clay",
+		items = {"tech:clay_oil_lamp_unfired 1"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "hand_pottery",
+		output = "tech:broken_pottery",
+		items = {"group:pottery"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "hand_pottery",
+		output = "tech:broken_pottery_block",
+		items = {"tech:broken_pottery 2"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "hand_pottery",
+		output = "tech:broken_pottery 2",
+		items = {"tech:broken_pottery_block"},
+		level = 1,
+		always_known = true,
+	})
 	-- hand_wattle
 	crafting.register_recipe({
 		type = "hand_wattle",
@@ -164,7 +214,59 @@ minetest.register_on_mods_loaded(function()
 		level = 1,
 		always_known = true,
 	})
+	crafting.register_recipe({
+		type = "hand_wattle",
+		output = "tech:wattle 2",
+		items = {"doors:door_wattle"},
+		level = 1,
+		always_known = true,
+	})
+
+	crafting.register_recipe({
+		type = "hand_wattle",
+		output = "tech:wattle",
+		items = {"tech:trapdoor_wattle"},
+		level = 1,
+		always_known = true,
+	})
 	-- hand_mixing
+	crafting.register_recipe({
+		type = "hand_mixing",
+		output = "nodes_nature:snow_block",
+		items = {"nodes_nature:snow 2"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "hand_mixing",
+		output = "nodes_nature:snow 2",
+		items = {"nodes_nature:snow_block"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "hand_mixing",
+		output = "nodes_nature:snow_block 2",
+		items = {"nodes_nature:ice"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "hand_mixing",
+		output = "nodes_nature:ice",
+		items = {"nodes_nature:snow_block 2"},
+		level = 1,
+		always_known = true,
+	})
+	--recycle drystack with some loss
+	crafting.register_recipe({
+		type = "hand_mixing",
+		output = "nodes_nature:gravel",
+		items = {"tech:drystack"},
+		level = 1,
+		always_known = true,
+	})
+
 --	crafting.register_recipe({
 --		type = "hand_mixing",
 --		output = "tech:stick 4",
@@ -271,3 +373,22 @@ end)
 
 
 
+
+-- Soil related
+minetest.register_on_mods_loaded(function()
+	crafting.register_recipe({
+		type = "soil_mixing",
+		output = "nodes_nature:loam 3",
+		items = {"nodes_nature:clay 1","nodes_nature:silt 1","nodes_nature:sand 1"},
+		level = 1,
+		always_known = true,
+	})
+
+	crafting.register_recipe({
+		type = "soil_mixing",
+		output = "nodes_nature:loam_wet 3",
+		items = {"nodes_nature:clay_wet 1","nodes_nature:silt_wet 1","nodes_nature:sand_wet 1"},
+		level = 1,
+		always_known = true,
+	})
+end)

@@ -79,8 +79,9 @@ for i in ipairs(stone_list) do
 		stairs.register_stair_and_slab(
 			name.."_brick",
 			"nodes_nature:"..name.."_brick",
-			"masonry_bench",
+			"masonry_bench_mixing",
 			"true",
+			"masonry_bench_mixing",
 			{cracky = hardness, falling_node = 1, oddly_breakable_by_hand = 1},
 			{"nodes_nature_"..name.."_brick.png" },
 			desc.." Brick Stair",
@@ -223,12 +224,20 @@ for i in ipairs(rock_list) do
 		minetest.register_on_mods_loaded(function()
 			--recycle block (e.g. so can get iron ore)
 			crafting.register_recipe({
+				type = "mixing_spot",
+				output = "nodes_nature:"..name.."_boulder",
+				items = {"nodes_nature:"..name.."_block"},
+				level = 1,
+				always_known = true,
+			})
+			crafting.register_recipe({
 				type = "hammer_mixing",
 				output = "nodes_nature:"..name.."_boulder",
 				items = {"nodes_nature:"..name.."_block"},
 				level = 1,
 				always_known = true,
 			})
+
 		end)
 
 		--stairs and slabs
@@ -237,8 +246,9 @@ for i in ipairs(rock_list) do
 		stairs.register_stair_and_slab(
 			name.."_brick",
 			"nodes_nature:"..name.."_brick",
-			"masonry_bench",
+			"masonry_bench_mixing",
 			"true",
+			"masonry_bench_mixing",
 			{cracky = hardness, falling_node = 1, oddly_breakable_by_hand = 1},
 			{"nodes_nature_"..name.."_brick.png" },
 			desc.." Brick Stair",
@@ -251,8 +261,9 @@ for i in ipairs(rock_list) do
 		stairs.register_stair_and_slab(
 			name.."_block",
 			"nodes_nature:"..name.."_block",
-			"masonry_bench",
+			"masonry_bench_mixing",
 			"false",
+			"masonry_bench_mixing",
 			{cracky = hardness, falling_node = 1, oddly_breakable_by_hand = 1},
 			{"nodes_nature_"..name.."_block.png" },
 			desc.." Block Stair",

@@ -204,8 +204,9 @@ function sediment.register_stair_and_slab(sed)
     stairs.register_stair_and_slab(
         sed.name,
         sed.dry_node_name,
-        "soil_mixing",
+	{"mixing_spot","soil_mixing"},
         "true",
+	{"mixing_spot","soil_mixing"},
         {falling_node = 1, crumbly = sed.hardness},
         {sed.texture_name},
         sed.description.." Stair",
@@ -413,6 +414,13 @@ end
 function agricultural_soil.register_recipe(agri_soil)
 	minetest.register_on_mods_loaded(function()
 		crafting.register_recipe({
+		    type = "mixing_spot",
+		    output = agri_soil.dry_node_name,
+		    items = {agri_soil.sediment.dry_node_name.." 1","group:fertilizer 1"},
+		    level = 1,
+		    always_known = true,
+		})
+		crafting.register_recipe({
 		    type = "soil_mixing",
 		    output = agri_soil.dry_node_name,
 		    items = {agri_soil.sediment.dry_node_name.." 1","group:fertilizer 1"},
@@ -424,6 +432,13 @@ end
 
 function agricultural_soil.register_recipe_wet(agri_soil)
 	minetest.register_on_mods_loaded(function()
+	    crafting.register_recipe({
+		    type = "mixing_spot",
+		    output = agri_soil.wet_node_name,
+		    items = {agri_soil.sediment.wet_node_name.." 1","group:fertilizer 1"},
+		    level = 1,
+		    always_known = true,
+	    })
 	    crafting.register_recipe({
 		    type = "soil_mixing",
 		    output = agri_soil.wet_node_name,
@@ -592,7 +607,7 @@ local soil_list = {
 
 minetest.register_on_mods_loaded(function()
 	crafting.register_recipe({
-		type = "soil_mixing",
+		type = "mixing_spot",
 		output = "nodes_nature:loam 3",
 		items = {"nodes_nature:clay 1","nodes_nature:silt 1","nodes_nature:sand 1"},
 		level = 1,
@@ -600,7 +615,7 @@ minetest.register_on_mods_loaded(function()
 	})
 
 	crafting.register_recipe({
-		type = "soil_mixing",
+		type = "mixing_spot",
 		output = "nodes_nature:loam_wet 3",
 		items = {"nodes_nature:clay_wet 1","nodes_nature:silt_wet 1","nodes_nature:sand_wet 1"},
 		level = 1,

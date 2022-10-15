@@ -24,8 +24,9 @@ minetest.register_node("tech:drystack", {
 stairs.register_stair_and_slab(
 	"drystack",
 	"tech:drystack",
-	"hand_mixing",
+	{"hand_mixing","mixing_spot"},
 	"true",
+	{"hand_mixing","mixing_spot"},
 	{cracky = 3, crumbly = 1, oddly_breakable_by_hand = 1, falling_node = 1},
 	{"tech_drystack.png"},
 	"Drystack Stair",
@@ -50,8 +51,9 @@ minetest.register_node('tech:mudbrick', {
 stairs.register_stair_and_slab(
 	"mudbrick",
 	"tech:mudbrick",
-	"brick_makers_bench",
+	{"brick_makers_bench_mixing","mixing_spot"},
 	"true",
+	{"brick_makers_bench_mixing","mixing_spot"},
 	{crumbly = 2, cracky = 3, oddly_breakable_by_hand = 1,},
 	{"tech_mudbrick.png"},
 	"Mudbrick Stair",
@@ -83,8 +85,9 @@ minetest.register_node('tech:rammed_earth', {
 stairs.register_stair_and_slab(
 	"rammed_earth",
 	"tech:rammed_earth",
-	"brick_makers_bench",
+	{"brick_makers_bench_mixing","mixing_spot"},
 	"true",
+	{"brick_makers_bench_mixing","mixing_spot"},
 	{crumbly = 1, cracky = 3, falling_node = 1},
 	{
 		"tech_rammed_earth.png",
@@ -278,8 +281,9 @@ minetest.register_node('tech:thatch', {
 stairs.register_stair_and_slab(
 	"thatch",
 	"tech:thatch",
-	"weaving_frame",
+	{"weaving_frame_mixing","weaving_frame"},
 	"true",
+	{"weaving_frame_mixing","weaving_frame"},
 	{snappy=3, flammable=1, fall_damage_add_percent = -15},
 	{"tech_thatch.png"},
 	"Thatch Stair",
@@ -313,7 +317,7 @@ crafting.register_recipe({
 
 --recycle drystack with some loss
 crafting.register_recipe({
-	type = "hand_mixing",
+	type = "mixing_spot",
 	output = "nodes_nature:gravel",
 	items = {"tech:drystack"},
 	level = 1,
