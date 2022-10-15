@@ -365,7 +365,7 @@ minetest.register_node("tech:slag", {
 stairs.register_stair_and_slab(
         "slag",
         "tech:slag",
-        "mixing_spot",
+        "anvil_mixing",
         "true",
         {cracky = 3, fall_node = 1, crumbly = 1},
         {"tech_iron_and_slag.png"},

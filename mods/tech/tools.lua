@@ -125,7 +125,7 @@ minetest.register_tool("tech:stone_chopper", {
 		},
 		damage_groups = {fleshy= crude_dmg},
 	},
-	on_place = crafting.make_on_place("knife", 2, { x = 8, y = 3 }),
+	on_place = crafting.make_on_place({"knife",'knife_mixing'}, 2, { x = 8, y = 3 }),
 	groups = {knife = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
@@ -136,7 +136,7 @@ minetest.register_tool("tech:stone_chopper", {
 --
 
 -- digging stick... specialist for digging. Can also till
-local digging_stick_crafting = crafting.make_on_place("threshing_spot", 2, { x = 8, y = 3 })
+local digging_stick_crafting = crafting.make_on_place({"threshing_spot","soil_mixing"}, 2, { x = 8, y = 3 })
 minetest.register_tool("tech:digging_stick", {
 	description = S("Digging Stick"),
 	inventory_image = "tech_tool_digging_stick.png^[transformR90",
@@ -205,7 +205,7 @@ minetest.register_tool("tech:adze_granite", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
-	on_place = crafting.make_on_place("axe", 2, { x = 8, y = 3 }),
+	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1,craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
@@ -223,7 +223,7 @@ minetest.register_tool("tech:adze_basalt", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
-	on_place = crafting.make_on_place("axe", 2, { x = 8, y = 3 }),
+	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
@@ -242,7 +242,7 @@ minetest.register_tool("tech:adze_jade", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
-	on_place = crafting.make_on_place("axe", 2, { x = 8, y = 3 }),
+	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
@@ -314,7 +314,7 @@ minetest.register_tool("tech:axe_iron", {
 		},
 		damage_groups = {fleshy = iron_dmg},
 	},
-	on_place = crafting.make_on_place("axe", 2, { x = 8, y = 3 }),
+	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
@@ -816,6 +816,5 @@ minetest.register_on_mods_loaded(function()
 		always_known = true,
 	})
 end)
-
 
 

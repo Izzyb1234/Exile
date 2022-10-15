@@ -273,11 +273,13 @@ local function make_on_show_function(ctype, level, inv_size, context)
 		local tab_labels = nil
 		local formspec_tabs = ""
 		local selected_tab = context.selected_tab or 1
-
 		if formname_tabs[formname] then
 			types = formname_tabs[formname].types
 			tab_labels = formname_tabs[formname].labels
-
+			if not types[selected_tab] then
+				selected_tab = 1 -- tab doesn't exist most be old context
+			end
+			context.selected_tab = selected_tab
 			-- Generate and save tab labels
 			if not tab_labels then 
 				tab_labels = ""
@@ -289,7 +291,6 @@ local function make_on_show_function(ctype, level, inv_size, context)
 				formname_tabs[formname].labels = tab_labels
 			end
 			formname_tabs[formname].labels = tab_labels
-			context.selected_tab = selected_tab
 			if formname_tabs[formname].types[selected_tab] then
 				craft_type = formname_tabs[formname].types[selected_tab]
 			end
