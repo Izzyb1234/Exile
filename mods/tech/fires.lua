@@ -868,6 +868,14 @@ crafting.register_recipe({
 
 --ash  / block
 crafting.register_recipe({
+	type = "knife_mixing",
+	output = "tech:wood_ash 2",
+	items = {"tech:wood_ash_block"},
+	level = 1,
+	always_known = true,
+})
+--XXX This just here so something is in mixing_spot to prevent a bug for testing
+crafting.register_recipe({
 	type = "mixing_spot",
 	output = "tech:wood_ash 2",
 	items = {"tech:wood_ash_block"},
@@ -876,7 +884,7 @@ crafting.register_recipe({
 })
 
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "knife_mixing",
 	output = "tech:wood_ash_block",
 	items = {"tech:wood_ash 2"},
 	level = 1,
@@ -886,7 +894,7 @@ crafting.register_recipe({
 
 --charcoal  / block
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "knife_mixing",
 	output = "tech:charcoal 2",
 	items = {"tech:charcoal_block"},
 	level = 1,
@@ -894,7 +902,7 @@ crafting.register_recipe({
 })
 
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "knife_mixing",
 	output = "tech:charcoal_block",
 	items = {"tech:charcoal 2"},
 	level = 1,
@@ -904,7 +912,7 @@ crafting.register_recipe({
 
 --fires  / block
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "knife_mixing",
 	output = "tech:small_wood_fire_unlit 2",
 	items = {"tech:large_wood_fire_unlit"},
 	level = 1,
@@ -912,7 +920,7 @@ crafting.register_recipe({
 })
 
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "knife_mixing",
 	output = "tech:large_wood_fire_unlit",
 	items = {"tech:small_wood_fire_unlit 2"},
 	level = 1,

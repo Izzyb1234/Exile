@@ -104,23 +104,26 @@ function stairs.register_stair(subname, recipeitem, craft_station, recycle, grou
 
 	if recipeitem then
 		-- Recipes
-		crafting.register_recipe({
-			type = craft_station,
-			output = "stairs:stair_" .. subname.. " 2",
-			items = {recipeitem},
-			level = 1,
-			always_known = true,
-		})
-
-		-- Recycle recipe
-		if recycle == "true" then
+		minetest.register_on_mods_loaded(function()
 			crafting.register_recipe({
-				type = "mixing_spot",
-				output = recipeitem,
-				items = {"stairs:stair_" .. subname.. " 2"},
+				type = craft_station,
+				output = "stairs:stair_" .. subname.. " 2",
+				items = {recipeitem},
 				level = 1,
 				always_known = true,
 			})
+		end)
+		-- Recycle recipe
+		if recycle == "true" then
+			minetest.register_on_mods_loaded(function()
+				crafting.register_recipe({
+					type = "soil_mixing",
+					output = recipeitem,
+					items = {"stairs:stair_" .. subname.. " 2"},
+					level = 1,
+					always_known = true,
+				})
+			end)
 		end
 
 	end
@@ -215,23 +218,27 @@ function stairs.register_slab(subname, recipeitem, craft_station, recycle, group
 
 	if recipeitem then
 		-- Recipes
-		crafting.register_recipe({
-			type = craft_station,
-			output = "stairs:slab_" .. subname.. " 2",
-			items = {recipeitem},
-			level = 1,
-			always_known = true,
-		})
-
-		-- Recycle recipe
-		if recycle == "true" then
+		minetest.register_on_mods_loaded(function()
 			crafting.register_recipe({
-				type = "mixing_spot",
-				output = recipeitem,
-				items = {"stairs:slab_" .. subname.. " 2"},
+				type = craft_station,
+				output = "stairs:slab_" .. subname.. " 2",
+				items = {recipeitem},
 				level = 1,
 				always_known = true,
 			})
+		end)
+
+		-- Recycle recipe
+		if recycle == "true" then
+			minetest.register_on_mods_loaded(function()
+				crafting.register_recipe({
+					type = "soil_mixing",
+					output = recipeitem,
+					items = {"stairs:slab_" .. subname.. " 2"},
+					level = 1,
+					always_known = true,
+				})
+			end)
 		end
 
 	end
@@ -319,23 +326,30 @@ function stairs.register_stair_inner(subname, recipeitem, craft_station, recycle
 
 	if recipeitem then
 		-- Recipes
-		crafting.register_recipe({
-			type = craft_station,
-			output = "stairs:stair_inner_" .. subname.. " 2",
-			items = {recipeitem},
-			level = 1,
-			always_known = true,
-		})
+print (subname)
+print(recipeitem)
 
-		-- Recycle recipe
-		if recycle == "true" then
+		minetest.register_on_mods_loaded(function()
 			crafting.register_recipe({
-				type = "mixing_spot",
-				output = recipeitem,
-				items = {"stairs:stair_inner_" .. subname.. " 2"},
+				type = craft_station,
+				output = "stairs:stair_inner_" .. subname.. " 2",
+				items = {recipeitem},
 				level = 1,
 				always_known = true,
 			})
+		end)
+
+		-- Recycle recipe
+		if recycle == "true" then
+			minetest.register_on_mods_loaded(function()
+				crafting.register_recipe({
+					type = "soil_mixing",
+					output = recipeitem,
+					items = {"stairs:stair_inner_" .. subname.. " 2"},
+					level = 1,
+					always_known = true,
+				})
+			end)
 		end
 
 	end
@@ -399,23 +413,28 @@ function stairs.register_stair_outer(subname, recipeitem, craft_station, recycle
 
 	if recipeitem then
 		-- Recipes
-		crafting.register_recipe({
-			type = craft_station,
-			output = "stairs:stair_outer_" .. subname.. " 2",
-			items = {recipeitem},
-			level = 1,
-			always_known = true,
-		})
-
-		-- Recycle recipe
-		if recycle == "true" then
+		
+		minetest.register_on_mods_loaded(function()
 			crafting.register_recipe({
-				type = "mixing_spot",
-				output = recipeitem,
-				items = {"stairs:stair_outer_" .. subname.. " 2"},
+				type = craft_station,
+				output = "stairs:stair_outer_" .. subname.. " 2",
+				items = {recipeitem},
 				level = 1,
 				always_known = true,
 			})
+		end)
+
+		-- Recycle recipe
+		if recycle == "true" then
+			minetest.register_on_mods_loaded(function()
+				crafting.register_recipe({
+					type = "soil_mixing",
+					output = recipeitem,
+					items = {"stairs:stair_outer_" .. subname.. " 2"},
+					level = 1,
+					always_known = true,
+				})
+			end)
 		end
 
 	end

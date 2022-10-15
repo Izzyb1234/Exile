@@ -21,37 +21,35 @@ crafting.register_type("grinding_stone")
 crafting.register_type("mortar_and_pestle")
 --crafting.register_type("chopping_block")...has to be done in nodes_nature
 --crafting.register_type("hammering_block")...has to be done in nodes_nature
-crafting.register_type("anvil")
+crafting.register_type("anvil", "Crafting")
+crafting.register_type("anvil_mixing", "Mixing")
 crafting.register_type("carpentry_bench")
 --crafting.register_type("masonry_bench")...has to be done in nodes_nature
 --crafting.register_type("masonry_mixing")...has to be done in nodes_nature
-crafting.register_type("brick_makers_bench")
+crafting.register_type("brick_makers_bench","Crafting")
+crafting.register_type("brick_makers_bench_mixing", "Mixing")
+
 crafting.register_type("spinning_wheel")
 crafting.register_type("loom")
 crafting.register_type("glass_furnace")
 
 -- Tool based crafting stations
-crafting.register_type("hand", "General")   	-- Empty hand tool; Replace crafting spot
+crafting.register_type("hand", "Crafting")   	-- Empty hand tool; Replace crafting spot
 crafting.register_type("hand_pottery", "Pottery")	-- Pottery tab
 crafting.register_type("hand_wattle", "Wattle")	-- Wattle Tab
 crafting.register_type("hand_tools", "Tools")	-- Tools Tab
 crafting.register_type("hand_mixing", "Mixing")	-- Mixing Tab
 
-crafting.register_type("knife")  	-- Replace some of the crafting spot
-crafting.register_type("hammer") 	-- Hammering spot replacement
-crafting.register_type('shovel') 	-- farming tools - including digging stick; replace threshing spot
-crafting.register_type('axe')    	-- includes adze - replace chopping bock
+crafting.register_type("knife", "Crafting")  	-- Replace some of the crafting spot
+crafting.register_type("knife_mixing", "Mixing")
+crafting.register_type("hammer", "Crafting") 	-- Hammering spot replacement
+crafting.register_type("hammer_mixing", "Mixing")
+crafting.register_type('shovel', "Crafting") 	-- farming tools - including digging stick; replace threshing spot
+crafting.register_type('soil_mixing', "Mixing") 	-- tab for shovel
+crafting.register_type('axe', "Crafting")    	-- includes adze - replace chopping bock
+crafting.register_type('axe_mixing', "Mixing")    	
 crafting.register_type('cobble') 	-- Replacing grinding stone
 crafting.register_type('pickaxe') 	-- nothing yet
-
--- Mixing tabs - Mixing station being replaced by a mixing tab in each crafting station.
-crafting.register_type("brick_mixing")
-crafting.register_type("knife_mixing")
-crafting.register_type("hammer_mixing")
-crafting.register_type('shovel_mixing')
-crafting.register_type('Axe_mixing')
-crafting.register_type('pickaxe_mixing')
-
 
 -- location limit craft spots --------------------
 -- grouplist/banlistg {{group1, group_number}, {'stone', 1}}
@@ -456,7 +454,7 @@ minetest.register_node("tech:anvil", { --anvil--metal  working
 	paramtype2    = "facedir",
 	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1, craftedby = 1},
 	sounds        = nodes_nature.node_sound_stone_defaults(),
-	on_rightclick = crafting.make_on_rightclick("anvil", 2, { x = 8, y = 3 }),
+	on_rightclick = crafting.make_on_rightclick({"anvil","anvil_mixing"}, 2, { x = 8, y = 3 }),
 	})
 
 minetest.register_node("tech:carpentry_bench", { --carpentry_bench--more sophisticated wood working
@@ -506,7 +504,7 @@ minetest.register_node("tech:masonry_bench", { --masonry_bench--more sophisticat
 	paramtype2    = "facedir",
 	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1, craftedby = 1},
 	sounds        = nodes_nature.node_sound_wood_defaults(),
-	on_rightclick = crafting.make_on_rightclick("masonry_bench", 2, { x = 8, y = 3 }),
+	on_rightclick = crafting.make_on_rightclick({"masonry_bench","masonry_bench_mixing"}, 2, { x = 8, y = 3 }),
 	})
 
 --brick_makers_bench
@@ -540,7 +538,7 @@ minetest.register_node("tech:brick_makers_bench", {
 	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1,
 			 flammable = 8, craftedby = 1},
 	sounds        = nodes_nature.node_sound_wood_defaults(),
-	on_rightclick = crafting.make_on_rightclick("brick_makers_bench", 2, { x = 8, y = 3 }),
+	on_rightclick = crafting.make_on_rightclick({"brick_makers_bench","brick_makers_bench_mixing"}, 2, { x = 8, y = 3 }),
 	})
 
 --spinning_wheel

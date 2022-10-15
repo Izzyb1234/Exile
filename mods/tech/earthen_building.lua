@@ -24,7 +24,7 @@ minetest.register_node("tech:drystack", {
 stairs.register_stair_and_slab(
 	"drystack",
 	"tech:drystack",
-	"mixing_spot",
+	"hand_mixing",
 	"true",
 	{cracky = 3, crumbly = 1, oddly_breakable_by_hand = 1, falling_node = 1},
 	{"tech_drystack.png"},
@@ -313,7 +313,7 @@ crafting.register_recipe({
 
 --recycle drystack with some loss
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "hand_mixing",
 	output = "nodes_nature:gravel",
 	items = {"tech:drystack"},
 	level = 1,
@@ -341,7 +341,7 @@ crafting.register_recipe({
 
 --recycle rammed_earth with some loss
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "brick_makers_bench_mixing",
 	output = "nodes_nature:clay",
 	items = {"tech:rammed_earth"},
 	level = 1,
@@ -360,7 +360,7 @@ crafting.register_recipe({
 
 --recycle wattle with some loss
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "hand_wattle",
 	output = "tech:stick 4",
 	items = {"tech:wattle"},
 	level = 1,
@@ -378,7 +378,7 @@ crafting.register_recipe({
 
 --recycle loose wattle with some loss
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "hand_wattle",
 	output = "tech:stick 2",
 	items = {"tech:wattle_loose"},
 	level = 1,
@@ -387,7 +387,7 @@ crafting.register_recipe({
 
 --convert loose wattle to wattle
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "hand_wattle",
 	output = "tech:wattle",
 	items = {"tech:wattle_loose 2"},
 	level = 1,
@@ -396,7 +396,7 @@ crafting.register_recipe({
 
 --convert wattle to loose wattle
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "hand_wattle",
 	output = "tech:wattle_loose 2",
 	items = {"tech:wattle"},
 	level = 1,
@@ -414,7 +414,7 @@ crafting.register_recipe({
 
 --convert wattle to wattle door frame
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "hand_wattle",
 	output = "tech:wattle_door_frame",
 	items = {"tech:wattle"},
 	level = 1,
@@ -423,7 +423,7 @@ crafting.register_recipe({
 
 --convert wattle door frame to wattle
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "hand_wattle",
 	output = "tech:wattle",
 	items = {"tech:wattle_door_frame"},
 	level = 1,

@@ -229,38 +229,40 @@ minetest.register_node("nodes_nature:snow_block", {
 	sounds = nodes_nature.node_sound_snow_defaults(),
 })
 
+-- hand_mixing doesn't exist yet, wait till all mods loaded
+minetest.register_on_mods_loaded(function()
+	crafting.register_recipe({
+		type = "hand_mixing",
+		output = "nodes_nature:snow_block",
+		items = {"nodes_nature:snow 2"},
+		level = 1,
+		always_known = true,
+	})
 
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:snow_block",
-	items = {"nodes_nature:snow 2"},
-	level = 1,
-	always_known = true,
-})
+	crafting.register_recipe({
+		type = "hand_mixing",
+		output = "nodes_nature:snow 2",
+		items = {"nodes_nature:snow_block"},
+		level = 1,
+		always_known = true,
+	})
 
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:snow 2",
-	items = {"nodes_nature:snow_block"},
-	level = 1,
-	always_known = true,
-})
+	crafting.register_recipe({
+		type = "hand_mixing",
+		output = "nodes_nature:snow_block 2",
+		items = {"nodes_nature:ice"},
+		level = 1,
+		always_known = true,
+	})
 
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:snow_block 2",
-	items = {"nodes_nature:ice"},
-	level = 1,
-	always_known = true,
-})
-
-crafting.register_recipe({
-	type = "mixing_spot",
-	output = "nodes_nature:ice",
-	items = {"nodes_nature:snow_block 2"},
-	level = 1,
-	always_known = true,
-})
+	crafting.register_recipe({
+		type = "hand_mixing",
+		output = "nodes_nature:ice",
+		items = {"nodes_nature:snow_block 2"},
+		level = 1,
+		always_known = true,
+	})
+end)
 
 --ice
 minetest.register_node("nodes_nature:ice", {

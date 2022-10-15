@@ -36,8 +36,9 @@ function crafting.register_recipe(def)
 	assert(def.items,  "Items needed in recipe definition")
 
 	def.level = def.level or 1
-
+	
 	local tab = crafting.recipes[def.type]
+print (dump(def))
 	assert(tab,        "Unknown craft type " .. def.type)
 
 	recipe_counter = recipe_counter + 1

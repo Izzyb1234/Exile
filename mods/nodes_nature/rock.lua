@@ -212,21 +212,24 @@ for i in ipairs(rock_list) do
 		})
 
 		crafting.register_recipe({
-			type = "masonry_bench",
+			type = "masonry_bench_mixing",
 			output = "nodes_nature:"..name.."_brick",
 			items = {"nodes_nature:"..name.."_boulder"},
 			level = 1,
 			always_known = true,
 		})
 
-		--recycle block (e.g. so can get iron ore)
-		crafting.register_recipe({
-			type = "mixing_spot",
-			output = "nodes_nature:"..name.."_boulder",
-			items = {"nodes_nature:"..name.."_block"},
-			level = 1,
-			always_known = true,
-		})
+		-- hand_mixing doesn't exist yet; wait till all mods loaded
+		minetest.register_on_mods_loaded(function()
+			--recycle block (e.g. so can get iron ore)
+			crafting.register_recipe({
+				type = "hammer_mixing",
+				output = "nodes_nature:"..name.."_boulder",
+				items = {"nodes_nature:"..name.."_block"},
+				level = 1,
+				always_known = true,
+			})
+		end)
 
 		--stairs and slabs
 

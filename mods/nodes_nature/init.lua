@@ -12,8 +12,8 @@ crafting.register_type("mixing_spot")
 crafting.register_type("threshing_spot")
 crafting.register_type("hammering_block")
 crafting.register_type("chopping_block")
-crafting.register_type("masonry_bench")
-
+crafting.register_type("masonry_bench", "Crafting")
+crafting.register_type("masonry_bench_mixing", "Mixing")
 --------------------------------
 
 dofile(path.."/sounds.lua")

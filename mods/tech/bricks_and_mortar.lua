@@ -751,7 +751,7 @@ crafting.register_recipe({
 
 --switch inner/outer
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "brick_makers_bench_mixing",
 	output = "tech:roof_tile_ic",
 	items = {"tech:roof_tile"},
 	level = 1,
@@ -759,7 +759,7 @@ crafting.register_recipe({
 })
 
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "brick_makers_bench_mixing",
 	output = "tech:roof_tile_oc",
 	items = {"tech:roof_tile"},
 	level = 1,
@@ -767,7 +767,7 @@ crafting.register_recipe({
 })
 
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "brick_makers_bench_mixing",
 	output = "tech:roof_tile",
 	items = {"tech:roof_tile_ic"},
 	level = 1,
@@ -775,7 +775,7 @@ crafting.register_recipe({
 })
 
 crafting.register_recipe({
-	type = "mixing_spot",
+	type = "brick_makers_bench_mixing",
 	output = "tech:roof_tile",
 	items = {"tech:roof_tile_oc"},
 	level = 1,
