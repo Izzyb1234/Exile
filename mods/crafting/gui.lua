@@ -195,7 +195,7 @@ function crafting.result_select_on_receive_results(player, type, level, context,
 		--		sfinv.set_page(player, id)
 		--	end
 		end
---		return true
+		return true
 	elseif fields.prev then
 		context.crafting_page = (context.crafting_page or 1) - 1
 		return true
@@ -208,20 +208,15 @@ function crafting.result_select_on_receive_results(player, type, level, context,
 		if context.crafting_query == "" then
 			context.crafting_query = nil
 		end
---		return true
+		return true
 	end
 
 	for key, value in pairs(fields) do
 		if key:sub(1, 7) == "result_" then
 			local num = string.match(key, "result_([0-9]+)")
 			if num then
-print(num)
 				local inv    = player:get_inventory()
 				local recipe = crafting.get_recipe(tonumber(num))
-print(dump(recipe))
-print (dump(type))
-print (level)
-
 				local name   = player:get_player_name()
 				if not crafting.can_craft(name, type, level, recipe) then
 					minetest.log("error", "[crafting] Player clicked a button they shouldn't have been able to")

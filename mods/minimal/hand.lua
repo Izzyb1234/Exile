@@ -52,6 +52,21 @@ minetest.register_on_mods_loaded(function()
 	})
 	crafting.register_recipe({
 		type = "hand",
+		output = "tech:small_wood_fire_unlit",
+		items = {"tech:stick 6", "group:fibrous_plant 1"},
+		level = 1,
+		always_known = true,
+	})
+	crafting.register_recipe({
+		type = "hand",
+		output = "tech:large_wood_fire_unlit",
+		items = {"tech:stick 12", "group:fibrous_plant 2"},
+		level = 1,
+		always_known = true,
+	})
+
+	crafting.register_recipe({
+		type = "hand",
 		output = "tech:stone_chopper 1",
 		items = {"nodes_nature:gravel"},
 		level = 1,
@@ -359,28 +374,6 @@ minetest.register_on_mods_loaded(function()
 --		always_known = true,
 --	})
 --	--Break up pots
---	crafting.register_recipe({
---		type = "hand_mixing",
---		output = "tech:broken_pottery",
---		items = {"group:pottery"},
---		level = 1,
---		always_known = true,
---	})
---	--Combine broken pottery slabs and vice versa
---	crafting.register_recipe({
---		type = "hand_mixing",
---		output = "tech:broken_pottery_block",
---		items = {"tech:broken_pottery 2"},
---		level = 1,
---		always_known = true,
---	})
---	crafting.register_recipe({
---		type = "hand_mixing",
---		output = "tech:broken_pottery 2",
---		items = {"tech:broken_pottery_block"},
---		level = 1,
---		always_known = true,
---	})
 end)
 
 
@@ -405,4 +398,5 @@ minetest.register_on_mods_loaded(function()
 		always_known = true,
 	})
 end)
+
 
