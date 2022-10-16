@@ -456,6 +456,34 @@ minetest.register_tool("tech:axe_iron", {
 	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
+        on_place = function(itemstack, placer, pointed_thing)
+            return place_tool(itemstack, placer, pointed_thing, "tech:axe_iron_placed")
+        end,
+})
+
+-- Placed iron axe
+minetest.register_node(
+    "tech:axe_iron_placed", {
+        description = S("Placed Iron Axe"),
+        drawtype = "mesh",
+        mesh = "axe_placed.obj",
+        tiles = {name = "tech_axe_iron_placed.png"},
+        paramtype = "light",
+        paramtype2 = "facedir",
+        drop = "tech:axe_iron",
+        sounds = nodes_nature.node_sound_stone_defaults(),
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1},
+        node_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
+        },
+	selection_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
+        },
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+        end,
 })
 
 
