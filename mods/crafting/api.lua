@@ -192,12 +192,19 @@ function crafting.get_all_for_player(player, type, level)
 	return crafting.get_all(type, level, item_hash, unlocked)
 end
 
-function crafting.can_craft(name, type, level, recipe)
+function crafting.can_craft(name, ctype, level, recipe)
 	local unlocked = crafting.get_unlocked(name)
-
-	return recipe.type == type and recipe.level <= level and
-		(recipe.always_known or unlocked[recipe.output])
-end
+	if type(ctype) == 'string' then
+		ctype = { ctype }
+	end
+	for _,station in ipairs(ctype) do
+		if recipe.type == station and recipe.level <= level and
+			(recipe.always_known or unlocked[recipe.output]) then
+			return true
+		end
+	end
+	return false
+end	
 
 local function give_all_to_player(inv, list)
 	for _, item in pairs(list) do
