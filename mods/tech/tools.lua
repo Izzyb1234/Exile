@@ -96,10 +96,10 @@ local function place_tool(itemstack, placer, pointed_thing, placed_name)
 end
 
 -- opens the hammering spot GUI
-local open_hammering_spot = crafting.make_on_rightclick("hammering_block", 2, { x = 8, y = 3 })
+local open_hammering_spot = crafting.make_on_rightclick({"hammer","hammer_mixing"}, 2, { x = 8, y = 3 })
 
 -- opens the chopping spot GUI
-local open_chopping_spot = crafting.make_on_rightclick("chopping_block", 2, { x = 8, y = 3 })
+local open_chopping_spot = crafting.make_on_rightclick({"axe","axe_mixing"}, 2, { x = 8, y = 3 })
 
 -- checks if the node has one of the groups from good_on
 local function is_spot_valid(node, good_on)
@@ -291,7 +291,7 @@ minetest.register_node(
         paramtype2 = "facedir",
         drop = "tech:adze_granite",
         sounds = nodes_nature.node_sound_stone_defaults(),
-        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1},
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
         node_box = {
             type = "fixed",
             fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
@@ -337,7 +337,7 @@ minetest.register_node(
         paramtype2 = "facedir",
         drop = "tech:adze_basalt",
         sounds = nodes_nature.node_sound_stone_defaults(),
-        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1},
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
         node_box = {
             type = "fixed",
             fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
@@ -383,7 +383,7 @@ minetest.register_node(
         paramtype2 = "facedir",
         drop = "tech:adze_jade",
         sounds = nodes_nature.node_sound_stone_defaults(),
-        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1},
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
         node_box = {
             type = "fixed",
             fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
@@ -482,7 +482,7 @@ minetest.register_node(
         paramtype2 = "facedir",
         drop = "tech:axe_iron",
         sounds = nodes_nature.node_sound_stone_defaults(),
-        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1},
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
         node_box = {
             type = "fixed",
             fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
@@ -677,9 +677,6 @@ local function place_hammer(itemstack, placer, pointed_thing, placed_name)
     return itemstack
 end
 
--- opens the hammering spot GUI
-local open_hammering_spot = crafting.make_on_rightclick("hammering_block", 2, { x = 8, y = 3 })
-
 -- opens the hammering spot GUI if the hammer is placed on a solid node
 local function open_hammering_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
     local good_on = {{"stone", 1}, {"masonry", 1}, {"boulder", 1}, {"soft_stone", 1}, {"tree", 1}, {"log", 1}}
@@ -742,7 +739,7 @@ minetest.register_node(
         paramtype2 = "facedir",
         drop = "tech:hammer_granite",
         sounds = nodes_nature.node_sound_stone_defaults(),
-        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1},
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
         node_box = {
             type = "fixed",
             fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
@@ -795,7 +792,7 @@ minetest.register_node(
         paramtype2 = "facedir",
         drop = "tech:hammer_basalt",
         sounds = nodes_nature.node_sound_stone_defaults(),
-        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1},
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
 	node_box = {
             type = "fixed",
             fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},

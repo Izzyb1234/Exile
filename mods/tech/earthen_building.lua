@@ -281,9 +281,9 @@ minetest.register_node('tech:thatch', {
 stairs.register_stair_and_slab(
 	"thatch",
 	"tech:thatch",
-	{"weaving_frame_mixing","weaving_frame"},
+	"weaving_frame_mixing",
 	"true",
-	{"weaving_frame_mixing","weaving_frame"},
+	"weaving_frame_mixing",
 	{snappy=3, flammable=1, fall_damage_add_percent = -15},
 	{"tech_thatch.png"},
 	"Thatch Stair",
