@@ -868,14 +868,14 @@ crafting.register_recipe({
 
 --ash  / block
 crafting.register_recipe({
-	type = "knife_mixing",
+	type = "mixing_spot",
 	output = "tech:wood_ash 2",
 	items = {"tech:wood_ash_block"},
 	level = 1,
 	always_known = true,
 })
 crafting.register_recipe({
-	type = "knife_mixing",
+	type = "mixing_spot",
 	output = "tech:wood_ash_block",
 	items = {"tech:wood_ash 2"},
 	level = 1,

@@ -392,3 +392,17 @@ minetest.register_on_mods_loaded(function()
 		always_known = true,
 	})
 end)
+crafting.register_recipe({
+	type = "knife_mixing",
+	output = "tech:wood_ash 2",
+	items = {"tech:wood_ash_block"},
+	level = 1,
+	always_known = true,
+})
+crafting.register_recipe({
+	type = "knife_mixing",
+	output = "tech:wood_ash_block",
+	items = {"tech:wood_ash 2"},
+	level = 1,
+	always_known = true,
+})
