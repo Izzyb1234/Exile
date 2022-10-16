@@ -37,13 +37,15 @@ Jan Wielkiewicz (CC BY-SA 3.0)
   * tech_tool_hammer_jade.png
 - hammer model
 - adze model
+- axe model
 - placed adze texture
-  modified granite, basalt, jade textures by Dokimi
+  modified granite, basalt, jade, wood textures by Dokimi
   modified rope texture from mods/ropes - a "CC" license, needs verification
   * tech_tool_adze_granite_placed.png
   * tech_tool_adze_basalt_placed.png
   * tech_tool_adze_jade_placed.png
-
+- placed axe texture
+  modified wood textures by Dokimi
 
 cx384, WTFPL:
 - tech_charcoal.png
