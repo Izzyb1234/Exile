@@ -79,9 +79,9 @@ for i in ipairs(stone_list) do
 		stairs.register_stair_and_slab(
 			name.."_brick",
 			"nodes_nature:"..name.."_brick",
-			"masonry_bench_mixing",
+			"masonry_bench_bricks",
 			"true",
-			"masonry_bench_mixing",
+			"masonry_bench_bricks",
 			{cracky = hardness, falling_node = 1, oddly_breakable_by_hand = 1},
 			{"nodes_nature_"..name.."_brick.png" },
 			desc.." Brick Stair",
@@ -91,7 +91,7 @@ for i in ipairs(stone_list) do
 		)
 
 	crafting.register_recipe({
-	      type = "masonry_bench",
+	      type = "masonry_bench_bricks",
 	      output = "nodes_nature:"..name.."_brick",
 	      items = {"nodes_nature:"..name.."_block"},
 	      level = 1,
