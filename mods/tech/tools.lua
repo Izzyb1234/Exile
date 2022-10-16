@@ -79,11 +79,20 @@ end
 local function place_tool(itemstack, placer, pointed_thing, placed_name)
     local place_item = ItemStack(placed_name)
     local above = minetest.get_node(pointed_thing.above)
+    local under = minetest.get_node(pointed_thing.under)
+    -- check if walkable (not air, water, etc.)
     if not minetest.registered_nodes[above.name].walkable then
-        itemstack:take_item(1)
-        minetest.item_place_node(place_item, placer, pointed_thing)
+        -- check if the pointed item has on_rightclick ...
+        if not minetest.registered_nodes[under.name].on_rightclick then
+            -- place if not
+            itemstack:take_item(1)
+            minetest.item_place_node(place_item, placer, pointed_thing)
+            return itemstack
+        else
+            -- if yes use the on_rightclick of the pointed thing instead
+            return minetest.registered_nodes[under.name].on_rightclick(pointed_thing.under, under, placer, itemstack, pointed_thing)
+        end
     end
-    return itemstack
 end
 
 -- opens the hammering spot GUI
