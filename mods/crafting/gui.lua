@@ -299,7 +299,7 @@ local function make_on_show_function(ctype, level, inv_size, context)
 			formspec_tabs = "tabheader[0,0;crafting_nav_tabs;" .. tab_labels ..
 				";" .. selected_tab .. ";true;false]"
 		end
-		local formspec = "size[" .. inv_size.x  .. "," .. (inv_size.y + 5.6) .."]"
+		local formspec = "size[" .. inv_size.x  .. "," .. (inv_size.y + 3.6) .."]"
 				.. formspec_tabs
 				.. "list[current_player;main;0," .. (inv_size.y + 1.7) ..";8,1;]"
 				.. "list[current_player;main;0," .. (inv_size.y + 2.85) ..";8,3;8]"
