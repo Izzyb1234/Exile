@@ -505,7 +505,8 @@ minetest.register_node("tech:masonry_bench", { --masonry_bench--more sophisticat
 	paramtype2    = "facedir",
 	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1, craftedby = 1},
 	sounds        = nodes_nature.node_sound_wood_defaults(),
-	on_rightclick = crafting.make_on_rightclick({"masonry_bench","masonry_bench_bricks", "masonry_bench_mixing"},
+	on_rightclick = crafting.make_on_rightclick(
+		{"masonry_bench","masonry_bench_blocks","masonry_bench_bricks", "masonry_bench_mixing"},
 		2, { x = 8, y = 3 }),
 	})
 
@@ -729,21 +730,7 @@ crafting.register_recipe({
 ---- Iron ----
 -- Anvil
 crafting.register_recipe({ --hammer ingots into anvil
-	type   = "hammering_block",
-	output = "tech:anvil",
-	items  = {'tech:iron_ingot 4'},
-	level  = 1,
-	always_known = true,
-	})
-crafting.register_recipe({
-	type   = "anvil",
-	output = "tech:anvil",
-	items  = {'tech:iron_ingot 4'},
-	level  = 1,
-	always_known = true,
-	})
-crafting.register_recipe({ 
-	type   = "hammer",
+	type   = {"hammering_block","hammer","anvil"},
 	output = "tech:anvil",
 	items  = {'tech:iron_ingot 4'},
 	level  = 1,

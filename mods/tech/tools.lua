@@ -96,7 +96,7 @@ local function place_tool(itemstack, placer, pointed_thing, placed_name)
 end
 
 -- opens the hammering spot GUI
-local open_hammering_spot = crafting.make_on_rightclick({"hammer","hammer_mixing"}, 2, { x = 8, y = 3 })
+local open_hammering_spot = crafting.make_on_rightclick("hammer", 2, { x = 8, y = 3 })
 
 -- opens the chopping spot GUI
 local open_chopping_spot = crafting.make_on_rightclick({"axe","axe_mixing"}, 2, { x = 8, y = 3 })

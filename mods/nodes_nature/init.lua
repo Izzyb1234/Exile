@@ -14,6 +14,9 @@ crafting.register_type("hammering_block")
 crafting.register_type("chopping_block")
 crafting.register_type("masonry_bench", "Crafting")
 crafting.register_type("masonry_bench_bricks", "Bricks")
+crafting.register_type("masonry_bench_bricks_mortar", "Bricks & Mortar")
+crafting.register_type("masonry_bench_blocks", "Blocks")
+crafting.register_type("masonry_bench_blocks_mortar", "Blocks & Mortar")
 crafting.register_type("masonry_bench_mixing", "Mixing")
 --------------------------------
 

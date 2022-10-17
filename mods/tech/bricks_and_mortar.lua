@@ -271,7 +271,7 @@ minetest.register_node("tech:lime_mortar", {
 
 --crush lime
 crafting.register_recipe({
-	type = "hammering_block",
+	type = {"hammering_block","hammer"},
 	output = "tech:crushed_lime",
 	items = {"group:limestone_cobble 8"},
 	level = 1,
@@ -451,7 +451,7 @@ minetest.register_node("tech:bricks_and_mortar", {
 stairs.register_stair_and_slab(
 	"bricks_and_mortar",
 	"tech:bricks_and_mortar",
-	"brick_makers_bench_mixing",
+	"brick_makers_bench",
 	"true",
 	"brick_makers_bench_mixing",
 	{cracky = 2},
@@ -791,11 +791,104 @@ crafting.register_recipe({
 --added mortar binds them so not diggable by hand or falling.
 --drop unmortared stone.
 
-local list = {
+function register_mortar_nodes (list, mortar_type, brick_mortar_type, block_mortar_type, 
+		brick_mortar_recycle_type, block_mortar_recycle_type, sediment)
+	brick_mortar_recycle_type = brick_mortar_recycle_type or brick_mortar_type
+	block_mortar_recycle_type = block_mortar_recycle_type or block_mortar_type
+
+	for i in ipairs(list) do
+		local name = list[i][1]
+		local desc = list[i][2]
+		local hardness = list[i][3]
+
+
+		--blocks and bricks
+		--Bricks
+		minetest.register_node("tech:"..name.."_brick_mortar", {
+			description = S("@1 Brick with Mortar", desc),
+			tiles = {"nodes_nature_"..name.."_brick.png^tech_mortar_brick.png"},
+			drop = "nodes_nature:"..name.."_brick",
+			paramtype2 = "facedir",
+			stack_max = minimal.stack_max_bulky *3,
+			groups = {cracky = hardness, masonry = 1},
+			sounds = nodes_nature.node_sound_stone_defaults(),
+		})
+
+		--block
+		minetest.register_node("tech:"..name.."_block_mortar", {
+			description = S("@1 Block with Mortar", desc),
+			tiles = {"nodes_nature_"..name.."_block.png^tech_mortar_block.png"},
+			paramtype2 = "facedir",
+			drop = "nodes_nature:"..name.."_block",
+			stack_max = minimal.stack_max_bulky *2,
+			groups = {cracky = hardness, masonry = 1},
+			sounds = nodes_nature.node_sound_stone_defaults(),
+		})
+
+		--
+		crafting.register_recipe({
+			type = mortar_type,
+			output = "tech:"..name.."_brick_mortar 4",
+			items = {"nodes_nature:"..name.."_brick 3", "tech:lime_mortar"},
+			level = 1,
+			always_known = true,
+		})
+
+		crafting.register_recipe({
+			type = mortar_type,
+			output = "tech:"..name.."_block_mortar 4",
+			items = {"nodes_nature:"..name.."_block 3", "tech:lime_mortar"},
+			level = 1,
+			always_known = true,
+		})
+
+
+		--stairs and slabs
+		--brick
+		stairs.register_stair_and_slab(
+			name.."_brick_mortar",
+			"tech:"..name.."_brick_mortar",
+			brick_mortar_type,
+			"true",
+			brick_mortar_recycle_type,
+			{cracky = hardness},
+			{"nodes_nature_"..name.."_brick.png^tech_mortar_brick.png" },
+			desc.." Brick with Mortar Stair",
+			desc.." Brick with Mortar Slab",
+			minimal.stack_max_bulky * 6,
+			nodes_nature.node_sound_stone_defaults()
+		)
+
+		--block
+		if sediment ~= true then
+		   -- masonry table's cluttered bad, so let's say you can't easily make
+		   --  block stairs and slabs from the four crumbly sedimentary rocks
+		   stairs.register_stair_and_slab(
+			name.."_block_mortar",
+			"tech:"..name.."_block_mortar",
+			block_mortar_type,
+			"false",
+			block_mortar_recycle_type,
+			{cracky = hardness},
+			{"nodes_nature_"..name.."_block.png^tech_mortar_block.png" },
+			desc.." Block with Mortar Stair",
+			desc.." Block with Mortar Slab",
+			minimal.stack_max_bulky * 4,
+			nodes_nature.node_sound_stone_defaults()
+		   )
+		end
+	end
+end
+
+
+local sediments = {
 	{"claystone", S("Claystone"), 3},
 	{"siltstone", S("Siltstone"), 3},
 	{"sandstone", S("Sandstone"), 3},
 	{"conglomerate", S("Conglomerate"), 3},
+}
+
+local stones = {
 	{"limestone", S("Limestone"), 3},
 	{"ironstone", S("Ironstone"), 3},
 	{"granite", S("Granite"), 1},
@@ -803,97 +896,18 @@ local list = {
 	{"gneiss", S("Gneiss"), 1},
 	{"jade", S("Jade"), 1},
 }
+local bmb = 'brick_makers_bench'
+local bmb_mixing = 'brick_makers_bench_mixing'
+local mb = 'masonry_bench'
+local mb_bricks = 'masonry_bench_bricks'
+local mb_bricks_m = 'masonry_bench_bricks_mortar'
 
+local mb_blocks = 'masonry_bench_blocks'
+local mb_blocks_m = 'masonry_bench_blocks_mortar'
+local mb_mixing = 'masonry_bench_mixing'
+--register_mortar_nodes (list, mortar_type,brick_mortar_type, block_mortar_type, 
+--		brick_mortar_recycle_type, block_mortar_recycle_type, sediment)
 
-for i in ipairs(list) do
-	local name = list[i][1]
-	local desc = list[i][2]
-	local hardness = list[i][3]
+register_mortar_nodes (sediments, { bmb }, { bmb }, { bmb }, { bmb_mixing }, { bmb_mixing }, true)
+register_mortar_nodes (stones, { mb }, { mb_bricks }, { mb_blocks }, { mb_mixing }, { mb_mixing })
 
-
-	--blocks and bricks
-	--Bricks
-	minetest.register_node("tech:"..name.."_brick_mortar", {
-		description = S("@1 Brick with Mortar", desc),
-		tiles = {"nodes_nature_"..name.."_brick.png^tech_mortar_brick.png"},
-		drop = "nodes_nature:"..name.."_brick",
-		paramtype2 = "facedir",
-		stack_max = minimal.stack_max_bulky *3,
-		groups = {cracky = hardness, masonry = 1},
-		sounds = nodes_nature.node_sound_stone_defaults(),
-	})
-
-	--block
-	minetest.register_node("tech:"..name.."_block_mortar", {
-		description = S("@1 Block with Mortar", desc),
-		tiles = {"nodes_nature_"..name.."_block.png^tech_mortar_block.png"},
-		paramtype2 = "facedir",
-		drop = "nodes_nature:"..name.."_block",
-		stack_max = minimal.stack_max_bulky *2,
-		groups = {cracky = hardness, masonry = 1},
-		sounds = nodes_nature.node_sound_stone_defaults(),
-	})
-
-	---
-	crafting.register_recipe({
-		type = "masonry_bench",
-		output = "tech:"..name.."_brick_mortar 4",
-		items = {"nodes_nature:"..name.."_brick 3", "tech:lime_mortar"},
-		level = 1,
-		always_known = true,
-	})
-
-	crafting.register_recipe({
-		type = "masonry_bench",
-		output = "tech:"..name.."_block_mortar 4",
-		items = {"nodes_nature:"..name.."_block 3", "tech:lime_mortar"},
-		level = 1,
-		always_known = true,
-	})
-
-	crafting.register_recipe({
-		type = "brick_makers_bench",
-		output = "tech:"..name.."_block_mortar 4",
-		items = {"nodes_nature:"..name.."_block 3", "tech:lime_mortar"},
-		level = 1,
-		always_known = true,
-	})
-
-
-	--stairs and slabs
-
-	--brick
-	stairs.register_stair_and_slab(
-		name.."_brick_mortar",
-		"tech:"..name.."_brick_mortar",
-		"masonry_bench_mixing",
-		"true",
-		"masonry_bench_mixing",
-		{cracky = hardness},
-		{"nodes_nature_"..name.."_brick.png^tech_mortar_brick.png" },
-		desc.." Brick with Mortar Stair",
-		desc.." Brick with Mortar Slab",
-		minimal.stack_max_bulky * 6,
-		nodes_nature.node_sound_stone_defaults()
-	)
-
-	--block
-	if i > 4 then
-	   -- masonry table's cluttered bad, so let's say you can't easily make
-	   --  block stairs and slabs from the four crumbly sedimentary rocks
-	   stairs.register_stair_and_slab(
-		name.."_block_mortar",
-		"tech:"..name.."_block_mortar",
-		"masonry_bench_mixing",
-		"false",
-		"masonry_bench_mixing",
-		{cracky = hardness},
-		{"nodes_nature_"..name.."_block.png^tech_mortar_block.png" },
-		desc.." Block with Mortar Stair",
-		desc.." Block with Mortar Slab",
-		minimal.stack_max_bulky * 4,
-		nodes_nature.node_sound_stone_defaults()
-	   )
-	end
-
-end
