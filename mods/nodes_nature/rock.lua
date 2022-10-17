@@ -187,57 +187,48 @@ for i in ipairs(rock_list) do
 			sounds = nodes_nature.node_sound_stone_defaults(),
 		})
 
-		--hammer out blocks etc from boulder
-		crafting.register_recipe({
-			type = "hammering_block",
-			output = "nodes_nature:"..name.."_block",
-			items = {"nodes_nature:"..name.."_boulder"},
-			level = 1,
-			always_known = true,
-		})
-
-                crafting.register_recipe({
-                      type = "hammering_block",
-                      output = "nodes_nature:"..name.."_cobble1 8",
-                      items = {"nodes_nature:"..name.."_boulder"},
-                      level = 1,
-                      always_known = true,
-		})
-
-		crafting.register_recipe({
-			type = "masonry_bench",
-			output = "nodes_nature:"..name.."_block",
-			items = {"nodes_nature:"..name.."_boulder"},
-			level = 1,
-			always_known = true,
-		})
-
-		crafting.register_recipe({
-			type = "masonry_bench_mixing",
-			output = "nodes_nature:"..name.."_brick",
-			items = {"nodes_nature:"..name.."_boulder"},
-			level = 1,
-			always_known = true,
-		})
-
-		-- hand_mixing doesn't exist yet; wait till all mods loaded
 		minetest.register_on_mods_loaded(function()
+			--hammer out blocks etc from boulder
+			crafting.register_recipe({
+				type = {"masonry_bench","hammer","hammering_block"},
+				output = "nodes_nature:"..name.."_block",
+				items = {"nodes_nature:"..name.."_boulder"},
+				level = 1,
+				always_known = true,
+			})
+
+			crafting.register_recipe({
+			      type = {"masonry_bench","hammer","hammering_block"},
+			      output = "nodes_nature:"..name.."_cobble1 8",
+			      items = {"nodes_nature:"..name.."_boulder"},
+			      level = 1,
+			      always_known = true,
+			})
+
+			crafting.register_recipe({
+				type = "masonry_bench",
+				output = "nodes_nature:"..name.."_block",
+				items = {"nodes_nature:"..name.."_boulder"},
+				level = 1,
+				always_known = true,
+			})
+
+			crafting.register_recipe({
+				type = "masonry_bench",
+				output = "nodes_nature:"..name.."_brick",
+				items = {"nodes_nature:"..name.."_boulder"},
+				level = 1,
+				always_known = true,
+			})
+
 			--recycle block (e.g. so can get iron ore)
 			crafting.register_recipe({
-				type = "mixing_spot",
+				type = {"hammer","mixing_spot"},
 				output = "nodes_nature:"..name.."_boulder",
 				items = {"nodes_nature:"..name.."_block"},
 				level = 1,
 				always_known = true,
 			})
-			crafting.register_recipe({
-				type = "hammer_mixing",
-				output = "nodes_nature:"..name.."_boulder",
-				items = {"nodes_nature:"..name.."_block"},
-				level = 1,
-				always_known = true,
-			})
-
 		end)
 
 		--stairs and slabs
@@ -246,7 +237,7 @@ for i in ipairs(rock_list) do
 		stairs.register_stair_and_slab(
 			name.."_brick",
 			"nodes_nature:"..name.."_brick",
-			"masonry_bench_mixing",
+			"masonry_bench_bricks",
 			"true",
 			"masonry_bench_mixing",
 			{cracky = hardness, falling_node = 1, oddly_breakable_by_hand = 1},
@@ -261,7 +252,7 @@ for i in ipairs(rock_list) do
 		stairs.register_stair_and_slab(
 			name.."_block",
 			"nodes_nature:"..name.."_block",
-			"masonry_bench_mixing",
+			"masonry_bench_blocks",
 			"false",
 			"masonry_bench_mixing",
 			{cracky = hardness, falling_node = 1, oddly_breakable_by_hand = 1},

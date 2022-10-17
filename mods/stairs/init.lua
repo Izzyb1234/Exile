@@ -84,6 +84,7 @@ end
 function stairs.register_stair(subname, recipeitem, craft_station, recycle, recycle_station,
 		groups, images, description, stack_size, sounds, worldaligntex, droptype)
 	-- Set backface culling and world-aligned textures
+print ("---subname: "..subname.." -- "..recipeitem)
 	local stair_images = {}
 	for i, image in ipairs(images) do
 		if type(image) == "string" then
@@ -141,31 +142,6 @@ function stairs.register_stair(subname, recipeitem, craft_station, recycle, recy
 		})
 	end
 	stairs.register_recipies(recipeitem,craft_station, recycle, recycle_station, subname, "stairs:stair_")
---if recipeitem then
---		-- Recipes
---		minetest.register_on_mods_loaded(function()
---			crafting.register_recipe({
---				type = craft_station,
---				output = "stairs:stair_" .. subname.. " 2",
---				items = {recipeitem},
---				level = 1,
---				always_known = true,
---			})
---		end)
---		-- Recycle recipe
---		if recycle == "true" then
---			minetest.register_on_mods_loaded(function()
---				crafting.register_recipe({
---					type = recycle_station or craft_station,
---					output = recipeitem,
---					items = {"stairs:stair_" .. subname.. " 2"},
---					level = 1,
---					always_known = true,
---				})
---			end)
---		end
---
---	end
 end
 
 
@@ -256,32 +232,6 @@ function stairs.register_slab(subname, recipeitem, craft_station, recycle, recyc
 	end
 
 	stairs.register_recipies(recipeitem,craft_station, recycle, recycle_station, subname, "stairs:slab_")
---if recipeitem then
---		-- Recipes
---		minetest.register_on_mods_loaded(function()
---			crafting.register_recipe({
---				type = craft_station,
---				output = "stairs:slab_" .. subname.. " 2",
---				items = {recipeitem},
---				level = 1,
---				always_known = true,
---			})
---		end)
---
---		-- Recycle recipe
---		if recycle == "true" then
---			minetest.register_on_mods_loaded(function()
---				crafting.register_recipe({
---					type = recycle_station or craft_station,
---					output = recipeitem,
---					items = {"stairs:slab_" .. subname.. " 2"},
---					level = 1,
---					always_known = true,
---				})
---			end)
---		end
---
---	end
 end
 
 
@@ -364,32 +314,6 @@ function stairs.register_stair_inner(subname, recipeitem, craft_station, recycle
 		end,
 	})
 	stairs.register_recipies(recipeitem,craft_station, recycle, recycle_station, subname, "stairs:stair_inner_")
---if recipeitem then
---		-- Recipes
---		minetest.register_on_mods_loaded(function()
---			crafting.register_recipe({
---				type = craft_station,
---				output = "stairs:stair_inner_" .. subname.. " 2",
---				items = {recipeitem},
---				level = 1,
---				always_known = true,
---			})
---		end)
---
---		-- Recycle recipe
---		if recycle == "true" then
---			minetest.register_on_mods_loaded(function()
---				crafting.register_recipe({
---					type = recycle_station or craft_station,
---					output = recipeitem,
---					items = {"stairs:stair_inner_" .. subname.. " 2"},
---					level = 1,
---					always_known = true,
---				})
---			end)
---		end
---
---	end
 end
 
 
@@ -449,33 +373,6 @@ function stairs.register_stair_outer(subname, recipeitem, craft_station, recycle
 	})
 
 	stairs.register_recipies(recipeitem,craft_station, recycle, recycle_station, subname, "stairs:stair_outer_")
---	if recipeitem then
---		-- Recipes
---		
---		minetest.register_on_mods_loaded(function()
---			crafting.register_recipe({
---				type = craft_station,
---				output = "stairs:stair_outer_" .. subname.. " 2",
---				items = {recipeitem},
---				level = 1,
---				always_known = true,
---			})
---		end)
---
---		-- Recycle recipe
---		if recycle == "true" then
---			minetest.register_on_mods_loaded(function()
---				crafting.register_recipe({
---					type = recycle_station or craft_station,
---					output = recipeitem,
---					items = {"stairs:stair_outer_" .. subname.. " 2"},
---					level = 1,
---					always_known = true,
---				})
---			end)
---		end
---
---	end
 end
 
 

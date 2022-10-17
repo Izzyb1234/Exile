@@ -169,7 +169,7 @@ minetest.register_node("tech:crushed_iron_ore", {
 
 --recipe
 crafting.register_recipe({
-	type = "hammering_block",
+	type = {"hammering_block","hammer","anvil"},
 	output = "tech:crushed_iron_ore",
 	items = {"group:ironstone_cobble 16"},
 	level = 1,
@@ -200,7 +200,7 @@ minetest.register_node("tech:roasted_iron_ore_powder", {
 
 --recipe
 crafting.register_recipe({
-	type = "hammering_block",
+	type = {"hammering_block","hammer","anvil"},
 	output = "tech:roasted_iron_ore_powder",
 	items = {'tech:roasted_iron_ore 2'},
 	level = 1,
@@ -229,7 +229,7 @@ minetest.register_node("tech:iron_smelting_mix", {
 
 --recipe
 crafting.register_recipe({
-	type = "hammering_block",
+	type = {"hammering_block","hammer","anvil"},
 	output = "tech:iron_smelting_mix",
 	items = {'tech:roasted_iron_ore_powder', 'tech:charcoal_block 4'},
 	level = 1,
@@ -335,15 +335,7 @@ minetest.register_node("tech:iron_ingot", {
 
 --recipe
 crafting.register_recipe({
-	type = "hammering_block",
-	output = "tech:iron_ingot",
-	items = {'tech:iron_bloom 2'},
-	level = 1,
-	always_known = true,
-})
-
-crafting.register_recipe({
-	type = "anvil",
+	type = {"hammering_block","hammer","anvil"},
 	output = "tech:iron_ingot",
 	items = {'tech:iron_bloom 2'},
 	level = 1,
