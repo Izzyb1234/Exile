@@ -36,16 +36,22 @@ function crafting.register_recipe(def)
 	assert(def.items,  "Items needed in recipe definition")
 
 	def.level = def.level or 1
-	
-	local tab = crafting.recipes[def.type]
-	assert(tab,        "Unknown craft type " .. def.type)
-
-	recipe_counter = recipe_counter + 1
-	def.id = recipe_counter
-	crafting.recipes_by_id[recipe_counter] = def
-	tab[#tab + 1] = def
-
-	return def.id
+	local types = def.type
+	local returns = {}
+	if type(def.type) == 'string' then
+		types = { def.type } 
+	end
+	for _, ctype in ipairs(types) do
+		local tab = crafting.recipes[ctype]
+		assert(tab,        "Unknown craft type " .. ctype)
+		recipe_counter = recipe_counter + 1
+		def.id = recipe_counter
+		def.type = ctype
+		crafting.recipes_by_id[recipe_counter] = def
+		tab[#tab + 1] = def
+		returns[#returns + 1] = def.id
+	end
+	return returns
 end
 
 local unlocked_cache = {}
