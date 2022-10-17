@@ -637,3 +637,25 @@ minetest.override_item("tech:clay_water_pot_freshwater",{
 		end
 	end
 })
+
+-- Lataren
+minetest.register_node("tech:lataren", {
+	description = S("Lataren"),
+	tiles = {
+            {name = "tech_lataren.png"},
+	},
+	drawtype = "mesh",
+        mesh = "lataren.obj",
+	stack_max = minimal.stack_max_medium,
+	sunlight_propagates = true,
+	light_source = 11,
+        use_texture_alpha = true,
+	paramtype = "light",
+	paramtype2 = "facedir",
+	node_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
+        },
+	groups = {dig_immediate=3, temp_pass = 1, falling_node = 1},
+	sounds = nodes_nature.node_sound_stone_defaults(),
+})
