@@ -203,6 +203,7 @@ function crafting.can_craft(name, ctype, level, recipe)
 	if type(ctype) == 'string' then
 		ctype = { ctype }
 	end
+print (dump({name,ctype,level,recipe}))
 	for _,station in ipairs(ctype) do
 		if recipe.type == station and recipe.level <= level and
 			(recipe.always_known or unlocked[recipe.output]) then
