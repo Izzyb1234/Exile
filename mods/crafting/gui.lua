@@ -218,6 +218,7 @@ function crafting.result_select_on_receive_results(player, type, level, context,
 				local inv    = player:get_inventory()
 				local recipe = crafting.get_recipe(tonumber(num))
 				local name   = player:get_player_name()
+print (dump(type))
 				if not crafting.can_craft(name, type, level, recipe) then
 					minetest.log("error", "[crafting] Player clicked a button they shouldn't have been able to")
 					return true
