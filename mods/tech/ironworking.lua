@@ -169,7 +169,7 @@ minetest.register_node("tech:crushed_iron_ore", {
 
 --recipe
 crafting.register_recipe({
-	type = {"hammering_block","hammer","anvil"},
+	type = {"hammer","anvil","hammering_block"},
 	output = "tech:crushed_iron_ore",
 	items = {"group:ironstone_cobble 16"},
 	level = 1,
