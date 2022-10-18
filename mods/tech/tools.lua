@@ -80,8 +80,14 @@ local function place_tool(itemstack, placer, pointed_thing, placed_name)
     local place_item = ItemStack(placed_name)
     local above = minetest.get_node(pointed_thing.above)
     local under = minetest.get_node(pointed_thing.under)
-    -- check if walkable (not air, water, etc.)
-    if not minetest.registered_nodes[above.name].walkable then
+    local under_front_pos = {x = pointed_thing.above.x,
+                             y = pointed_thing.above.y - 1,
+                             z = pointed_thing.above.z}
+    local under_front = minetest.get_node(under_front_pos)
+    -- check if not walkable - there's empty space over the node (air, water, etc.)
+    if not minetest.registered_nodes[above.name].walkable and
+        -- check if walkable below to avoid throwing tools into abyss
+        minetest.registered_nodes[under_front.name].walkable then
         -- check if the pointed item has on_rightclick ...
         if not minetest.registered_nodes[under.name].on_rightclick then
             -- place if not
