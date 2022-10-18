@@ -90,14 +90,31 @@ local function place_tool(itemstack, placer, pointed_thing, placed_name)
         minetest.registered_nodes[under_front.name].walkable then
         -- check if the pointed item has on_rightclick ...
         if not minetest.registered_nodes[under.name].on_rightclick then
+            local wear = itemstack:get_wear()
             -- place if not
             itemstack:take_item(1)
             minetest.item_place_node(place_item, placer, pointed_thing)
+            local meta = minetest.get_meta(pointed_thing.above)
+            meta:set_int("wear", wear)
             return itemstack
         else
             -- if yes use the on_rightclick of the pointed thing instead
             return minetest.registered_nodes[under.name].on_rightclick(pointed_thing.under, under, placer, itemstack, pointed_thing)
         end
+    end
+end
+
+local function on_dig_tool(pos, node, digger, name)
+    local meta = minetest.get_meta(pos)
+    local wear = meta:get_int("wear")
+    local stack = ItemStack(name)
+    stack:set_wear(wear)
+    minetest.remove_node(pos)
+    local player_inv = digger:get_inventory()
+    if player_inv:room_for_item("main", stack) then
+        player_inv:add_item("main", stack)
+    else
+        minetest.add_item(pos, stack) -- drop item if inventory full
     end
 end
 
@@ -294,7 +311,6 @@ minetest.register_node(
         tiles = {name = "tech_adze_granite_placed.png"},
         paramtype = "light",
         paramtype2 = "facedir",
-        drop = "tech:adze_granite",
         sounds = nodes_nature.node_sound_stone_defaults(),
         groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
         node_box = {
@@ -307,6 +323,9 @@ minetest.register_node(
         },
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
             open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+        end,
+        on_dig = function(pos, node, digger)
+            on_dig_tool(pos, node, digger, "tech:adze_granite")
         end,
 })
 
@@ -340,7 +359,6 @@ minetest.register_node(
         tiles = {name = "tech_adze_basalt_placed.png"},
         paramtype = "light",
         paramtype2 = "facedir",
-        drop = "tech:adze_basalt",
         sounds = nodes_nature.node_sound_stone_defaults(),
         groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
         node_box = {
@@ -353,6 +371,9 @@ minetest.register_node(
         },
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
             open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+        end,
+        on_dig = function(pos, node, digger)
+            on_dig_tool(pos, node, digger, "tech:adze_basalt")
         end,
 })
 
@@ -386,7 +407,6 @@ minetest.register_node(
         tiles = {name = "tech_adze_jade_placed.png"},
         paramtype = "light",
         paramtype2 = "facedir",
-        drop = "tech:adze_jade",
         sounds = nodes_nature.node_sound_stone_defaults(),
         groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
         node_box = {
@@ -399,6 +419,9 @@ minetest.register_node(
         },
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
             open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+        end,
+        on_dig = function(pos, node, digger)
+            on_dig_tool(pos, node, digger, "tech:adze_jade")
         end,
 })
 
@@ -485,7 +508,6 @@ minetest.register_node(
         tiles = {name = "tech_axe_iron_placed.png"},
         paramtype = "light",
         paramtype2 = "facedir",
-        drop = "tech:axe_iron",
         sounds = nodes_nature.node_sound_stone_defaults(),
         groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
         node_box = {
@@ -498,6 +520,9 @@ minetest.register_node(
         },
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
             open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+        end,
+        on_dig = function(pos, node, digger)
+            on_dig_tool(pos, node, digger, "tech:axe_iron")
         end,
 })
 
@@ -742,7 +767,6 @@ minetest.register_node(
         tiles = {name = "tech_hammer_granite_placed.png"},
         paramtype = "light",
         paramtype2 = "facedir",
-        drop = "tech:hammer_granite",
         sounds = nodes_nature.node_sound_stone_defaults(),
         groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
         node_box = {
@@ -755,6 +779,9 @@ minetest.register_node(
         },
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
             open_hammering_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+        end,
+        on_dig = function(pos, node, digger)
+            on_dig_tool(pos, node, digger, "tech:hammer_granite")
         end,
 })
 
@@ -795,7 +822,6 @@ minetest.register_node(
         tiles = {name = "tech_hammer_basalt_placed.png"},
         paramtype = "light",
         paramtype2 = "facedir",
-        drop = "tech:hammer_basalt",
         sounds = nodes_nature.node_sound_stone_defaults(),
         groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
 	node_box = {
@@ -808,6 +834,9 @@ minetest.register_node(
         },
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
             open_hammering_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+        end,
+        on_dig = function(pos, node, digger)
+            on_dig_tool(pos, node, digger, "tech:hammer_basalt")
         end,
 })
 
