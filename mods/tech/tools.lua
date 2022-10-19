@@ -124,6 +124,9 @@ local open_hammering_spot = crafting.make_on_rightclick("hammer", 2, { x = 8, y 
 -- opens the chopping spot GUI
 local open_chopping_spot = crafting.make_on_rightclick({"axe","axe_mixing"}, 2, { x = 8, y = 3 })
 
+local open_knife = crafting.make_on_rightclick({"knife",'knife_mixing'}, 2, { x = 8, y = 3 })
+
+
 -- checks if the node has one of the groups from good_on
 local function is_spot_valid(node, good_on)
     for i in ipairs(good_on) do
@@ -214,11 +217,36 @@ minetest.register_tool("tech:stone_chopper", {
 		},
 		damage_groups = {fleshy= crude_dmg},
 	},
-	on_place = crafting.make_on_place({"knife",'knife_mixing'}, 2, { x = 8, y = 3 }),
 	groups = {knife = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
 })
 
+-- Placed stone knife
+minetest.register_node(
+    "tech:stone_knife_placed", {
+        description = S("Placed Stone Knife"),
+        drawtype = "mesh",
+        mesh = "stone_knife_placed.obj",
+        tiles = {name = "tech_stone_knife_placed.png"},
+        paramtype = "light",
+        paramtype2 = "facedir",
+        sounds = nodes_nature.node_sound_stone_defaults(),
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
+        selection_box = {
+            type = "fixed",
+            fixed = {-4/16, -8/16, -4/16, 4/16, -7/16, 4/16},
+        },
+        collision_box = {
+            type = "fixed",
+            fixed = {-4/16, -8/16, -4/16, 4/16, -7/16, 4/16},
+        },
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            open_knife(pos, node, clicker, itemstack, pointed_thing)
+        end,
+        on_dig = function(pos, node, digger)
+            on_dig_tool(pos, node, digger, "tech:stone_chopper")
+        end,
+})
 
 --
 -- Crumbly
