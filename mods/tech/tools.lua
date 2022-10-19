@@ -219,6 +219,9 @@ minetest.register_tool("tech:stone_chopper", {
 	},
 	groups = {knife = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
+        on_place = function(itemstack, placer, pointed_thing)
+            return place_tool(itemstack, placer, pointed_thing, "tech:stone_knife_placed")
+        end,
 })
 
 -- Placed stone knife
