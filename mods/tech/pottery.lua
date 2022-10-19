@@ -659,3 +659,12 @@ minetest.register_node("tech:lataren", {
 	groups = {dig_immediate=3, temp_pass = 1, falling_node = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
 })
+
+crafting.register_recipe({
+	type = "crafting_spot",
+	output = "tech:lataren",
+	items = {"tech:iron_ingot","tech:pane_clear","tech:coarse_fibre"},
+	level = 1,
+	always_known = true,
+})
+
