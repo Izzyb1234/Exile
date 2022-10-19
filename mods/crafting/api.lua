@@ -20,6 +20,7 @@ crafting = {
 	recipes = {},
 	tab_labels = {},
 	recipes_by_id = {},
+	recipes_by_output = {},
 	registered_on_crafts = {},
 }
 
@@ -36,22 +37,37 @@ function crafting.register_recipe(def)
 	assert(def.items,  "Items needed in recipe definition")
 
 	def.level = def.level or 1
-	local types = def.type
-	local returns = {}
+	-- Can be more then one craft station for a recipe
+	-- Need to store as a table.
 	if type(def.type) == 'string' then
-		types = { def.type } 
+		def.type = { def.type } 
 	end
-	for _, ctype in ipairs(types) do
+	-- Support multiple output items via a serialzed string
+	output = def.output
+	if type(def.output) == 'table' then
+		output = minetest.serialize(def.output)
+	end
+	local recipes = crafting.recipes_by_id
+	local by_output = crafting.recipes_by_output
+	--if by_output[output] then
+	--	local orig = by_output[output]
+--print ("!!!OUTPUT EXISTS!!!"..output)
+		--XXX Already exists
+		-- check if same recipe
+		-- check if adding new craft stations
+--		def.id = by_output[output].id
+--	else
+		def.id = #crafting.recipes_by_id + 1
+--	end
+	crafting.recipes_by_output[output] = def
+	crafting.recipes_by_id[def.id] = def
+	-- add it to the craft station lists
+	for _,ctype in ipairs(def.type) do
 		local tab = crafting.recipes[ctype]
 		assert(tab,        "Unknown craft type " .. ctype)
-		recipe_counter = recipe_counter + 1
-		def.id = recipe_counter
-		def.type = ctype
-		crafting.recipes_by_id[recipe_counter] = def
 		tab[#tab + 1] = def
-		returns[#returns + 1] = def.id
 	end
-	return returns
+	return def.id
 end
 
 local unlocked_cache = {}
@@ -137,7 +153,6 @@ function crafting.get_all(type, level, item_hash, unlocked)
 	assert(crafting.recipes[type], "No such craft type!")
 
 	local results = {}
-
 	for _, recipe in pairs(crafting.recipes[type]) do
 		local craftable = true
 
@@ -203,11 +218,17 @@ function crafting.can_craft(name, ctype, level, recipe)
 	if type(ctype) == 'string' then
 		ctype = { ctype }
 	end
+	rtypes = recipe.type
+	if type(recipe.type) == 'string' then
+		rtypes = { recipe.type }
+	end
 print (dump({name,ctype,level,recipe}))
 	for _,station in ipairs(ctype) do
-		if recipe.type == station and recipe.level <= level and
-			(recipe.always_known or unlocked[recipe.output]) then
-			return true
+		for _,rec_type in ipairs(rtypes) do
+			if  rec_type == station and recipe.level <= level and
+					(recipe.always_known or unlocked[recipe.output]) then
+				return true
+			end
 		end
 	end
 	return false
