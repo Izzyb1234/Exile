@@ -906,13 +906,6 @@ minetest.register_on_mods_loaded(function()
 	})
 	crafting.register_recipe({
 		type = "knife",
-		output = "tech:torch 1",
-		items = {"tech:stick 1", "group:fibrous_plant 4"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "knife",
 		output = "tech:peeled_anperla",
 		items = {"nodes_nature:anperla_seed"},
 		level = 1,

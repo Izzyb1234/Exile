@@ -392,7 +392,7 @@ minetest.register_node("tech:torch_ceiling", {
 
 --A bundle from sticks and fibre
 crafting.register_recipe({
-	type = "crafting_spot",
+	type = {"crafting_spot",'knife','hand'},
 	output = "tech:torch 1",
 	items = {"tech:stick 1", "group:fibrous_plant 4"},
 	level = 1,
