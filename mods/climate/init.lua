@@ -195,16 +195,19 @@ function climate.set_override(p_name, p_obj, w_name)
    if p_obj and not p_name then
       p_name = p_obj:get_player_name()
    end
+   local p_meta = p_obj:get_meta()
    if climate.override[p_name] then
       --remove old override, particles first
       climate.clear_player_particle(p_name)
       climate.override[p_name] = nil
-      p_obj:get_meta():set_string("weather_override", "")
    end
    local wth = climate.registered_weathers[w_name]
    if wth then
       climate.override[p_name] = w_name
       climate.add_player_particle(p_name, w_name, wth)
+      p_meta:set_string("weather_override", w_name)
+   else
+      p_meta:set_string("weather_override", "")
    end
    set_sky_clouds(p_obj)
    update_player_sounds(p_name)
