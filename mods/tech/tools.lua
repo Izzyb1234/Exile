@@ -124,8 +124,6 @@ local open_hammering_spot = crafting.make_on_rightclick("hammer", 2, { x = 8, y 
 -- opens the chopping spot GUI
 local open_chopping_spot = crafting.make_on_rightclick({"axe","axe_mixing"}, 2, { x = 8, y = 3 })
 
-local open_knife = crafting.make_on_rightclick({"knife",'knife_mixing'}, 2, { x = 8, y = 3 })
-
 
 -- checks if the node has one of the groups from good_on
 local function is_spot_valid(node, good_on)
@@ -204,6 +202,8 @@ local crude_chop2 = crude_chop3 * minimal.t_scale2
 -- Multitool
 --
 
+local open_knife = crafting.make_on_rightclick({"knife",'knife_mixing'}, 2, { x = 8, y = 3 })
+local knife_on_place = crafting.make_on_place({"knife",'knife_mixing'}, 2, { x = 8, y = 3 })
 --a crude chipped stone: 1.snap. 2. chop 3.crum
 minetest.register_tool("tech:stone_chopper", {
 	description = S("Stone Knife"),
@@ -220,7 +220,10 @@ minetest.register_tool("tech:stone_chopper", {
 	groups = {knife = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
         on_place = function(itemstack, placer, pointed_thing)
-            return place_tool(itemstack, placer, pointed_thing, "tech:stone_knife_placed")
+		if placer:get_player_control().sneak then
+			return place_tool(itemstack, placer, pointed_thing, "tech:stone_knife_placed")
+		end
+		knife_on_place(itemstack, placer, pointed_thing)
         end,
 })
 
