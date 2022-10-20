@@ -173,7 +173,11 @@ local function set_sky_clouds(player)
 	local active_weather = climate.get_player_weather(p_name)
 
 	player:set_sky(active_weather.sky_data)
-	player:set_clouds(active_weather.cloud_data)
+	local clouds = active_weather.cloud_data
+	if player:get_pos().y > 8000 then
+	   clouds.height = clouds.height + 9000
+	end
+	player:set_clouds(clouds)
 	local wth = table.copy(active_weather)
 	local actmp, _ = get_seasonal_waves()
 	actmp = actmp - 15 -- move centerpoint
