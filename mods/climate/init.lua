@@ -174,8 +174,11 @@ local function set_sky_clouds(player)
 
 	player:set_sky(active_weather.sky_data)
 	local clouds = active_weather.cloud_data
-	if player:get_pos().y > 8000 then
+	local pheight = player:get_pos().y
+	if clouds.height < 9000 and pheight > 8999 then
 	   clouds.height = clouds.height + 9000
+	elseif clouds.height > 9000 and pheight < 9000 then
+	   clouds.height = clouds.height - 9000
 	end
 	player:set_clouds(clouds)
 	local wth = table.copy(active_weather)
@@ -271,18 +274,18 @@ minetest.register_on_joinplayer(function(player)
       if ch ~= nil then
 	 load_climate_history(ch)
       end
-
    end
 
    local p_name = player:get_player_name()
    -- load any prior weather overrides
    local ovr = player:get_meta():get_string("weather_override")
    if ovr ~= "" then
-      climate.override[p_name] = ovr
+      climate.set_override(p_name, player, ovr)
+   else
+      update_player_sounds(p_name)
    end
-   --set weather effects for this player
    set_sky_clouds(player)
-   update_player_sounds(p_name)
+   --set weather effects for this player
    minetest.chat_send_player(p_name, exiledatestring())
 end)
 
