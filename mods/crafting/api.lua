@@ -20,7 +20,6 @@ crafting = {
 	recipes = {},
 	tab_labels = {},
 	recipes_by_id = {},
-	recipes_by_output = {},
 	registered_on_crafts = {},
 }
 
@@ -42,24 +41,9 @@ function crafting.register_recipe(def)
 	if type(def.type) == 'string' then
 		def.type = { def.type } 
 	end
-	-- Support multiple output items via a serialzed string
 	output = def.output
-	if type(def.output) == 'table' then
-		output = minetest.serialize(def.output)
-	end
 	local recipes = crafting.recipes_by_id
-	local by_output = crafting.recipes_by_output
-	--if by_output[output] then
-	--	local orig = by_output[output]
---print ("!!!OUTPUT EXISTS!!!"..output)
-		--XXX Already exists
-		-- check if same recipe
-		-- check if adding new craft stations
---		def.id = by_output[output].id
---	else
-		def.id = #crafting.recipes_by_id + 1
---	end
-	crafting.recipes_by_output[output] = def
+	def.id = #crafting.recipes_by_id + 1
 	crafting.recipes_by_id[def.id] = def
 	-- add it to the craft station lists
 	for _,ctype in ipairs(def.type) do
