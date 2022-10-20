@@ -173,7 +173,14 @@ local function set_sky_clouds(player)
 	local active_weather = climate.get_player_weather(p_name)
 
 	player:set_sky(active_weather.sky_data)
-	player:set_clouds(active_weather.cloud_data)
+	local clouds = active_weather.cloud_data
+	local pheight = player:get_pos().y
+	if clouds.height < 9000 and pheight > 8999 then
+	   clouds.height = clouds.height + 9000
+	elseif clouds.height > 9000 and pheight < 9000 then
+	   clouds.height = clouds.height - 9000
+	end
+	player:set_clouds(clouds)
 	local wth = table.copy(active_weather)
 	local actmp, _ = get_seasonal_waves()
 	actmp = actmp - 15 -- move centerpoint
@@ -191,16 +198,19 @@ function climate.set_override(p_name, p_obj, w_name)
    if p_obj and not p_name then
       p_name = p_obj:get_player_name()
    end
+   local p_meta = p_obj:get_meta()
    if climate.override[p_name] then
       --remove old override, particles first
       climate.clear_player_particle(p_name)
       climate.override[p_name] = nil
-      p_obj:get_meta():set_string("weather_override", "")
    end
    local wth = climate.registered_weathers[w_name]
    if wth then
       climate.override[p_name] = w_name
       climate.add_player_particle(p_name, w_name, wth)
+      p_meta:set_string("weather_override", w_name)
+   else
+      p_meta:set_string("weather_override", "")
    end
    set_sky_clouds(p_obj)
    update_player_sounds(p_name)
@@ -264,18 +274,18 @@ minetest.register_on_joinplayer(function(player)
       if ch ~= nil then
 	 load_climate_history(ch)
       end
-
    end
 
    local p_name = player:get_player_name()
    -- load any prior weather overrides
    local ovr = player:get_meta():get_string("weather_override")
    if ovr ~= "" then
-      climate.override[p_name] = ovr
+      climate.set_override(p_name, player, ovr)
+   else
+      update_player_sounds(p_name)
    end
-   --set weather effects for this player
    set_sky_clouds(player)
-   update_player_sounds(p_name)
+   --set weather effects for this player
    minetest.chat_send_player(p_name, exiledatestring())
 end)
 
