@@ -274,7 +274,10 @@ local after_place_oil_lamp = function(pos, placer, itemstack, pointed_thing)
 	   fuel = 0
 	end
 	meta:set_int("fuel", fuel)
-	minimal.infotext_merge(pos,'Status: '..fuel_string(fuel),meta)
+	minimal.infotext_merge(pos, {
+		'Status: '..fuel_string(fuel),
+		'Note: Right-click with oil to refill',
+	}, meta)
 end
 
 --unfired oil clay lamp
