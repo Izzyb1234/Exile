@@ -262,7 +262,7 @@ minetest.register_node(
 --
 
 -- digging stick... specialist for digging. Can also till
-local digging_stick_crafting = crafting.make_on_place({"threshing_spot","soil_mixing"}, 2, { x = 8, y = 3 })
+local digging_stick_crafting = crafting.make_on_rightclick({"threshing_spot","soil_mixing"}, 2, { x = 8, y = 3 })
 minetest.register_tool("tech:digging_stick", {
 	description = S("Digging Stick"),
 	inventory_image = "tech_tool_digging_stick.png^[transformR90",
@@ -275,14 +275,41 @@ minetest.register_tool("tech:digging_stick", {
 	},
 	groups = {shovel = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
-	on_place = function(itemstack, placer, pointed_thing)
-		if not till_soil(itemstack, placer, pointed_thing, base_use) then
-			digging_stick_crafting(itemstack, placer, pointed_thing) 
-		end
-	end
+        on_place = function(itemstack, placer, pointed_thing)
+            if placer:get_player_control().sneak then
+                return place_tool(itemstack, placer, pointed_thing, "tech:digging_stick_placed")
+            else
+                till_soil(itemstack, placer, pointed_thing, base_use)
+            end
+        end,
 })
 
-
+-- Placed digging stick
+minetest.register_node(
+    "tech:digging_stick_placed", {
+        description = S("Placed Digging Stick"),
+        drawtype = "mesh",
+        mesh = "digging_stick_placed.obj",
+        tiles = {name = "tech_axe_iron_placed.png"}, -- reuses the texture to save space
+        paramtype = "light",
+        paramtype2 = "facedir",
+        sounds = nodes_nature.node_sound_stone_defaults(),
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
+        node_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
+        },
+	selection_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
+        },
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            digging_stick_crafting(pos, node, clicker, itemstack, pointed_thing)
+        end,
+        on_dig = function(pos, node, digger)
+            on_dig_tool(pos, node, digger, "tech:digging_stick")
+        end,
+})
 
 --------------------------
 --2nd level
