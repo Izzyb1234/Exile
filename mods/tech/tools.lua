@@ -355,7 +355,6 @@ minetest.register_tool("tech:adze_granite", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
-	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1,craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
         on_place = function(itemstack, placer, pointed_thing)
@@ -403,7 +402,6 @@ minetest.register_tool("tech:adze_basalt", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
-	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
         on_place = function(itemstack, placer, pointed_thing)
@@ -451,7 +449,6 @@ minetest.register_tool("tech:adze_jade", {
 		},
 		damage_groups = {fleshy = stone_dmg},
 	},
-	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
         on_place = function(itemstack, placer, pointed_thing)
@@ -552,7 +549,6 @@ minetest.register_tool("tech:axe_iron", {
 		},
 		damage_groups = {fleshy = iron_dmg},
 	},
-	on_place = crafting.make_on_place({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
 	groups = {axe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
         on_place = function(itemstack, placer, pointed_thing)
