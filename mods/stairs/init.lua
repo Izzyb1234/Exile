@@ -46,13 +46,19 @@ function stairs.register_recipies(recipeitem,craft_station, recycle, recycle_sta
 			craft_station={craft_station}
 		end
 		for _, station in ipairs(craft_station) do
+			local level = 1
+			local space,_ = string.find(station,' ')
+			if space then
+				level = tonumber(string.sub(station,space+1,-1))
+				station = string.sub(station,1,space-1)
+			end
 			-- Recipes
 			minetest.register_on_mods_loaded(function()
 				crafting.register_recipe({
 					type = station,
 					output = prefix .. subname.. " 2",
 					items = {recipeitem},
-					level = 1,
+					level = level,
 					always_known = true,
 				})
 			end)
@@ -68,7 +74,7 @@ function stairs.register_recipies(recipeitem,craft_station, recycle, recycle_sta
 						type = station,
 						output = recipeitem,
 						items = {prefix .. subname.. " 2"},
-						level = 1,
+						level = level,
 						always_known = true,
 					})
 				end)
@@ -84,7 +90,6 @@ end
 function stairs.register_stair(subname, recipeitem, craft_station, recycle, recycle_station,
 		groups, images, description, stack_size, sounds, worldaligntex, droptype)
 	-- Set backface culling and world-aligned textures
-print ("---subname: "..subname.." -- "..recipeitem)
 	local stair_images = {}
 	for i, image in ipairs(images) do
 		if type(image) == "string" then

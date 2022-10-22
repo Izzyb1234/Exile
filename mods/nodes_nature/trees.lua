@@ -129,7 +129,6 @@ tree_list = tree_list -- declare globals from data_plant.lua
 tree_base_tree_growth = tree_base_tree_growth
 tree_base_leaf_growth = tree_base_leaf_growth
 tree_base_fruit_growth = tree_base_fruit_growth
-
 for i in ipairs(tree_list) do
 	local treename = tree_list[i][1]
 	local treedesc = tree_list[i][2]
@@ -219,25 +218,47 @@ for i in ipairs(tree_list) do
 	})
 
 	--stairs and slabs
-	stairs.register_stair_and_slab(
-		treename.."_log",
-		"nodes_nature:"..treename.."_log",
-		{"chopping_block","axe_mixing"},
-		"false",
-		{"chopping_block","axe_mixing"},
-		{choppy = hardness, flammable = 8 - flamesusceptibility,
-		 woodslab = 1},
-		{
-			"nodes_nature_"..treename.."_log_top.png",
-			"nodes_nature_"..treename.."_log_top.png",
-			"nodes_nature_"..treename.."_log.png"
-		},
-		treedesc.." Log Stair",
-		treedesc.." Log Slab",
-		minimal.stack_max_bulky * 2,
-		nodes_nature.node_sound_wood_defaults()
-	)
-
+	if hardwood then
+		-- hardwood
+		stairs.register_stair_and_slab(
+			treename.."_log",
+			"nodes_nature:"..treename.."_log",
+			{"chopping_block","axe_mixing 2"},
+			"false",
+			{"chopping_block","axe_mixing 2"},
+			{choppy = hardness, flammable = 8 - flamesusceptibility,
+			 woodslab = 1},
+			{
+				"nodes_nature_"..treename.."_log_top.png",
+				"nodes_nature_"..treename.."_log_top.png",
+				"nodes_nature_"..treename.."_log.png"
+			},
+			treedesc.." Log Stair",
+			treedesc.." Log Slab",
+			minimal.stack_max_bulky * 2,
+			nodes_nature.node_sound_wood_defaults()
+		)
+	else
+		-- softwood
+		stairs.register_stair_and_slab(
+			treename.."_log",
+			"nodes_nature:"..treename.."_log",
+			{"chopping_block","axe_mixing"},
+			"false",
+			{"chopping_block","axe_mixing"},
+			{choppy = hardness, flammable = 8 - flamesusceptibility,
+			 woodslab = 1},
+			{
+				"nodes_nature_"..treename.."_log_top.png",
+				"nodes_nature_"..treename.."_log_top.png",
+				"nodes_nature_"..treename.."_log.png"
+			},
+			treedesc.." Log Stair",
+			treedesc.." Log Slab",
+			minimal.stack_max_bulky * 2,
+			nodes_nature.node_sound_wood_defaults()
+		)
+	end
 
 
 
