@@ -914,168 +914,62 @@ crafting.register_recipe({
 ]]
 
 -- Register knife craft recipies after all modules loaded
-minetest.register_on_mods_loaded(function()
-	crafting.register_recipe({
-		type = "knife",
-		output = "tech:stick 2",
-		items = {"group:woody_plant"},
-		level = 1,
-		always_known = true,
+crafting.register_recipe({
+	type = "knife",
+	output = "tech:peeled_anperla",
+	items = {"nodes_nature:anperla_seed"},
+	level = 1,
+	always_known = true,
+})
+crafting.register_recipe({
+	type = "knife",
+	output = "tech:small_wood_fire_unlit",
+	items = {"tech:stick 6", "group:fibrous_plant 1"},
+	level = 1,
+	always_known = true,
+})
+crafting.register_recipe({
+	type = "knife",
+	output = "tech:large_wood_fire_unlit",
+	items = {"tech:stick 12", "group:fibrous_plant 2"},
+	level = 1,
+	always_known = true,
+})
+-- Axe Crafting
+crafting.register_recipe({
+	type   = "axe",
+	output = "tech:chopping_block",
+	items  = {'group:log'},
+	level  = 1,
+	always_known = true,
 	})
-	--Bulk sticks from woody plants
-	crafting.register_recipe({
-		type = "knife",
-		output = "tech:stick 24",
-		items = {"group:woody_plant 12"},
-		level = 1,
-		always_known = true,
+crafting.register_recipe({
+	type   = "axe",
+	output = "tech:brick_makers_bench",
+	items  = {'tech:stick 24'},
+	level  = 1,
+	always_known = true,
 	})
-	crafting.register_recipe({
-		type = "knife",
-		output = "tech:peeled_anperla",
-		items = {"nodes_nature:anperla_seed"},
-		level = 1,
-		always_known = true,
+crafting.register_recipe({
+	type   = "axe",
+	output = "tech:carpentry_bench",
+	items  = {'tech:iron_ingot 4', 'nodes_nature:maraka_log 2'},
+	level  = 1,
+	always_known = true,
 	})
-	crafting.register_recipe({
-		type = "knife",
-		output = "tech:small_wood_fire_unlit",
-		items = {"tech:stick 6", "group:fibrous_plant 1"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "knife",
-		output = "tech:large_wood_fire_unlit",
-		items = {"tech:stick 12", "group:fibrous_plant 2"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "knife",
-		output = "tech:wattle_loose",
-		items = {"tech:stick 3"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "knife",
-		output = "tech:wattle",
-		items = {"tech:stick 6"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "knife",
-		output = "tech:wattle_door_frame",
-		items = {"tech:stick 6"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "knife",
-		output = "doors:door_wattle",
-		items = {"tech:wattle 2", "group:fibrous_plant 2", "tech:stick 2"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "knife",
-		output = "tech:trapdoor_wattle",
-		items = {"tech:wattle", "group:fibrous_plant", "tech:stick"},
-		level = 1,
-		always_known = true,
-	})
-	-- Axe Crafting
-	crafting.register_recipe({
-		type   = "axe",
-		output = "tech:chopping_block",
-		items  = {'group:log'},
-		level  = 1,
-		always_known = true,
-		})
-	crafting.register_recipe({
-		type   = "axe",
-		output = "tech:brick_makers_bench",
-		items  = {'tech:stick 24'},
-		level  = 1,
-		always_known = true,
-		})
-	crafting.register_recipe({
-		type   = "axe",
-		output = "tech:carpentry_bench",
-		items  = {'tech:iron_ingot 4', 'nodes_nature:maraka_log 2'},
-		level  = 1,
-		always_known = true,
-		})
-	crafting.register_recipe({
-		type = "axe",
-		output = "canoe:canoe",
-		items = {"group:log 6"},
-		level = 1,
-		always_known = true,
-	})
-	--Sticks from woody plants
-	crafting.register_recipe({
-		type = "axe",
-		output = "tech:stick 2",
-		items = {"group:woody_plant"},
-		level = 1,
-		always_known = true,
-	})
-	--Bulk sticks from woody plants
-	crafting.register_recipe({
-		type = "axe",
-		output = "tech:stick 24",
-		items = {"group:woody_plant 12"},
-		level = 1,
-		always_known = true,
-	})
-	--sticks from tree
-	crafting.register_recipe({
-		type = "axe",
-		output = "tech:stick 24",
-		items = {"group:log"},
-		level = 1,
-		always_known = true,
-	})
-
-	--sticks from log slabs
-	crafting.register_recipe({
-		type = "axe",
-		output = "tech:stick 12",
-		items = {"group:woodslab"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "axe",
-		output = "tech:large_wood_fire_unlit",
-		items = {"tech:stick 12", "group:fibrous_plant 2"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "axe",
-		output = "tech:large_wood_fire_unlit 2",
-		items = {"group:log", "group:fibrous_plant 4"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "axe",
-		output = "tech:primitive_wooden_chest",
-		items = {'group:log 4'},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "axe",
-		output = "tech:wooden_water_pot",
-		items = {'group:log 2'},
-		level = 1,
-		always_known = true,
-	})
-end)
+crafting.register_recipe({
+	type = "axe",
+	output = "tech:large_wood_fire_unlit",
+	items = {"tech:stick 12", "group:fibrous_plant 2"},
+	level = 1,
+	always_known = true,
+})
+crafting.register_recipe({
+	type = "axe",
+	output = "tech:large_wood_fire_unlit 2",
+	items = {"group:log", "group:fibrous_plant 4"},
+	level = 1,
+	always_known = true,
+})
 
 

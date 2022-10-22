@@ -10,7 +10,7 @@ local S = tech.S
 -----------------------------------------------------------
 --primitive_wooden_chest -- see storage
 crafting.register_recipe({
-	type = "chopping_block",
+	type = {"chopping_block","axe"},
 	output = "tech:primitive_wooden_chest",
 	items = {'group:log 4'},
 	level = 1,
@@ -62,7 +62,7 @@ minetest.register_node("tech:wooden_water_pot", {
 
 
 crafting.register_recipe({
-	type = "chopping_block",
+	type = {"chopping_block","axe"},
 	output = "tech:wooden_water_pot",
 	items = {'group:log 2'},
 	level = 1,
