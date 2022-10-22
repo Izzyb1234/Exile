@@ -297,7 +297,7 @@ minetest.register_craftitem("canoe:canoe", {
 --recipe
 --
 crafting.register_recipe({
-	type = "chopping_block",
+	type = {"chopping_block","axe"},
 	output = "canoe:canoe",
 	items = {"group:log 6"},
 	level = 1,

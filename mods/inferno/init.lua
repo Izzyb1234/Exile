@@ -367,21 +367,12 @@ minetest.register_tool("inferno:fire_sticks", {
 --
 --Hand crafts (Crafting spot)
 --
-minetest.register_on_mods_loaded(function()
-      ----craft unlit fire from Sticks, tinder
-      crafting.register_recipe({
-	    type = "crafting_spot",
-	    output = "inferno:fire_sticks",
-	    items = {"tech:stick 2", "group:fibrous_plant 1"},
-	    level = 1,
-	    always_known = true,
-      })
-      crafting.register_recipe({
-	    type = "hand",
-	    output = "inferno:fire_sticks",
-	    items = {"tech:stick 2", "group:fibrous_plant 1"},
-	    level = 1,
-	    always_known = true,
-      })
+----craft unlit fire from Sticks, tinder
+crafting.register_recipe({
+    type = {"crafting_spot","hand"},
+    output = "inferno:fire_sticks",
+    items = {"tech:stick 2", "group:fibrous_plant 1"},
+    level = 1,
+    always_known = true,
+})
 
-end)

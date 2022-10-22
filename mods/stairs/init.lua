@@ -53,15 +53,13 @@ function stairs.register_recipies(recipeitem,craft_station, recycle, recycle_sta
 				station = string.sub(station,1,space-1)
 			end
 			-- Recipes
-			minetest.register_on_mods_loaded(function()
-				crafting.register_recipe({
-					type = station,
-					output = prefix .. subname.. " 2",
-					items = {recipeitem},
-					level = level,
-					always_known = true,
-				})
-			end)
+			crafting.register_recipe({
+				type = station,
+				output = prefix .. subname.. " 2",
+				items = {recipeitem},
+				level = level,
+				always_known = true,
+			})
 		end
 		-- Recycle recipe
 		if recycle == "true" then
@@ -69,15 +67,13 @@ function stairs.register_recipies(recipeitem,craft_station, recycle, recycle_sta
 				recycle_station={recycle_station}
 			end
 			for _, station in ipairs(recycle_station) do
-				minetest.register_on_mods_loaded(function()
-					crafting.register_recipe({
-						type = station,
-						output = recipeitem,
-						items = {prefix .. subname.. " 2"},
-						level = level,
-						always_known = true,
-					})
-				end)
+				crafting.register_recipe({
+					type = station,
+					output = recipeitem,
+					items = {prefix .. subname.. " 2"},
+					level = level,
+					always_known = true,
+				})
 			end
 		end
 

@@ -270,6 +270,8 @@ local function make_on_show_function(ctype, level, inv_size, context)
 
 	local function show(player, context)
 		local types=ctype
+		local level = context.level
+print ("level"..level)
 		local craft_type = ctype
 		local tab_labels = nil
 		local formspec_tabs = ""
@@ -327,8 +329,11 @@ end
 
 
 function crafting.make_on_rightclick(type, level, inv_size)
+print ("-MAKE_ON_RIGHTCLICK-level: "..level)
 	local show = make_on_show_function(type, level, inv_size)
 	return function(pos, node, player)
+
+print ("-MAKE_ON_RIGHTCLICK-show-level: "..level)
 		local meta = minetest.get_meta(pos)
 		local name = player:get_player_name()
 		local context = node_fs_context[name] or {}
