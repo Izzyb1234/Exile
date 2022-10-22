@@ -122,7 +122,10 @@ end
 local open_hammering_spot = crafting.make_on_rightclick("hammer", 2, { x = 8, y = 3 })
 
 -- opens the chopping spot GUI
-local open_chopping_spot = crafting.make_on_rightclick({"axe","axe_mixing"}, 2, { x = 8, y = 3 })
+open_chopping_spot = {
+	crafting.make_on_rightclick({"axe","axe_mixing"}, 1, { x = 8, y = 3 }),
+	crafting.make_on_rightclick({"axe","axe_mixing"}, 2, { x = 8, y = 3 }),
+}
 
 
 -- checks if the node has one of the groups from good_on
@@ -152,12 +155,12 @@ local function open_hammering_spot_if_valid(pos, node, clicker, itemstack, point
 end
 
 -- opens the chopping spot GUI if the hammer is placed on a solid node
-local function open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+local function open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing, level)
     local good_on = {{"stone", 1}, {"masonry", 1}, {"soft_stone", 1}, {"tree", 1}, {"log", 1}}
     local pos_under = {x = pos.x, y = pos.y - 1, z = pos.z}
     local ground = minetest.get_node(pos_under)
     if is_spot_valid(ground, good_on) then
-        open_chopping_spot(pos, node, clicker, itemstack, pointed_thing)
+        open_chopping_spot[level](pos, node, clicker, itemstack, pointed_thing)
     else
         minetest.chat_send_player(
             clicker:get_player_name(),
@@ -355,7 +358,7 @@ minetest.register_node(
             fixed = {-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
         },
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing,1)
         end,
         on_dig = function(pos, node, digger)
             on_dig_tool(pos, node, digger, "tech:adze_granite")
@@ -402,7 +405,7 @@ minetest.register_node(
             fixed = {-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
         },
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing,1)
         end,
         on_dig = function(pos, node, digger)
             on_dig_tool(pos, node, digger, "tech:adze_basalt")
@@ -449,7 +452,7 @@ minetest.register_node(
             fixed = {-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
         },
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing,1)
         end,
         on_dig = function(pos, node, digger)
             on_dig_tool(pos, node, digger, "tech:adze_jade")
@@ -549,7 +552,7 @@ minetest.register_node(
             fixed = {-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
         },
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing)
+            open_chopping_spot_if_valid(pos, node, clicker, itemstack, pointed_thing,2)
         end,
         on_dig = function(pos, node, digger)
             on_dig_tool(pos, node, digger, "tech:axe_iron")
