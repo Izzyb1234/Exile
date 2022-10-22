@@ -217,7 +217,7 @@ bed_rest.register_bed("tech:bed", {
 
 --sleeping_spot is free
 crafting.register_recipe({
-	type = "inv",
+	type = {"inv","hand"},
 	output = "tech:sleeping_spot",
 	items = {},
 	level = 1,

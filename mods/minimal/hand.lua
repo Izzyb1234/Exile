@@ -31,22 +31,8 @@ minetest.register_on_mods_loaded(function()
 	-- hand General
 	crafting.register_recipe({
 		type = "hand",
-		output = "tech:sleeping_spot",
-		items = {},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "hand",
 		output = "tech:stick 2",
 		items = {"group:woody_plant"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "hand",
-		output = "tech:digging_stick 1",
-		items = {"tech:stick 2"},
 		level = 1,
 		always_known = true,
 	})
@@ -95,20 +81,6 @@ minetest.register_on_mods_loaded(function()
 		always_known = true,
 	})
 	crafting.register_recipe({
-		type = "hand",
-		output = "ncrafting:dye_pot 1",
-		items = {"tech:clay_water_pot 1", "tech:stick 1"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "hand",
-		output = "ncrafting:dye_table 1",
-		items = {"tech:stick 12"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
 		type   = "hand",
 		output = "tech:carpentry_bench",
 		items  = {'tech:iron_ingot 4', 'nodes_nature:maraka_log 2'},
@@ -122,6 +94,7 @@ minetest.register_on_mods_loaded(function()
 		level  = 1,
 		always_known = true,
 	})
+
 	-- Pottery
 	crafting.register_recipe({
 		type = "hand_pottery",
@@ -196,20 +169,6 @@ minetest.register_on_mods_loaded(function()
 	-- hand_wattle
 	crafting.register_recipe({
 		type = "hand_wattle",
-		output = "doors:door_wattle",
-		items = {"tech:wattle 2", "group:fibrous_plant 2", "tech:stick 2"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "hand_wattle",
-		output = "tech:trapdoor_wattle",
-		items = {"tech:wattle", "group:fibrous_plant", "tech:stick"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "hand_wattle",
 		output = "tech:wattle_loose",
 		items = {"tech:stick 3"},
 		level = 1,
@@ -226,21 +185,6 @@ minetest.register_on_mods_loaded(function()
 		type = "hand_wattle",
 		output = "tech:wattle_door_frame",
 		items = {"tech:stick 6"},
-		level = 1,
-		always_known = true,
-	})
-	crafting.register_recipe({
-		type = "hand_wattle",
-		output = "tech:wattle 2",
-		items = {"doors:door_wattle"},
-		level = 1,
-		always_known = true,
-	})
-
-	crafting.register_recipe({
-		type = "hand_wattle",
-		output = "tech:wattle",
-		items = {"tech:trapdoor_wattle"},
 		level = 1,
 		always_known = true,
 	})
