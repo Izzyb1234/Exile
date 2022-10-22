@@ -210,6 +210,7 @@ for i in ipairs(tree_list) do
 	})
 
 	--stairs and slabs
+	local hardwood = (treename == 'maraka')
 	if hardwood then
 		-- hardwood
 		stairs.register_stair_and_slab(
