@@ -357,7 +357,7 @@ crafting.register_recipe({
 crafting.register_recipe({
 	type = {"mixing_spot","hand_pottery"},
 	output = "nodes_nature:clay 4",
-	items = {"tech:clay_water_pot_unfired 1"},
+	items = {"tech:cooking_pot_unfired 1"},
 	level = 1,
 	always_known = true,
 })
