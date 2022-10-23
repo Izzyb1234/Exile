@@ -651,9 +651,13 @@ minetest.register_node("tech:lantern_case", {
         use_texture_alpha = true,
 	paramtype = "light",
 	paramtype2 = "facedir",
-	node_box = {
+        selection_box = {
             type = "fixed",
-            fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
+            fixed = {-3/16, -8/16, -3/16, 3/16, 7/16, 3/16},
+        },
+        collision_box = {
+            type = "fixed",
+            fixed = {-3/16, -8/16, -3/16, 3/16, 7/16, 3/16},
         },
 	groups = {dig_immediate=3, temp_pass = 1, falling_node = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
@@ -675,9 +679,13 @@ minetest.register_node("tech:lantern_case_wick", {
         use_texture_alpha = true,
 	paramtype = "light",
 	paramtype2 = "facedir",
-	node_box = {
+        selection_box = {
             type = "fixed",
-            fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
+            fixed = {-3/16, -8/16, -3/16, 3/16, 7/16, 3/16},
+        },
+        collision_box = {
+            type = "fixed",
+            fixed = {-3/16, -8/16, -3/16, 3/16, 7/16, 3/16},
         },
 	groups = {dig_immediate=3, temp_pass = 1, falling_node = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
@@ -699,15 +707,19 @@ minetest.register_node("tech:lantern_unlit", {
         use_texture_alpha = true,
 	paramtype = "light",
 	paramtype2 = "facedir",
-	node_box = {
+        selection_box = {
             type = "fixed",
-            fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
+            fixed = {-3/16, -8/16, -3/16, 3/16, 7/16, 3/16},
+        },
+        collision_box = {
+            type = "fixed",
+            fixed = {-3/16, -8/16, -3/16, 3/16, 7/16, 3/16},
         },
 	groups = {dig_immediate=3, temp_pass = 1, falling_node = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
 })
 
--- Lantern
+-- Lantern lit
 minetest.register_node("tech:lantern_lit", {
 	description = S("Lit Lantern"),
 	tiles = {
@@ -727,9 +739,13 @@ minetest.register_node("tech:lantern_lit", {
         use_texture_alpha = true,
 	paramtype = "light",
 	paramtype2 = "facedir",
-	node_box = {
+        selection_box = {
             type = "fixed",
-            fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
+            fixed = {-3/16, -8/16, -3/16, 3/16, 7/16, 3/16},
+        },
+        collision_box = {
+            type = "fixed",
+            fixed = {-3/16, -8/16, -3/16, 3/16, 7/16, 3/16},
         },
 	groups = {dig_immediate=3, temp_pass = 1, falling_node = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
