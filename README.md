@@ -1,6 +1,6 @@
 # Exile
-Created by Dokimi  
-for `Minetest 5.4`
+Created by Dokimi
+for `Minetest 5.3+`
 
 CAUTION: _Some people may find parts of this game difficult or disturbing._
 
@@ -109,7 +109,7 @@ _Exile_ is open-source software — that means the game is as good as you choose
 _Exile_ is currently in “Alpha,” therefore you can expect that there may be bugs, missing features, performance issues, and perhaps compatibility-breaking updates.
 Despite this, _Exile_ does have enough features to be a playable game and should be stable and mostly bug-free.
 
-See the [GitHub repository](https://github.com/jeremyshannon/Exile/) for known bugs, and to report new ones.
+See the [GitHub repository](https://codeberg.org/Mantar/Exile) for known bugs, and to report new ones.
 
 ## Credits
 Gratitude is due to all those whose mods have been adapted for use in _Exile_ (see `./mod/` folders for details).
