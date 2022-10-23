@@ -30,38 +30,8 @@ minetest.register_item(":", {
 -- hand General
 crafting.register_recipe({
 	type = "hand",
-	output = "tech:stick 2",
-	items = {"group:woody_plant"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "hand",
-	output = "tech:small_wood_fire_unlit",
-	items = {"tech:stick 6", "group:fibrous_plant 1"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "hand",
-	output = "tech:large_wood_fire_unlit",
-	items = {"tech:stick 12", "group:fibrous_plant 2"},
-	level = 1,
-	always_known = true,
-})
-
-crafting.register_recipe({
-	type = "hand",
 	output = "tech:stone_chopper 1",
 	items = {"nodes_nature:gravel"},
-	level = 1,
-	always_known = true,
-})
-----craft drystack from gravel
-crafting.register_recipe({
-	type = "hand",
-	output = "tech:drystack 2",
-	items = {"nodes_nature:gravel 3"},
 	level = 1,
 	always_known = true,
 })
