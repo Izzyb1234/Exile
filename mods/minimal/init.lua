@@ -31,6 +31,7 @@ dofile(modpath..'/utility.lua')
 dofile(modpath..'/infotext.lua')
 dofile(modpath..'/metadata.lua')
 dofile(modpath..'/triggers.lua')
+dofile(modpath..'/debug.lua')
 
 -- GUI related stuff
 
