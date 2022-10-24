@@ -638,6 +638,113 @@ minetest.override_item("tech:clay_water_pot_freshwater",{
 	end
 })
 
+----------------------------------------------
+------ New fueled light source API
+----------------------------------------------
+
+lightsource = {}
+
+function lightsource.start_burning(pos, fuel, burn_rate)
+    local meta = minetest.get_meta(pos)
+    meta:set_int("fuel", fuel)
+    minetest.get_node_timer(pos):start(burn_rate)
+end
+
+function lightsource.restore_from_inventory(pos, itemstack)
+    local meta = minetest.get_meta(pos)
+    local stack_meta = itemstack:get_meta()
+    local fuel = stack_meta:get_int("fuel")
+    if fuel > 0 then
+        meta:set_int("fuel", fuel)
+    end
+end
+
+function lightsource.save_to_inventory(pos, node, digger, lightsource_name)
+    if not digger then return false end
+    if minetest.is_protected(pos, digger:get_player_name()) then
+        return false
+    end
+    local meta = minetest.get_meta(pos)
+    local fuel = meta:get_int("fuel")
+    local new_stack = ItemStack(lightsource_name)
+    local stack_meta = new_stack:get_meta()
+    stack_meta:set_int("fuel", fuel)
+    minetest.remove_node(pos)
+    local player_inv = digger:get_inventory()
+    if player_inv:room_for_item("main", new_stack) then
+        player_inv:add_item("main", new_stack)
+    else
+        minetest.add_item(pos, new_stack)
+    end
+end
+
+local function check_for_moisture(pos)
+    return climate.get_rain(pos) or minetest.find_node_near(pos, 1, {"group:water"})
+end
+
+local function check_for_air(pos)
+    return minetest.find_node_near(pos, 1, {"air"})
+end
+
+function lightsource.extinguish(pos, unlit_name)
+    minetest.set_node(pos, {name = unlit_name})
+    minetest.check_for_falling(pos)
+end
+
+-- FIXME: needs to actually spawn particles
+function lightsource.spawn_particles(pos)
+    -- if math.random() < 0.8 then
+    --     minetest.sound_play("tech_fire_small",{pos = pos, max_hear_distance = 10, loop = false, gain = 0.1})
+    --     --Smoke
+    --     minetest.add_particlespawner(ncrafting.particle_smokesmall(pos))
+    -- end
+end
+
+-- timer
+function lightsource.burn_fuel(pos, unlit_name, put_out_by_moisture)
+    local meta = minetest.get_meta(pos)
+    local fuel = meta:get_int("fuel")
+    local has_air = check_for_air(pos)
+    local moisture = check_for_moisture(pos)
+    if fuel < 1 or not has_air or moisture and put_out_by_moisture then
+        lightsource.extinguish(pos, unlit_name)
+        return false -- stop timer
+    else
+        lightsource.spawn_particles(pos)
+        meta:set_int("fuel", fuel - 1)
+        return true -- next iteration
+    end
+end
+
+function lightsource.ignite(pos, lit_name)
+    local meta = minetest.get_meta(pos)
+    local fuel = meta:get_int("fuel")
+    if fuel and fuel > 0 then
+        minimal.switch_node(pos, {name = lit_name})
+        minetest.registered_nodes[lit_name].on_construct(pos)
+        meta:set_int("fuel", fuel)
+    end
+end
+
+function lightsource.refill(pos, clicker, itemstack, fuel_name, max_fuel, refill_ratio)
+    --hit it with oil to restore
+    local stack_name = itemstack:get_name()
+    local meta = minetest.get_meta(pos)
+    local fuel = meta:get_int("fuel")
+    if stack_name == fuel_name then
+        if fuel and fuel < max_fuel then
+            -- sprinkle with some randomness
+            fuel = fuel + refill_ratio * max_fuel + math.random(-0.01 * max_fuel, 0.01 * max_fuel)
+            meta:set_int("fuel", fuel)
+            local name = clicker:get_player_name()
+            if not minetest.is_creative_enabled(name) then
+                itemstack:take_item()
+            end
+            return itemstack
+        end
+    end
+end
+
 -- Lantern case
 minetest.register_node("tech:lantern_case", {
 	description = S("Lantern Case"),
@@ -691,6 +798,10 @@ minetest.register_node("tech:lantern_case_wick", {
 	sounds = nodes_nature.node_sound_stone_defaults(),
 })
 
+local lantern_max_fuel = 20
+local lantern_burn_rate = 0.01
+local lantern_refill_ratio = 1/4.
+
 -- Lantern case + glass + wick
 minetest.register_node("tech:lantern_unlit", {
 	description = S("Unlit Lantern"),
@@ -717,6 +828,12 @@ minetest.register_node("tech:lantern_unlit", {
         },
 	groups = {dig_immediate=3, temp_pass = 1, falling_node = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
+        on_ignite = function(pos, user)
+            lightsource.ignite(pos, "tech:lantern_lit")
+        end,
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            lightsource.refill(pos, clicker, itemstack, "tech:vegetable_oil", lantern_max_fuel, lantern_refill_ratio)
+        end,
 })
 
 -- Lantern lit
@@ -749,6 +866,21 @@ minetest.register_node("tech:lantern_lit", {
         },
 	groups = {dig_immediate=3, temp_pass = 1, falling_node = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
+        on_construct = function(pos)
+            lightsource.start_burning(pos, lantern_max_fuel, lantern_burn_rate)
+	end,
+        on_timer = function(pos, elapsed)
+            return lightsource.burn_fuel(pos, "tech:lantern_unlit", false)
+	end,
+        after_place_node = function(pos, placer, itemstack, pointed_thing)
+            lightsource.restore_from_inventory(pos, itemstack)
+        end,
+        on_dig = function(pos, node, digger)
+            lightsource.save_to_inventory(pos, node, digger, "tech:lantern_lit")
+        end,
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            lightsource.refill(pos, clicker, itemstack, "tech:vegetable_oil", lantern_max_fuel, lantern_refill_ratio)
+        end,
 })
 
 crafting.register_recipe({
@@ -758,4 +890,3 @@ crafting.register_recipe({
 	level = 1,
 	always_known = true,
 })
-
