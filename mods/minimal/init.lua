@@ -15,7 +15,7 @@ minimal = {
 	t_scale1 = 6,
 
 }
-
+exile = minimal -- Adding to begin transition to renamed minimal as exile.
 minimal.S = minetest.get_translator("minimal")
 minimal.FS = function(...)
 	return minetest.formspec_escape(minimal.S(...))
