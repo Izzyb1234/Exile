@@ -732,7 +732,7 @@ function lightsource.refill(pos, clicker, itemstack, fuel_name, max_fuel, refill
     local meta = minetest.get_meta(pos)
     local fuel = meta:get_int("fuel")
     if stack_name == fuel_name then
-        if fuel and fuel < max_fuel then
+        if fuel and max_fuel - fuel > refill_ratio * max_fuel then
             -- sprinkle with some randomness
             fuel = fuel + refill_ratio * max_fuel + math.random(-0.01 * max_fuel, 0.01 * max_fuel)
             meta:set_int("fuel", fuel)
@@ -798,6 +798,9 @@ minetest.register_node("tech:lantern_case_wick", {
 	sounds = nodes_nature.node_sound_stone_defaults(),
 })
 
+-- local lantern_max_fuel = 2000 * 6 -- 2 days.
+-- local lantern_burn_rate = 0.01
+-- local lantern_refill_ratio = 1/8
 local lantern_max_fuel = 20
 local lantern_burn_rate = 0.01
 local lantern_refill_ratio = 1/4.
