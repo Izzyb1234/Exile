@@ -262,7 +262,14 @@ minetest.register_node(
 --
 
 -- digging stick... specialist for digging. Can also till
-local digging_stick_crafting = crafting.make_on_rightclick({"threshing_spot","soil_mixing"}, 2, { x = 8, y = 3 })
+local digging_stick_crafting = {
+	crafting.make_on_rightclick({"threshing_spot","soil_mixing"}, 1, { x = 8, y = 3 }),
+	crafting.make_on_rightclick({"threshing_spot","soil_mixing"}, 2, { x = 8, y = 3 }),
+}
+local digging_stick_on_place = {
+	crafting.make_on_place({"threshing_spot",'soil_mixing'}, 1, { x = 8, y = 3 }),
+	crafting.make_on_place({"threshing_spot",'soil_mixing'}, 2, { x = 8, y = 3 }),
+}
 minetest.register_tool("tech:digging_stick", {
 	description = S("Digging Stick"),
 	inventory_image = "tech_tool_digging_stick.png^[transformR90",
@@ -278,8 +285,9 @@ minetest.register_tool("tech:digging_stick", {
         on_place = function(itemstack, placer, pointed_thing)
             if placer:get_player_control().sneak then
                 return place_tool(itemstack, placer, pointed_thing, "tech:digging_stick_placed")
-            else
-                till_soil(itemstack, placer, pointed_thing, base_use)
+            end
+	    if not till_soil(itemstack, placer, pointed_thing, base_use) then
+		    return digging_stick_on_place[1](itemstack, placer, pointed_thing)
             end
         end,
 })
@@ -304,7 +312,7 @@ minetest.register_node(
             fixed = {-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
         },
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-            digging_stick_crafting(pos, node, clicker, itemstack, pointed_thing)
+            digging_stick_crafting[1](pos, node, clicker, itemstack, pointed_thing)
         end,
         on_dig = function(pos, node, digger)
             on_dig_tool(pos, node, digger, "tech:digging_stick")
@@ -603,7 +611,7 @@ minetest.register_tool("tech:shovel_iron", {
 	sound = {breaks = "tech_tool_breaks"},
 	on_place = function(itemstack, placer, pointed_thing)
 		if not till_soil(itemstack, placer, pointed_thing, iron_use) then
-			digging_stick_crafting(itemstack, placer, pointed_thing) 
+			digging_stick_on_place[2](itemstack, placer, pointed_thing) 
 		end
 	end
 })
