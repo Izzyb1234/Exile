@@ -11,7 +11,7 @@ player_api = player_api
 player_monoids = player_monoids
 clothing = clothing
 
--- after this many days, beds in multiplayer will no longer be protected
+-- after this many IRL days, beds in multiplayer will no longer be protected
 local days_until_timeout = 7
 
 function load_bedrest()
@@ -124,7 +124,10 @@ local function break_taker(name, prefs)
 	if os.difftime(tn, ts) > sess_l then
 		--show form
 		minetest.show_formspec(name, "bed_rest:break_taker", get_formspec())
-		minetest.sound_play("bed_rest_breakbell", {to_player = name, gain = 0.8})
+		minetest.after(0.75, function()
+			minetest.sound_play("bed_rest_breakbell",
+					    {to_player = name, gain = 0.8})
+		end)
 		--reset clock, with a diminishing limit
 		--if ignored too long it will eventually become a constant nag
 		--e.g. 30 + 15 + 7.5 + 3.25 + 1.125 = ~ 1hr max
