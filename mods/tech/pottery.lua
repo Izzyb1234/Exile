@@ -244,9 +244,9 @@ function lightsource.update_fuel_infotext(fuel, max_fuel, pos, meta)
     if not fuel or fuel < 1 then
         fuel_string = S("Empty")
     else
-        fuel_string = S(math.floor(fuel / max_fuel * 100).."% fuel left")
+        fuel_string = math.floor(fuel / max_fuel * 100).."% "..S("fuel left")
     end
-    minimal.infotext_merge(pos, "Status: "..fuel_string, meta)
+    minimal.infotext_merge(pos, S("Status: ")..fuel_string, meta)
 end
 
 function lightsource.save_to_inventory(pos, node, digger, lightsource_name)
@@ -335,6 +335,20 @@ function lightsource.refill(pos, clicker, itemstack, fuel_name, max_fuel, refill
             lightsource.update_fuel_infotext(fuel, max_fuel, pos, meta)
             return itemstack
         end
+    end
+end
+
+-- to minimal?
+local function take_item_replace_node(pos, node, clicker, itemstack, pointed_thing, item_name, node_name)
+    local stack_name = itemstack:get_name()
+    local meta = minetest.get_meta(pos)
+    if stack_name == item_name then
+        local name = clicker:get_player_name()
+        if not minetest.is_creative_enabled(name) then
+            itemstack:take_item()
+        end
+        minetest.set_node(pos, {name = node_name})
+        return itemstack
     end
 end
 
@@ -689,6 +703,14 @@ minetest.register_node("tech:lantern_case", {
         },
 	groups = {dig_immediate=3, temp_pass = 1, falling_node = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
+        on_construct = function(pos)
+            local meta = minetest.get_meta(pos)
+            minimal.infotext_merge(pos, S("Status: needs a clear glass pane and a wick (coarse fibre)!"), meta)
+        end,
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            take_item_replace_node(pos, node, clicker, itemstack, pointed_thing, "tech:coarse_fibre", "tech:lantern_case_wick")
+            take_item_replace_node(pos, node, clicker, itemstack, pointed_thing, "tech:pane_clear", "tech:lantern_case_glass")
+        end,
 })
 
 -- Lantern case + wick
@@ -717,6 +739,45 @@ minetest.register_node("tech:lantern_case_wick", {
         },
 	groups = {dig_immediate=3, temp_pass = 1, falling_node = 1},
 	sounds = nodes_nature.node_sound_stone_defaults(),
+        on_construct = function(pos)
+            local meta = minetest.get_meta(pos)
+            minimal.infotext_merge(pos, S("Status: needs a clear glass pane!"), meta)
+        end,
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            take_item_replace_node(pos, node, clicker, itemstack, pointed_thing, "tech:pane_clear", "tech:lantern_unlit")
+        end,
+})
+
+-- Lantern case + glass
+minetest.register_node("tech:lantern_case_glass", {
+	description = S("Lantern Case with Glass"),
+	tiles = {
+            {name = "tech_lantern_case_glass.png"},
+	},
+	drawtype = "mesh",
+        mesh = "lantern.obj",
+	stack_max = minimal.stack_max_medium,
+	sunlight_propagates = true,
+        use_texture_alpha = true,
+	paramtype = "light",
+	paramtype2 = "facedir",
+        selection_box = {
+            type = "fixed",
+            fixed = {-3/16, -8/16, -3/16, 3/16, 7/16, 3/16},
+        },
+        collision_box = {
+            type = "fixed",
+            fixed = {-3/16, -8/16, -3/16, 3/16, 7/16, 3/16},
+        },
+	groups = {dig_immediate=3, temp_pass = 1, falling_node = 1},
+	sounds = nodes_nature.node_sound_stone_defaults(),
+        on_construct = function(pos)
+            local meta = minetest.get_meta(pos)
+            minimal.infotext_merge(pos, S("Status: needs a wick (coarse fibre)!"), meta)
+        end,
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            take_item_replace_node(pos, node, clicker, itemstack, pointed_thing, "tech:coarse_fibre", "tech:lantern_unlit")
+        end,
 })
 
 local lantern_max_fuel = 2700 -- 45 minutes
@@ -809,9 +870,9 @@ minetest.register_node("tech:lantern_lit", {
 })
 
 crafting.register_recipe({
-	type = "crafting_spot",
-	output = "tech:lataren",
-	items = {"tech:iron_ingot","tech:pane_clear","tech:coarse_fibre 6"},
+	type = "anvil",
+	output = "tech:lantern_case",
+	items = {"tech:iron_ingot"},
 	level = 1,
 	always_known = true,
 })
