@@ -33,6 +33,8 @@ dofile(modpath .. "/clothing.lua")
 dofile(modpath .. "/grafitti.lua")
 dofile(modpath .. "/bricks_and_mortar.lua")
 dofile(modpath .. "/cooking_pot.lua")
+dofile(modpath .. "/lightsource_api.lua")
+dofile(modpath .. "/lantern.lua")
 -------------------------------
 
 -----------------------------------------------
