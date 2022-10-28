@@ -635,7 +635,6 @@ minetest.register_tool("tech:mace_iron", {
 	sound = {breaks = "tech_tool_breaks"},
 })
 
-
 --Pick Axe. mining, digging
 minetest.register_tool("tech:pickaxe_iron", {
 	description = S("Iron Pickaxe"),
@@ -652,9 +651,37 @@ minetest.register_tool("tech:pickaxe_iron", {
 	},
 	groups = {pickaxe = 1, craftedby = 1},
 	sound = {breaks = "tech_tool_breaks"},
+        on_place = function(itemstack, placer, pointed_thing)
+            return place_tool(itemstack, placer, pointed_thing, "tech:pickaxe_iron_placed")
+        end,
 })
 
-
+-- Placed iron pickaxe
+minetest.register_node(
+    "tech:pickaxe_iron_placed", {
+        description = S("Placed Iron Pickaxe"),
+        drawtype = "mesh",
+        mesh = "pickaxe_placed.obj",
+        tiles = {name = "tech_axe_iron_placed.png"},
+        paramtype = "light",
+        paramtype2 = "facedir",
+        sounds = nodes_nature.node_sound_stone_defaults(),
+        groups = {dig_immediate = 3, temp_pass = 1, falling_node = 1, not_in_creative_inventory = 1},
+        node_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5},
+        },
+	selection_box = {
+            type = "fixed",
+            fixed = {-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
+        },
+        on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+            -- possible future crafting?
+        end,
+        on_dig = function(pos, node, digger)
+            on_dig_tool(pos, node, digger, "tech:pickaxe_iron")
+        end,
+})
 
 ---------------------------------------
 --Recipes
