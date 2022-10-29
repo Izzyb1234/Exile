@@ -395,7 +395,7 @@ function agricultural_soil.register_wet_depleted(ag_soil)
             sed.texture_name.."^"..textures.wet,
             {name = sed.texture_name.."^"..ag_soil.texture_depleted_side_name.."^"..textures.wet}},
         stack_max = minimal.stack_max_bulky,
-        groups = merge_tables(sed.groups_wet, {agricultural_soil = 1, depleted_agricultural_soil = 1}),
+        groups = merge_tables(sed.groups_wet, {depleted_agricultural_soil = 1}),
         sounds = sed.sound_wet,
         drop = sed.wet_node_name,
         _dry_name = ag_soil.dry_node_name,
