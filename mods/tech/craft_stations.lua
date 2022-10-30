@@ -782,7 +782,7 @@ crafting.register_recipe({ --hammer ingots into anvil
 crafting.register_recipe({
 	type   = {"chopping_block", "axe"},
 	output = "tech:carpentry_bench",
-	items  = {'tech:iron_ingot 4', 'nodes_nature:maraka_log 2'},
+	items  = {'tech:iron_ingot 4', 'group:hard_wood 2'},
 	level  = 2,
 	always_known = true,
 	})
@@ -791,7 +791,7 @@ crafting.register_recipe({
 crafting.register_recipe({
 	type   = {"carpentry_bench", "axe"},
 	output = "tech:masonry_bench",
-	items  = {'tech:iron_ingot 4', 'nodes_nature:maraka_log 2'},
+	items  = {'tech:iron_ingot 4', 'group:hard_wood 2'},
 	level  = 2,
 	always_known = true,
 	})
@@ -799,14 +799,14 @@ crafting.register_recipe({
 crafting.register_recipe({ --spinning wheel. wood,
 	type   = {"carpentry_bench", "axe"},
 	output = "tech:spinning_wheel",
-	items  = {'nodes_nature:maraka_log 2'},
+	items  = {'group:hard_wood 2'},
 	level  = 2,
 	always_known = true,
 	})
 crafting.register_recipe({ --loom. wood, fibre for mechanisms
 	type   = {"carpentry_bench", "axe"},
 	output = "tech:loom",
-	items  = {'nodes_nature:maraka_log 2', 'tech:coarse_fibre 12'},
+	items  = {'group:hard_wood 2', 'tech:coarse_fibre 12'},
 	level  = 2,
 	always_known = true,
 	})
