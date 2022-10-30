@@ -827,7 +827,7 @@ function register_mortar_nodes (list, mortar_type, brick_mortar_type, block_mort
 
 		--
 		crafting.register_recipe({
-			type = mortar_type,
+			type = brick_mortar_type,
 			output = "tech:"..name.."_brick_mortar 4",
 			items = {"nodes_nature:"..name.."_brick 3", "tech:lime_mortar"},
 			level = 1,
@@ -835,7 +835,7 @@ function register_mortar_nodes (list, mortar_type, brick_mortar_type, block_mort
 		})
 
 		crafting.register_recipe({
-			type = mortar_type,
+			type = block_mortar_type,
 			output = "tech:"..name.."_block_mortar 4",
 			items = {"nodes_nature:"..name.."_block 3", "tech:lime_mortar"},
 			level = 1,
@@ -897,6 +897,8 @@ local stones = {
 	{"jade", S("Jade"), 1},
 }
 local bmb = 'brick_makers_bench'
+local bmb_blocks = 'brick_makers_bench_blocks'
+local bmb_bricks = 'brick_makers_bench_bricks'
 local bmb_mixing = 'brick_makers_bench_mixing'
 local mb = 'masonry_bench'
 local mb_bricks = 'masonry_bench_bricks'
@@ -908,6 +910,6 @@ local mb_mixing = 'masonry_bench_mixing'
 --register_mortar_nodes (list, mortar_type,brick_mortar_type, block_mortar_type, 
 --		brick_mortar_recycle_type, block_mortar_recycle_type, sediment)
 
-register_mortar_nodes (sediments, { bmb }, { bmb }, { bmb }, { bmb_mixing }, { bmb_mixing }, true)
+register_mortar_nodes (sediments, { bmb_ }, { bmb_bricks }, { bmb_blocks }, { bmb_mixing }, { bmb_mixing }, true)
 register_mortar_nodes (stones, { mb }, { mb_bricks }, { mb_blocks }, { mb_mixing }, { mb_mixing })
 

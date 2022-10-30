@@ -26,44 +26,6 @@ minetest.register_item(":", {
 })
 
 
--- Register craft recipes once all modules loaded
--- hand General
-crafting.register_recipe({
-	type = "hand",
-	output = "tech:stone_chopper 1",
-	items = {"nodes_nature:gravel"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({ 
-	type   = "hand",
-	output = "tech:weaving_frame",
-	items  = {'tech:stick 6', 'group:fibrous_plant 4'},
-	level  = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type   = "hand",
-	output = "tech:chopping_block",
-	items  = {'group:log'},
-	level  = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type   = "hand",
-	output = "tech:carpentry_bench",
-	items  = {'tech:iron_ingot 4', 'nodes_nature:maraka_log 2'},
-	level  = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type   = "hand",
-	output = "tech:brick_makers_bench",
-	items  = {'tech:stick 24'},
-	level  = 1,
-	always_known = true,
-})
-
 -- hand_mixing
 crafting.register_recipe({
 	type = "hand_mixing",
@@ -90,37 +52,6 @@ crafting.register_recipe({
 	type = "hand_mixing",
 	output = "nodes_nature:ice",
 	items = {"nodes_nature:snow_block 2"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "hand_mixing",
-	output = "tech:wood_ash 2",
-	items = {"tech:wood_ash_block"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "hand_mixing",
-	output = "tech:wood_ash_block",
-	items = {"tech:wood_ash 2"},
-	level = 1,
-	always_known = true,
-})
-
-
--- knife_mixing
-crafting.register_recipe({
-	type = "knife_mixing",
-	output = "tech:wood_ash 2",
-	items = {"tech:wood_ash_block"},
-	level = 1,
-	always_known = true,
-})
-crafting.register_recipe({
-	type = "knife_mixing",
-	output = "tech:wood_ash_block",
-	items = {"tech:wood_ash 2"},
 	level = 1,
 	always_known = true,
 })
