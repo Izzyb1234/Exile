@@ -28,6 +28,8 @@ crafting.register_type("carpentry_bench")
 --crafting.register_type("masonry_bench")...has to be done in nodes_nature
 --crafting.register_type("masonry_mixing")...has to be done in nodes_nature
 crafting.register_type("brick_makers_bench","Crafting")
+crafting.register_type("brick_makers_bench_bricks", "Bricks")
+crafting.register_type("brick_makers_bench_blocks", "Blocks")
 crafting.register_type("brick_makers_bench_mixing", "Mixing")
 
 crafting.register_type("spinning_wheel")
@@ -541,7 +543,9 @@ minetest.register_node("tech:brick_makers_bench", {
 	groups        = {dig_immediate=3, falling_node = 1, temp_pass = 1,
 			 flammable = 8, craftedby = 1},
 	sounds        = nodes_nature.node_sound_wood_defaults(),
-	on_rightclick = crafting.make_on_rightclick({"brick_makers_bench","brick_makers_bench_mixing"}, 2, { x = 8, y = 3 }),
+	on_rightclick = crafting.make_on_rightclick(
+		{"brick_makers_bench", "brick_makers_bench_blocks", "brick_makers_bench_bricks", "brick_makers_bench_mixing"},
+		2, { x = 8, y = 3 }),
 	})
 
 --spinning_wheel
@@ -630,6 +634,50 @@ minetest.register_node("tech:glass_furnace", {
 	on_rightclick = crafting.make_on_rightclick("glass_furnace", 2, { x = 8, y = 3 }),
 	})
 
+-- Weaving_frame needs to return for tool based crafting
+   minetest.register_node("tech:weaving_frame",{
+        description   = S("Weaving Frame"),
+        drawtype      = "nodebox",
+        tiles         = {"tech_stick.png"},
+        stack_max     = minimal.stack_max_bulky,
+        paramtype     = "light",
+        paramtype2    = "facedir",
+        groups        = {falling_node = 1, dig_immediate = 3, craftedby = 1},
+        node_box      = {
+	   type  = "fixed",
+	   fixed = {
+	      {-0.3750, -0.3750, -0.3750,  0.3750, -0.2500, -0.2500}, -- NodeBox1
+	      {-0.5000, -0.5000, -0.3750, -0.3750, -0.1250, -0.2500}, -- NodeBox2
+	      { 0.3750, -0.5000, -0.3750,  0.5000, -0.1250, -0.2500}, -- NodeBox3
+	      { 0.3750, -0.5000,  0.3750,  0.5000,  0.0625,  0.5000}, -- NodeBox4
+	      {-0.5000, -0.5000,  0.3750, -0.3750,  0.0625,  0.5000}, -- NodeBox5
+	      {-0.3750, -0.0625,  0.3750,  0.3750,  0.0625,  0.5000}, -- NodeBox6
+	      {-0.3125, -0.5000,  0.3750, -0.2500, -0.0625,  0.4375}, -- NodeBox7
+	      { 0.2500, -0.5000,  0.3750,  0.3125, -0.0625,  0.4375}, -- NodeBox8
+	      { 0.1250, -0.5000,  0.3750,  0.1875, -0.0625,  0.4375}, -- NodeBox9
+	      {-0.1875, -0.5000,  0.3750, -0.1250, -0.0625,  0.4375}, -- NodeBox10
+	      {-0.0625, -0.5000,  0.3750,  0.0625, -0.0625,  0.5000}, -- NodeBox11
+	      {-0.5000, -0.0625,  0.3125,  0.5000,  0.0000,  0.3750}, -- NodeBox12
+	      {-0.5000, -0.4375,  0.3125,  0.5000, -0.3750,  0.3750}, -- NodeBox13
+	   }
+                },
+        sounds        = nodes_nature.node_sound_wood_defaults(),
+        on_rightclick = crafting.make_on_rightclick({"weaving_frame","weaving_frame_mixing"}, 2, { x = 8, y = 3 }),
+   })
+
+-- lowered crafting requirements as a trade off to it no longer being free again
+   crafting.register_recipe({ --weaving_frame
+	 type   = {"crafting_spot","hand","knife"},
+	 output = "tech:weaving_frame",
+--	 items  = {'tech:stick 12', 'group:fibrous_plant 8'},
+	 items  = {'tech:stick 6', 'group:fibrous_plant 4'},
+	 level  = 1,
+	 always_known = true,
+   })
+
+
+
+
 ---------------------------------------
 --Recipes
 ---- Hand crafts (inv) ----
@@ -655,14 +703,15 @@ crafting.register_recipe({ ----craft threshing spot for free
 	always_known = true,
 	})
 
+--IB removed since weaving frame is back	
 --weaving_frame for free (location limited)
-crafting.register_recipe({ 
-	type   = "inv",
-	output = "tech:weaving_spot",
-	items  = {},
-	level  = 1,
-	always_known = true,
-	})
+--crafting.register_recipe({ 
+--	type   = "inv",
+--	output = "tech:weaving_spot",
+--	items  = {},
+--	level  = 1,
+--	always_known = true,
+--	})
 
 crafting.register_recipe({ ----grinding_stone for free (location limited)
 	type   = "inv",
@@ -704,23 +753,15 @@ crafting.register_recipe({
 ----Wood--
 --chopping_block
 crafting.register_recipe({
-	type   = "crafting_spot",
+	type   = {"crafting_spot", "chopping_block", "hand"},
 	output = "tech:chopping_block",
 	items  = {'group:log'},
 	level  = 1,
 	always_known = true,
 	})
-crafting.register_recipe({
-	type   = "chopping_block",
-	output = "tech:chopping_block",
-	items  = {'group:log'},
-	level  = 1,
-	always_known = true,
-	})
-
 --brick_makers_bench
 crafting.register_recipe({
-	type   = "crafting_spot",
+	type   = {"crafting_spot", "hand"},
 	output = "tech:brick_makers_bench",
 	items  = {'tech:stick 24'},
 	level  = 1,
@@ -739,41 +780,34 @@ crafting.register_recipe({ --hammer ingots into anvil
 
 --carpentary from logs for bench and iron for tools
 crafting.register_recipe({
-	type   = "chopping_block",
+	type   = {"chopping_block", "axe"},
 	output = "tech:carpentry_bench",
 	items  = {'tech:iron_ingot 4', 'nodes_nature:maraka_log 2'},
-	level  = 1,
-	always_known = true,
-	})
-crafting.register_recipe({
-	type   = "carpentry_bench",
-	output = "tech:carpentry_bench",
-	items  = {'tech:iron_ingot 4', 'nodes_nature:maraka_log 2'},
-	level  = 1,
+	level  = 2,
 	always_known = true,
 	})
 
 --masonry_bench from logs for bench and iron for tools
 crafting.register_recipe({
-	type   = "carpentry_bench",
+	type   = {"carpentry_bench", "axe"},
 	output = "tech:masonry_bench",
 	items  = {'tech:iron_ingot 4', 'nodes_nature:maraka_log 2'},
-	level  = 1,
+	level  = 2,
 	always_known = true,
 	})
 	
 crafting.register_recipe({ --spinning wheel. wood,
-	type   = "carpentry_bench",
+	type   = {"carpentry_bench", "axe"},
 	output = "tech:spinning_wheel",
 	items  = {'nodes_nature:maraka_log 2'},
-	level  = 1,
+	level  = 2,
 	always_known = true,
 	})
 crafting.register_recipe({ --loom. wood, fibre for mechanisms
-	type   = "carpentry_bench",
+	type   = {"carpentry_bench", "axe"},
 	output = "tech:loom",
 	items  = {'nodes_nature:maraka_log 2', 'tech:coarse_fibre 12'},
-	level  = 1,
+	level  = 2,
 	always_known = true,
 	})
 crafting.register_recipe({ -- Glass furnace from bricks for the main structure and iron for the tools
@@ -785,37 +819,9 @@ crafting.register_recipe({ -- Glass furnace from bricks for the main structure a
 })
 
 
+
 -- legacy stations
 if legacy_stations == true then
-   minetest.register_node("tech:weaving_frame",{
-        description   = S("Weaving Frame"),
-        drawtype      = "nodebox",
-        tiles         = {"tech_stick.png"},
-        stack_max     = minimal.stack_max_bulky,
-        paramtype     = "light",
-        paramtype2    = "facedir",
-        groups        = {falling_node = 1, dig_immediate = 3, craftedby = 1},
-        node_box      = {
-	   type  = "fixed",
-	   fixed = {
-	      {-0.3750, -0.3750, -0.3750,  0.3750, -0.2500, -0.2500}, -- NodeBox1
-	      {-0.5000, -0.5000, -0.3750, -0.3750, -0.1250, -0.2500}, -- NodeBox2
-	      { 0.3750, -0.5000, -0.3750,  0.5000, -0.1250, -0.2500}, -- NodeBox3
-	      { 0.3750, -0.5000,  0.3750,  0.5000,  0.0625,  0.5000}, -- NodeBox4
-	      {-0.5000, -0.5000,  0.3750, -0.3750,  0.0625,  0.5000}, -- NodeBox5
-	      {-0.3750, -0.0625,  0.3750,  0.3750,  0.0625,  0.5000}, -- NodeBox6
-	      {-0.3125, -0.5000,  0.3750, -0.2500, -0.0625,  0.4375}, -- NodeBox7
-	      { 0.2500, -0.5000,  0.3750,  0.3125, -0.0625,  0.4375}, -- NodeBox8
-	      { 0.1250, -0.5000,  0.3750,  0.1875, -0.0625,  0.4375}, -- NodeBox9
-	      {-0.1875, -0.5000,  0.3750, -0.1250, -0.0625,  0.4375}, -- NodeBox10
-	      {-0.0625, -0.5000,  0.3750,  0.0625, -0.0625,  0.5000}, -- NodeBox11
-	      {-0.5000, -0.0625,  0.3125,  0.5000,  0.0000,  0.3750}, -- NodeBox12
-	      {-0.5000, -0.4375,  0.3125,  0.5000, -0.3750,  0.3750}, -- NodeBox13
-	   }
-                },
-        sounds        = nodes_nature.node_sound_wood_defaults(),
-        on_rightclick = crafting.make_on_rightclick({"weaving_frame","weaving_frame_mixing"}, 2, { x = 8, y = 3 }),
-   })
    --grinding stone
    --for grinding stone tools
    minetest.register_node("tech:grinding_stone",{
@@ -892,29 +898,14 @@ end
 if legacy_station_recipes == true then
    --grinding_stone from craft spot
    crafting.register_recipe({
-	 type   = "crafting_spot",
+	 type   = {"crafting_spot", "hand"},
 	 output = "tech:grinding_stone",
 	 items  = {'nodes_nature:granite_boulder', 'nodes_nature:sand 8'},
 	 level  = 1,
 	 always_known = true,
    })
-   crafting.register_recipe({ --weaving_frame
-	 type   = "crafting_spot",
-	 output = "tech:weaving_frame",
---	 items  = {'tech:stick 12', 'group:fibrous_plant 8'},
-	 items  = {'tech:stick 6', 'group:fibrous_plant 4'},
-	 level  = 1,
-	 always_known = true,
-   })
    crafting.register_recipe({ --chopping_block
-	 type   = "crafting_spot",
-	 output = "tech:chopping_block",
-	 items  = {'group:log'},
-	 level  = 1,
-	 always_known = true,
-   })
-   crafting.register_recipe({
-	 type   = "chopping_block",
+	 type   = {"crafting_spot", "chopping_block", "hand"},
 	 output = "tech:chopping_block",
 	 items  = {'group:log'},
 	 level  = 1,
