@@ -168,7 +168,7 @@ minetest.register_tool("tech:lever", {
 
 ----stick from sticks
 crafting.register_recipe({
-	type = "crafting_spot",
+	type = {"crafting_spot","hand","knife"},
 	output = "tech:lever 1",
 	items = {"tech:stick 2"},
 	level = 1,
